@@ -44,7 +44,7 @@ body{
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 section{position:relative}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px;position:relative;z-index:2}
 
 /* ---------- Tipografia ---------- */
 h1,h2,h3{line-height:1.08;letter-spacing:-0.03em;font-weight:800}
@@ -211,8 +211,11 @@ header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-sh
 .problem-head h2{margin:18px 0 16px}
 .problem-head .lead{margin:0 auto}
 .pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.pain{background:#fff;border-radius:var(--radius);padding:26px;border:1px solid var(--linha)}
-.pain .em{font-size:1.7rem;margin-bottom:12px;display:block}
+.pain{background:#fff;border-radius:var(--radius);padding:26px;border:1px solid var(--linha);box-shadow:var(--shadow-sm);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.pain:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.pain:active{transform:translateY(-2px) scale(.99)}
+.pain .em{font-size:1.7rem;margin-bottom:12px;display:block;transition:transform .4s var(--ease)}
+.pain:hover .em{transform:scale(1.15) rotate(-6deg)}
 .pain h3{font-size:1.1rem;margin-bottom:8px}
 .pain p{font-size:0.95rem;color:var(--corpo)}
 
@@ -243,6 +246,22 @@ header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-sh
   font-size:0.9rem;font-weight:600;color:var(--quase-preto);margin:0 8px 8px 0;
 }
 .benefit .ck{width:18px;height:18px;border-radius:50%;background:var(--roxo);color:#fff;display:grid;place-items:center;font-size:0.7rem;flex-shrink:0}
+
+.followup{
+  margin-top:36px;display:flex;align-items:center;gap:18px;
+  background:linear-gradient(120deg,var(--lavanda-suave),var(--cinza-lavanda));
+  border:1px solid var(--lavanda);border-radius:var(--radius);
+  padding:22px 26px;box-shadow:var(--shadow-sm);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease);
+}
+.followup:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.followup .fu-ico{
+  flex-shrink:0;width:48px;height:48px;border-radius:14px;
+  background:var(--roxo);color:#fff;display:grid;place-items:center;
+  font-size:1.5rem;font-weight:700;box-shadow:0 8px 20px oklch(0.5 0.2 285 / 0.35);
+}
+.followup div{font-size:0.98rem;color:var(--corpo)}
+.followup strong{color:var(--quase-preto);font-weight:800}
 
 /* ---------- FEATURES TÉCNICAS ---------- */
 .features{padding:clamp(80px,10vw,130px) 0;background:var(--quase-preto);color:#fff}
@@ -325,6 +344,7 @@ header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-sh
     var(--roxo);
   border-radius:32px;padding:clamp(44px,7vw,80px);text-align:center;color:#fff;position:relative;overflow:hidden;
 }
+.cta-box>h2,.cta-box>p,.cta-box>.hero-actions{position:relative;z-index:2}
 .cta-box h2{color:#fff;margin-bottom:18px}
 .cta-box p{color:oklch(0.95 0.03 290);max-width:54ch;margin:0 auto 32px;font-size:1.1rem}
 .cta-box .hero-actions{justify-content:center}
@@ -340,6 +360,34 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 .foot-col a:hover{opacity:1;color:var(--lavanda)}
 .foot-bottom{border-top:1px solid oklch(0.3 0.03 285);padding-top:26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:0.85rem;opacity:.6}
 @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr;gap:30px}}
+
+/* ---------- Elementos geométricos da marca (flutuando) ---------- */
+.geo{position:absolute;pointer-events:none;z-index:0;will-change:transform}
+.geo svg{display:block;width:100%;height:auto}
+.geo-stroke{fill:none;stroke:var(--lavanda);stroke-width:2.5;opacity:.55}
+.features .geo-stroke{stroke:oklch(0.6 0.12 290);opacity:.4}
+.cta-box .geo-stroke,.price-card .geo-stroke{stroke:#fff;opacity:.35}
+.geo-fill{fill:var(--lavanda);opacity:.35}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-26px) rotate(calc(var(--r,0deg) + 10deg))}}
+@keyframes drift{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(20px,-18px) rotate(-12deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.g-float{animation:floaty var(--d,11s) ease-in-out infinite}
+.g-drift{animation:drift var(--d,14s) ease-in-out infinite}
+.g-spin{animation:spin var(--d,40s) linear infinite}
+.parallax{will-change:transform}
+
+/* interações em caixas */
+.feat:active{transform:translateY(-1px) scale(.99)}
+.feat .ico{transition:transform .4s var(--ease)}
+.feat:hover .ico{transform:translateY(-3px) rotate(-6deg) scale(1.08)}
+.benefit{transition:transform .3s var(--ease),background .3s}
+.benefit:hover{transform:translateY(-2px);background:var(--lavanda)}
+.float-card{transition:box-shadow .35s var(--ease),filter .35s}
+.float-card:hover{filter:brightness(1.04) saturate(1.05);box-shadow:var(--shadow-lg)}
+.faq-item{transition:border-color .3s,box-shadow .3s}
+.faq-item:hover{border-color:var(--lavanda);box-shadow:var(--shadow-sm)}
+.price-card li{transition:transform .25s var(--ease)}
+.price-card li:hover{transform:translateX(4px)}
 
 /* ---------- Reveal on scroll ---------- */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
@@ -373,6 +421,9 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 
 <!-- HERO -->
 <section class="hero">
+  <div class="geo g-float parallax" data-speed="0.06" style="top:15%;left:5%;width:64px;--d:13s;--r:8deg"><svg viewBox="0 0 120 120"><path class="geo-stroke" d="M60 6 L114 60 L60 114 L6 60 Z M60 6 L60 114 M6 60 L114 60"/></svg></div>
+  <div class="geo g-drift parallax" data-speed="0.1" style="bottom:14%;left:1%;width:46px;--d:16s"><svg viewBox="0 0 120 120"><path class="geo-stroke" d="M60 12 L108 100 L12 100 Z"/></svg></div>
+  <div class="geo g-spin" style="top:8%;right:38%;width:38px;--d:48s"><svg viewBox="0 0 120 120"><circle class="geo-stroke" cx="60" cy="60" r="50" stroke-dasharray="5 11"/></svg></div>
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="kicker">IA de vendas para hotéis</span>
@@ -398,12 +449,12 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
         <div class="layer app" data-depth="0.6">
           <div class="app-bar">
             <span class="b"></span><span class="b"></span><span class="b"></span>
-            <span class="ttl">Renata · IA de Reservas</span>
+            <span class="ttl">IA HSales · Reservas</span>
             <span class="live">ao vivo</span>
           </div>
           <div class="chat">
             <div class="msg in"><span class="who">Hóspede · WhatsApp</span>Oi! Tem quarto pra casal dia 12 a 15/07?</div>
-            <div class="msg out"><span class="who">Renata · HSales</span>Tenho sim 😊 Para 3 noites, o Quarto Vista Mar sai por R$1.740. Posso reservar pra você?</div>
+            <div class="msg out"><span class="who">IA HSales</span>Tenho sim 😊 Para 3 noites, o Quarto Vista Mar sai por R$1.740. Posso reservar pra você?</div>
             <div class="msg in">Pode! Vamos fechar.</div>
             <div class="pay">
               <div class="row"><span>Vista Mar · 3 noites</span><b>R$1.740</b></div>
@@ -453,6 +504,8 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 
 <!-- PROBLEMA -->
 <section class="problem">
+  <div class="geo g-spin" style="top:9%;right:5%;width:86px;--d:55s"><svg viewBox="0 0 120 120"><circle class="geo-stroke" cx="60" cy="60" r="50" stroke-dasharray="6 12"/></svg></div>
+  <div class="geo g-float" style="bottom:8%;left:3%;width:58px;--d:12s;--r:-6deg"><svg viewBox="0 0 120 120"><path class="geo-stroke" d="M60 8 L106 34 L106 86 L60 112 L14 86 L14 34 Z M60 8 L60 60 M60 60 L106 34 M60 60 L14 34"/></svg></div>
   <div class="wrap">
     <div class="problem-head reveal">
       <span class="kicker">O custo de cada minuto</span>
@@ -470,22 +523,23 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 
 <!-- JORNADA DO HÓSPEDE -->
 <section class="journey" id="jornada">
+  <div class="geo g-drift parallax" data-speed="0.05" style="top:16%;right:5%;width:74px;--d:15s"><svg viewBox="0 0 120 120"><path class="geo-stroke" d="M60 6 L114 60 L60 114 L6 60 Z M60 6 L60 114 M6 60 L114 60"/></svg></div>
   <div class="wrap">
     <div class="section-head reveal">
       <span class="kicker">A jornada do hóspede</span>
       <h2>Do primeiro "oi" à reserva paga, sem você tocar no teclado</h2>
-      <p class="lead">O HSales conduz cada etapa com duas IAs especialistas. Veja o que acontece, e o que seu hotel ganha, em cada passo.</p>
+      <p class="lead">Um único agente de IA, especializado e personalizado pro seu hotel, conduz cada etapa do funil de forma dedicada, com follow-up em todas elas. Veja o que acontece, e o que seu hotel ganha, em cada passo.</p>
     </div>
 
     <div class="timeline">
       <div class="step done reveal">
         <div class="step-num">1</div>
         <div class="step-body">
-          <div class="stage-label">Primeiro contato</div>
-          <h3>O hóspede chama em qualquer canal</h3>
-          <p>WhatsApp, Instagram, Facebook ou o site, tudo cai numa única caixa. A Sofia responde em segundos, em qualquer idioma, com o tom de uma recepcionista de alto nível.</p>
-          <span class="benefit"><span class="ck">✓</span> Resposta em 12 segundos</span>
-          <span class="benefit"><span class="ck">✓</span> Atendimento 24/7 sem escala extra</span>
+          <div class="stage-label">Atendimento</div>
+          <h3>Responde em qualquer canal, a qualquer hora</h3>
+          <p>WhatsApp, Instagram, Facebook e o site caem numa única caixa. O agente atende em segundos, 24 horas por dia, 7 dias por semana, em qualquer idioma, com o tom de uma recepcionista de alto nível.</p>
+          <span class="benefit"><span class="ck">✓</span> Omnichannel num só lugar</span>
+          <span class="benefit"><span class="ck">✓</span> 24/7 sem escala extra</span>
         </div>
       </div>
 
@@ -493,44 +547,52 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
         <div class="step-num">2</div>
         <div class="step-body">
           <div class="stage-label">Qualificação</div>
-          <h3>Entende o que o hóspede precisa</h3>
-          <p>Com poucas perguntas certeiras, a IA descobre datas, número de hóspedes e perfil da estadia, separando quem está pronto pra reservar de quem ainda está pesquisando.</p>
-          <span class="benefit"><span class="ck">✓</span> Lead já chega qualificado</span>
-          <span class="benefit"><span class="ck">✓</span> Zero tempo gasto com curioso</span>
+          <h3>Pede os dados certos e separa o joio do trigo</h3>
+          <p>O agente faz as perguntas certas, identifica quem está pronto pra reservar e quem ainda pesquisa, e classifica cada lead automaticamente no CRM, movendo o card pela etapa certa sem ninguém tocar.</p>
+          <span class="benefit"><span class="ck">✓</span> Leads bons priorizados</span>
+          <span class="benefit"><span class="ck">✓</span> Classifica e move no CRM sozinho</span>
         </div>
       </div>
 
       <div class="step done reveal">
         <div class="step-num">3</div>
         <div class="step-body">
-          <div class="stage-label">Cotação em tempo real</div>
-          <h3>Mostra os quartos certos, com o preço certo</h3>
-          <p>A IA consulta o motor de reservas ao vivo, nunca inventa disponibilidade, e apresenta os quartos disponíveis com valores atualizados na hora.</p>
-          <span class="benefit"><span class="ck">✓</span> Disponibilidade sempre real</span>
-          <span class="benefit"><span class="ck">✓</span> Preço correto, sem erro humano</span>
+          <div class="stage-label">Reserva</div>
+          <h3>Mostra datas e quartos disponíveis, em tempo real</h3>
+          <p>Conectado ao motor de reservas, o agente consulta a disponibilidade ao vivo e apresenta os quartos certos, com fotos, informações e valores atualizados. Nunca inventa disponibilidade e nunca gera overbooking.</p>
+          <span class="benefit"><span class="ck">✓</span> Disponibilidade real, sem overbooking</span>
+          <span class="benefit"><span class="ck">✓</span> Fotos e informações corretas</span>
         </div>
       </div>
 
       <div class="step done reveal">
         <div class="step-num">4</div>
         <div class="step-body">
-          <div class="stage-label">Fechamento &amp; pagamento</div>
-          <h3>A Renata fecha a reserva e cobra</h3>
-          <p>Aqui está a diferença: a IA não passa pra um humano. Ela confirma, coleta os dados, cria a reserva e envia o link de pagamento. A reserva vira "paga" automaticamente.</p>
-          <span class="benefit"><span class="ck">✓</span> Venda concluída sem intervenção</span>
-          <span class="benefit"><span class="ck">✓</span> Pagamento integrado (Pix/cartão)</span>
+          <div class="stage-label">Pagamento integrado</div>
+          <h3>Fecha a reserva e cobra, sem passar pra um humano</h3>
+          <p>O agente confirma, coleta os dados e gera a cobrança, via Asaas, pelo seu gateway de pagamento ou direto no seu PMS. A reserva vira "paga" automaticamente, sem conferência manual.</p>
+          <span class="benefit"><span class="ck">✓</span> Asaas, seu gateway ou PMS</span>
+          <span class="benefit"><span class="ck">✓</span> Venda concluída ponta a ponta</span>
         </div>
       </div>
 
       <div class="step reveal">
         <div class="step-num">5</div>
         <div class="step-body">
-          <div class="stage-label">Pós-estadia</div>
-          <h3>Cuida do hóspede até depois do check-out</h3>
-          <p>Avisos de check-in e check-out, pesquisa de satisfação e follow-up automático pra transformar hóspede em cliente recorrente, tudo registrado no CRM.</p>
-          <span class="benefit"><span class="ck">✓</span> Mais avaliações positivas</span>
-          <span class="benefit"><span class="ck">✓</span> Recompra sem esforço manual</span>
+          <div class="stage-label">Pós-venda</div>
+          <h3>Cuida do hóspede e aciona sua equipe quando precisa</h3>
+          <p>Encaminha solicitações pra recepção ou equipe humana quando faz sentido, envia avisos de check-in e check-out e dispara a pesquisa de satisfação, tudo registrado no CRM.</p>
+          <span class="benefit"><span class="ck">✓</span> Handoff humano quando necessário</span>
+          <span class="benefit"><span class="ck">✓</span> Check-in, check-out e satisfação</span>
         </div>
+      </div>
+    </div>
+
+    <div class="followup reveal">
+      <span class="fu-ico">↻</span>
+      <div>
+        <strong>Follow-up automático em todas as etapas.</strong>
+        Um único agente, especializado, inteligente e personalizado pro seu hotel, retoma o hóspede que esfriou em qualquer ponto do funil, do primeiro contato ao pós-estadia.
       </div>
     </div>
   </div>
@@ -538,6 +600,8 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 
 <!-- FEATURES TÉCNICAS -->
 <section class="features" id="features">
+  <div class="geo g-float" style="top:11%;right:7%;width:88px;--d:14s;--r:5deg"><svg viewBox="0 0 120 120"><path class="geo-stroke" d="M60 8 L106 34 L106 86 L60 112 L14 86 L14 34 Z M60 8 L60 60 M60 60 L106 34 M60 60 L14 34"/></svg></div>
+  <div class="geo g-spin" style="bottom:7%;left:4%;width:66px;--d:60s"><svg viewBox="0 0 120 120"><circle class="geo-stroke" cx="60" cy="60" r="50" stroke-dasharray="6 12"/></svg></div>
   <div class="wrap">
     <div class="section-head reveal">
       <span class="kicker">Por dentro da plataforma</span>
@@ -547,35 +611,47 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 
     <div class="feat-grid">
       <div class="feat reveal">
-        <div class="ico">🤖</div>
-        <h3>IA conversacional especializada</h3>
-        <p>Dois agentes treinados em hotelaria: Sofia (atendimento e qualificação) e Renata (fechamento). Texto e áudio, multilíngue.</p>
+        <div class="ico">🧠</div>
+        <h3>IA especializada e personalizada</h3>
+        <p>Um único agente, com expertise real em hotelaria, treinado e validado com as fotos, as informações e o tom do seu hotel. Atua de forma dedicada em cada etapa do funil, com follow-up.</p>
         <ul class="specs">
-          <li>Processamento de linguagem natural via OpenAI</li>
-          <li>Base de conhecimento por propriedade</li>
-          <li>Detecção automática de idioma do hóspede</li>
+          <li>Personalizada com a base de conhecimento do seu hotel</li>
+          <li>Etapas bem definidas: atende, qualifica, reserva, cobra, pós-venda</li>
+          <li>Texto e áudio, multilíngue, com detecção automática de idioma</li>
         </ul>
-        <span class="tag">multi-agente</span>
+        <span class="tag">agente único</span>
       </div>
 
       <div class="feat reveal">
         <div class="ico">🔌</div>
-        <h3>Motor de reservas integrado</h3>
-        <p>A IA consulta disponibilidade, gera cotação e cria a reserva via funções diretas no motor, sem alucinar preço ou quarto.</p>
+        <h3>Motor de reservas próprio + 200 integrações</h3>
+        <p>Motor de reservas nativo que conversa em tempo real com mais de 200 conexões de API: PMS, motores de reserva e gerentes de canais. A IA consulta e cria reservas direto, sem overbooking.</p>
         <ul class="specs">
-          <li>Consulta de quartos e tarifas em tempo real</li>
-          <li>Criação e cancelamento de reserva por API</li>
-          <li>Bloqueio automático da disponibilidade vendida</li>
+          <li>200+ integrações com PMS, motores e channel managers</li>
+          <li>Disponibilidade e tarifas em tempo real, sem overbooking</li>
+          <li>Criação e cancelamento de reserva via API</li>
+        </ul>
+        <span class="tag">200+ APIs</span>
+      </div>
+
+      <div class="feat reveal">
+        <div class="ico">📊</div>
+        <h3>Dashboards dinâmicos</h3>
+        <p>Painéis em tempo real de vendas, reservas, hóspedes e CRM. Todos os dados da operação num só lugar, pra decidir com número na mão e não no achismo.</p>
+        <ul class="specs">
+          <li>Dashboard de vendas e de reservas</li>
+          <li>Dados de hóspedes e histórico de relacionamento</li>
+          <li>Visão de CRM e funil em tempo real</li>
         </ul>
         <span class="tag">tempo real</span>
       </div>
 
       <div class="feat reveal">
         <div class="ico">💳</div>
-        <h3>Pagamento automático</h3>
-        <p>Link de pagamento gerado na conversa. A reserva nasce "aguardando pagamento" e vira "paga" via webhook, sem conferência manual.</p>
+        <h3>Pagamento integrado</h3>
+        <p>A cobrança nasce dentro da conversa, via Asaas, pelo seu gateway de pagamento ou direto no seu PMS. A reserva vira "paga" via webhook, sem conferência manual.</p>
         <ul class="specs">
-          <li>Geração de cobrança integrada (Asaas)</li>
+          <li>Asaas, gateway próprio ou pagamento no PMS</li>
           <li>Confirmação por webhook em tempo real</li>
           <li>Pix, cartão e parcelamento</li>
         </ul>
@@ -583,26 +659,25 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       </div>
 
       <div class="feat reveal">
-        <div class="ico">📊</div>
+        <div class="ico">🗂️</div>
         <h3>CRM 100% automático</h3>
-        <p>Cada conversa vira um card no pipeline. A IA move o lead entre as etapas sozinha, do primeiro contato à reserva paga.</p>
+        <p>Cada conversa vira um card no pipeline. O agente qualifica, classifica e move o lead entre as etapas sozinho, do primeiro contato à reserva paga.</p>
         <ul class="specs">
           <li>Pipeline visual com histórico completo</li>
-          <li>Movimentação automática por etapa</li>
+          <li>Classificação e movimentação automática por etapa</li>
           <li>Segmentação para follow-up e remarketing</li>
         </ul>
         <span class="tag">pipeline</span>
       </div>
 
-      <div class="feat wide reveal">
+      <div class="feat reveal">
         <div class="ico">💬</div>
-        <h3>Atendimento omnichannel numa só interface</h3>
-        <p>WhatsApp, Instagram, Facebook e o chat do site convergem para um único inbox. O hóspede troca de canal, o contexto continua. Sua equipe vê tudo num lugar só, e pode assumir a conversa a qualquer momento.</p>
+        <h3>Omnichannel com follow-up</h3>
+        <p>WhatsApp, Instagram, Facebook e o chat do site num único inbox. O hóspede troca de canal e o contexto continua. Sua equipe assume a conversa a qualquer momento.</p>
         <ul class="specs">
           <li>Inbox unificado com contexto persistente entre canais</li>
           <li>Handoff humano com um clique quando necessário</li>
-          <li>Follow-up e recuperação de lead automatizados</li>
-          <li>Avisos de check-in, check-out e pesquisa de satisfação</li>
+          <li>Follow-up e recuperação de lead em todas as etapas</li>
         </ul>
         <span class="tag">omnichannel</span>
       </div>
@@ -679,7 +754,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
     <div class="faq-list">
       <div class="faq-item reveal">
         <button class="faq-q">A IA realmente fecha a reserva sozinha? <span class="pm">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner"><p>Sim. A Renata confirma o período, mostra os quartos disponíveis no seu motor, coleta os dados do hóspede, cria a reserva e envia o link de pagamento, ponta a ponta, sem precisar de um humano. Você pode assumir a conversa a qualquer momento se quiser.</p></div></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>Sim. É um único agente que confirma o período, mostra os quartos disponíveis no seu motor, coleta os dados do hóspede, cria a reserva e envia a cobrança, ponta a ponta, sem precisar de um humano. Mesmo assim, você pode assumir a conversa a qualquer momento.</p></div></div>
       </div>
       <div class="faq-item reveal">
         <button class="faq-q">Funciona com o sistema que meu hotel já usa? <span class="pm">+</span></button>
@@ -705,6 +780,8 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 <section class="cta" id="cta">
   <div class="wrap">
     <div class="cta-box reveal">
+      <div class="geo g-float" style="top:14%;left:6%;width:60px;--d:12s;--r:-8deg;z-index:1"><svg viewBox="0 0 120 120"><path class="geo-stroke" d="M60 6 L114 60 L60 114 L6 60 Z M60 6 L60 114 M6 60 L114 60"/></svg></div>
+      <div class="geo g-spin" style="bottom:12%;right:7%;width:72px;--d:50s;z-index:1"><svg viewBox="0 0 120 120"><circle class="geo-stroke" cx="60" cy="60" r="50" stroke-dasharray="5 11"/></svg></div>
       <h2>Pare de perder reserva enquanto dorme</h2>
       <p>Agende uma demonstração e veja a IA atender, qualificar e fechar uma reserva ao vivo, com a operação do seu hotel.</p>
       <div class="hero-actions">
@@ -788,6 +865,20 @@ if(!reduce){
     const p=(innerHeight-r.top)/(innerHeight+r.height)-0.5;
     stage.style.setProperty('--sc',p);
   },{passive:true});
+}
+
+// Parallax leve dos elementos geométricos (scroll + mouse)
+const geos=[...document.querySelectorAll('.geo.parallax')];
+if(!reduce && geos.length){
+  let bases=[];
+  const measure=()=>{geos.forEach(g=>g.style.translate='0 0');bases=geos.map(g=>{const r=g.getBoundingClientRect();return r.top+scrollY+r.height/2;});};
+  measure();addEventListener('resize',measure);
+  let gmx=0,gmy=0,graf;
+  const apply=()=>{graf=null;const vc=scrollY+innerHeight/2;geos.forEach((g,i)=>{const s=parseFloat(g.dataset.speed||0.05);const p=(bases[i]-vc)/innerHeight;const ty=p*s*240+gmy*s*120;const tx=gmx*s*120;g.style.translate=tx.toFixed(1)+'px '+ty.toFixed(1)+'px';});};
+  const req=()=>{if(!graf)graf=requestAnimationFrame(apply)};
+  addEventListener('scroll',req,{passive:true});
+  addEventListener('mousemove',e=>{gmx=e.clientX/innerWidth-0.5;gmy=e.clientY/innerHeight-0.5;req()},{passive:true});
+  req();
 }
 
 // Reveal on scroll
