@@ -64,15 +64,18 @@ h3{font-size:clamp(1.25rem,2vw,1.6rem);letter-spacing:-0.02em}
   display:inline-flex;align-items:center;gap:9px;
   font-family:inherit;font-weight:700;font-size:1rem;
   padding:15px 28px;border-radius:100px;cursor:pointer;border:0;
-  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .25s;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .25s, color .25s, border-color .25s;
   white-space:nowrap;
 }
 .btn .arrow{transition:transform .35s var(--ease)}
 .btn:hover .arrow{transform:translateX(4px)}
-.btn-primary{background:var(--roxo);color:#fff;box-shadow:0 8px 24px oklch(0.5 0.2 285 / 0.35)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 34px oklch(0.5 0.2 285 / 0.45);background:var(--roxo-vibrante)}
+.btn-primary{background:var(--roxo);color:#fff;border:1.5px solid var(--roxo);box-shadow:0 8px 24px oklch(0.5 0.2 285 / 0.35)}
+.btn-primary:hover{background:transparent;color:var(--roxo);border-color:var(--roxo);transform:translateY(-2px);box-shadow:none}
 .btn-outline{background:transparent;color:var(--quase-preto);border:1.5px solid oklch(0.3 0.05 285 / 0.25)}
-.btn-outline:hover{border-color:var(--roxo);color:var(--roxo);transform:translateY(-2px)}
+.btn-outline:hover{background:var(--roxo);color:#fff;border-color:var(--roxo);transform:translateY(-2px);box-shadow:0 14px 34px oklch(0.5 0.2 285 / 0.45)}
+/* botão vazado sobre fundo roxo (CTA final): inverte pra branco */
+.cta-box .btn-outline{color:#fff;border-color:rgba(255,255,255,.45)}
+.cta-box .btn-outline:hover{background:#fff;color:var(--roxo);border-color:#fff;box-shadow:0 14px 34px oklch(0.2 0.1 285 / 0.4)}
 .btn-ghost{background:transparent;color:var(--roxo);padding:15px 10px}
 .btn-ghost:hover{color:var(--roxo-escuro)}
 .btn-light{background:#fff;color:var(--roxo)}
@@ -484,7 +487,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       <p class="lead">A HSales atende em qualquer canal, qualifica o hóspede, mostra os quartos disponíveis, cobra e confirma a reserva. Sem fila de espera, sem comissão, sem perder venda de madrugada.</p>
       <div class="hero-actions">
         <a href="#" class="btn btn-primary cta-agenda">Agendar uma demonstração <span class="arrow">→</span></a>
-        <a href="#" class="btn btn-outline cta-whats">Testar a IA grátis</a>
+        <a href="#" class="btn btn-outline cta-whats">Testar a IA grátis <span class="arrow">→</span></a>
       </div>
       <div class="hero-trust">
         <span><b>R$997</b>/mês ilimitado</span>
@@ -879,7 +882,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       <p>Agende uma demonstração e veja a IA atender, qualificar e fechar uma reserva ao vivo, com a operação do seu hotel.</p>
       <div class="hero-actions">
         <a href="#" class="btn btn-light cta-agenda">Agendar demonstração <span class="arrow">→</span></a>
-        <a href="#" class="btn btn-outline cta-whats" style="color:#fff;border-color:rgba(255,255,255,.4)">Testar a IA grátis</a>
+        <a href="#" class="btn btn-outline cta-whats">Testar a IA grátis <span class="arrow">→</span></a>
       </div>
       <p class="note">Resposta em até 1 dia útil · Sem compromisso</p>
     </div>
