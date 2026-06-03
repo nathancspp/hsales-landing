@@ -26,41 +26,42 @@ h1{font-size:1.6rem;font-weight:900;letter-spacing:-.03em;margin-bottom:6px}
 .stage.dark{background:var(--quase-preto)}
 
 /* ===== LOGO ===== */
-.logo{display:inline-flex;align-items:center;gap:calc(var(--s,76px)*0.11)}
+.logo{display:inline-flex;align-items:center;gap:calc(var(--s,76px)*0.06)}
 .logo-mark{
   position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;
-  gap:calc(var(--s,76px)*0.05);
+  gap:calc(var(--s,76px)*0.045);
   width:var(--s,76px);height:var(--s,76px);border-radius:calc(var(--s,76px)*0.28);
   background:#5B3FD9;                                   /* roxo flat (borda/topo) */
-  box-shadow:0 calc(var(--s,76px)*0.06) 0 #3a2596;     /* espessura de botão 2D (1 cor) */
+  box-shadow:0 calc(var(--s,76px)*0.055) 0 #3a2596;    /* espessura de botão 2D (1 cor) */
 }
-/* piscina: centro afundado, flat, cor sólida */
+/* piscina: centro afundado, borda sutil */
 .logo-mark::before{
-  content:"";position:absolute;inset:15%;z-index:0;
-  border-radius:calc(var(--s,76px)*0.19);
+  content:"";position:absolute;inset:8%;z-index:0;
+  border-radius:calc(var(--s,76px)*0.22);
   background:#3a2596;
 }
 /* perninha de chat */
 .logo-mark::after{
   content:"";position:absolute;z-index:-1;
-  left:16%;bottom:calc(var(--s,76px)*-0.02);
-  width:calc(var(--s,76px)*0.26);height:calc(var(--s,76px)*0.26);
+  left:14%;bottom:calc(var(--s,76px)*-0.015);
+  width:calc(var(--s,76px)*0.24);height:calc(var(--s,76px)*0.24);
   background:#5B3FD9;border-radius:0 0 0 72%;transform:rotate(6deg);
 }
 .logo-mark .bar{
   position:relative;z-index:1;
-  width:calc(var(--s,76px)*0.12);height:calc(var(--s,76px)*0.44);
+  width:calc(var(--s,76px)*0.135);height:calc(var(--s,76px)*0.56);
   background:#fff;border-radius:calc(var(--s,76px)*0.05);
-  box-shadow:0 calc(var(--s,76px)*0.035) 0 #2a1a72;    /* alto-relevo flat (1 cor) */
+  box-shadow:0 calc(var(--s,76px)*0.03) 0 #2a1a72;     /* alto-relevo flat (1 cor) */
 }
 .logo-mark .dot{
   position:relative;z-index:1;
-  width:calc(var(--s,76px)*0.13);height:calc(var(--s,76px)*0.13);
-  background:#fff;border-radius:calc(var(--s,76px)*0.04);
-  box-shadow:0 calc(var(--s,76px)*0.035) 0 #2a1a72;
+  width:calc(var(--s,76px)*0.145);height:calc(var(--s,76px)*0.145);
+  background:#fff;border-radius:calc(var(--s,76px)*0.045);
+  box-shadow:0 calc(var(--s,76px)*0.03) 0 #2a1a72;
 }
+/* S do tamanho do H (cap-height ≈ altura da haste) */
 .word{font-weight:900;letter-spacing:-.03em;line-height:1;color:var(--quase-preto);
-  font-size:calc(var(--s,76px)*0.5)}
+  font-size:calc(var(--s,76px)*0.77)}
 .dark .word{color:#fff}
 
 .big-demo{--s:118px}
