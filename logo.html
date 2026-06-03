@@ -29,30 +29,28 @@ h1{font-size:1.6rem;font-weight:900;letter-spacing:-.03em;margin-bottom:6px}
 .logo{display:inline-flex;align-items:center;gap:calc(var(--s,76px)*0.06)}
 .logo-mark{
   position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;
-  gap:calc(var(--s,76px)*0.045);
+  gap:calc(var(--s,76px)*0.07);
   width:var(--s,76px);height:var(--s,76px);border-radius:calc(var(--s,76px)*0.28);
-  background:#5B3FD9;                                   /* roxo flat (borda/topo) */
-  box-shadow:0 calc(var(--s,76px)*0.055) 0 #3a2596;    /* espessura de botão 2D (1 cor) */
+  background:#5B3FD9;                                   /* roxo flat */
 }
-/* perninha de chat (maior, apontando pro lado do Sales) */
+/* perninha de chat (lado esquerdo/baixo) */
 .logo-mark::after{
   content:"";position:absolute;z-index:-1;
-  right:calc(var(--s,76px)*0.02);bottom:calc(var(--s,76px)*-0.10);
-  width:calc(var(--s,76px)*0.40);height:calc(var(--s,76px)*0.40);
-  background:#5B3FD9;border-radius:calc(var(--s,76px)*0.06) 0 calc(var(--s,76px)*0.5) 0;
-  transform:rotate(-2deg);
+  left:14%;bottom:calc(var(--s,76px)*-0.04);
+  width:calc(var(--s,76px)*0.34);height:calc(var(--s,76px)*0.34);
+  background:#5B3FD9;border-radius:0 0 0 72%;transform:rotate(8deg);
 }
 .logo-mark .bar{
   position:relative;z-index:1;
-  width:calc(var(--s,76px)*0.15);height:calc(var(--s,76px)*0.62);
+  width:calc(var(--s,76px)*0.16);height:calc(var(--s,76px)*0.5);
   background:#fff;border-radius:calc(var(--s,76px)*0.055);
-  box-shadow:0 calc(var(--s,76px)*0.03) 0 #2a1a72;     /* alto-relevo flat (1 cor) */
+  box-shadow:0 calc(var(--s,76px)*0.055) 0 #2a1a72;    /* H bem altinho (alto-relevo flat) */
 }
 .logo-mark .dot{
   position:relative;z-index:1;
-  width:calc(var(--s,76px)*0.16);height:calc(var(--s,76px)*0.16);
+  width:calc(var(--s,76px)*0.17);height:calc(var(--s,76px)*0.17);
   background:#fff;border-radius:calc(var(--s,76px)*0.05);
-  box-shadow:0 calc(var(--s,76px)*0.03) 0 #2a1a72;
+  box-shadow:0 calc(var(--s,76px)*0.055) 0 #2a1a72;
 }
 /* S do tamanho do H (cap-height ≈ altura da haste) */
 .word{font-weight:900;letter-spacing:-.03em;line-height:1;color:var(--quase-preto);
