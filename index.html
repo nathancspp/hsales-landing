@@ -389,6 +389,32 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 .price-card li{transition:transform .25s var(--ease)}
 .price-card li:hover{transform:translateX(4px)}
 
+/* ---------- Entrada encenada do hero ---------- */
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.hero-copy>*{opacity:0;animation:rise .85s var(--ease) forwards}
+.hero-copy>.kicker{animation-delay:.05s}
+.hero-copy>h1{animation-delay:.15s}
+.hero-copy>.lead{animation-delay:.32s}
+.hero-copy>.hero-actions{animation-delay:.48s}
+.hero-copy>.hero-trust{animation-delay:.62s}
+.stage{opacity:0;animation:rise 1s var(--ease) .4s forwards}
+
+/* brilho que segue o mouse no hero */
+.hero-glow{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(420px circle at var(--gx,72%) var(--gy,22%),oklch(0.68 0.19 290 / 0.18),transparent 60%);
+  transition:background .25s ease-out}
+
+/* conversa do mockup acontecendo em sequência */
+.chat .msg,.chat .pay{opacity:0;transform:translateY(14px) scale(.98);
+  transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.chat .msg.show,.chat .pay.show{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-copy>*,.stage{opacity:1!important;animation:none!important}
+  .chat .msg,.chat .pay{opacity:1!important;transform:none!important}
+  .hero-glow{display:none}
+}
+
 /* ---------- Reveal on scroll ---------- */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.in{opacity:1;transform:none}
@@ -421,6 +447,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-glow" id="heroGlow"></div>
   <div class="geo g-float parallax" data-speed="0.06" style="top:15%;left:5%;width:64px;--d:13s;--r:8deg"><svg viewBox="0 0 120 120"><path class="geo-stroke" d="M60 6 L114 60 L60 114 L6 60 Z M60 6 L60 114 M6 60 L114 60"/></svg></div>
   <div class="geo g-drift parallax" data-speed="0.1" style="bottom:14%;left:1%;width:46px;--d:16s"><svg viewBox="0 0 120 120"><path class="geo-stroke" d="M60 12 L108 100 L12 100 Z"/></svg></div>
   <div class="geo g-spin" style="top:8%;right:38%;width:38px;--d:48s"><svg viewBox="0 0 120 120"><circle class="geo-stroke" cx="60" cy="60" r="50" stroke-dasharray="5 11"/></svg></div>
@@ -467,7 +494,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
         </div>
 
         <div class="layer float-card fc-stat" data-depth="1.6">
-          <div class="n">+28%</div>
+          <div class="n" data-count="28" data-prefix="+" data-suffix="%">+28%</div>
           <div class="l">reservas diretas</div>
         </div>
 
@@ -839,6 +866,8 @@ const layers=[...document.querySelectorAll('.layer')];
 let tx=0,ty=0,cx=0,cy=0;
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
+const heroSection=document.querySelector('.hero');
+const heroGlow=document.getElementById('heroGlow');
 if(!reduce){
   stage.addEventListener('mousemove',e=>{
     const r=stage.getBoundingClientRect();
@@ -847,25 +876,51 @@ if(!reduce){
   });
   stage.addEventListener('mouseleave',()=>{tx=0;ty=0});
 
-  (function loop(){
-    cx+=(tx-cx)*0.08; cy+=(ty-cy)*0.08;
-    inner.style.transform=`rotateY(${cx*10}deg) rotateX(${-cy*10}deg)`;
-    layers.forEach(l=>{
+  // brilho seguindo o mouse pelo hero
+  heroSection.addEventListener('mousemove',e=>{
+    const r=heroSection.getBoundingClientRect();
+    heroGlow.style.setProperty('--gx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+    heroGlow.style.setProperty('--gy',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+  },{passive:true});
+
+  const t0=performance.now();
+  (function loop(now){
+    cx+=(tx-cx)*0.07; cy+=(ty-cy)*0.07;
+    const tt=(now-t0)/1000;
+    inner.style.transform=`rotateY(${cx*11}deg) rotateX(${-cy*11}deg)`;
+    layers.forEach((l,i)=>{
       const d=parseFloat(l.dataset.depth||1);
       const base=l.classList.contains('app')?'translate(-50%,-50%)':'';
-      l.style.transform=`${base} translate3d(${cx*d*26}px,${cy*d*26}px,${d*40}px)`;
+      const fy=Math.sin(tt*0.7+i*1.3)*5*d;   // flutuação contínua (idle)
+      const fx=Math.cos(tt*0.5+i*1.3)*3*d;
+      l.style.transform=`${base} translate3d(${cx*d*30+fx}px,${cy*d*30+fy}px,${d*45}px)`;
     });
     requestAnimationFrame(loop);
-  })();
-
-  // leve parallax no scroll para os cards flutuantes
-  addEventListener('scroll',()=>{
-    const r=stage.getBoundingClientRect();
-    if(r.bottom<0||r.top>innerHeight)return;
-    const p=(innerHeight-r.top)/(innerHeight+r.height)-0.5;
-    stage.style.setProperty('--sc',p);
-  },{passive:true});
+  })(t0);
 }
+
+// Conversa do mockup "acontecendo" em sequência
+(function(){
+  const bubbles=[...document.querySelectorAll('.chat .msg, .chat .pay')];
+  if(reduce){bubbles.forEach(b=>b.classList.add('show'));return;}
+  bubbles.forEach((b,i)=>setTimeout(()=>b.classList.add('show'),900+i*480));
+})();
+
+// Contador animado (números que sobem ao aparecer)
+function countUp(el){
+  const end=parseFloat(el.dataset.count),pre=el.dataset.prefix||'',suf=el.dataset.suffix||'';
+  if(reduce){el.textContent=pre+end+suf;return;}
+  const dur=1400,c0=performance.now();
+  (function tick(now){
+    const p=Math.min((now-c0)/dur,1),e=1-Math.pow(1-p,3);
+    el.textContent=pre+Math.round(end*e)+suf;
+    if(p<1)requestAnimationFrame(tick);
+  })(c0);
+}
+document.querySelectorAll('[data-count]').forEach(el=>{
+  const o=new IntersectionObserver((es)=>{es.forEach(en=>{if(en.isIntersecting){countUp(el);o.unobserve(el)}})},{threshold:0.5});
+  o.observe(el);
+});
 
 // Parallax leve dos elementos geométricos (scroll + mouse)
 const geos=[...document.querySelectorAll('.geo.parallax')];
@@ -874,7 +929,7 @@ if(!reduce && geos.length){
   const measure=()=>{geos.forEach(g=>g.style.translate='0 0');bases=geos.map(g=>{const r=g.getBoundingClientRect();return r.top+scrollY+r.height/2;});};
   measure();addEventListener('resize',measure);
   let gmx=0,gmy=0,graf;
-  const apply=()=>{graf=null;const vc=scrollY+innerHeight/2;geos.forEach((g,i)=>{const s=parseFloat(g.dataset.speed||0.05);const p=(bases[i]-vc)/innerHeight;const ty=p*s*240+gmy*s*120;const tx=gmx*s*120;g.style.translate=tx.toFixed(1)+'px '+ty.toFixed(1)+'px';});};
+  const apply=()=>{graf=null;const vc=scrollY+innerHeight/2;geos.forEach((g,i)=>{const s=parseFloat(g.dataset.speed||0.05);const p=(bases[i]-vc)/innerHeight;const ty=p*s*300+gmy*s*150;const tx=gmx*s*150;g.style.translate=tx.toFixed(1)+'px '+ty.toFixed(1)+'px';});};
   const req=()=>{if(!graf)graf=requestAnimationFrame(apply)};
   addEventListener('scroll',req,{passive:true});
   addEventListener('mousemove',e=>{gmx=e.clientX/innerWidth-0.5;gmy=e.clientY/innerHeight-0.5;req()},{passive:true});
