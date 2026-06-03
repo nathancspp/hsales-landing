@@ -26,22 +26,28 @@ h1{font-size:1.6rem;font-weight:900;letter-spacing:-.03em;margin-bottom:6px}
 .stage.dark{background:var(--quase-preto)}
 
 /* ===== LOGO ===== */
-.logo{display:inline-flex;align-items:center;gap:calc(var(--s,76px)*0.18)}
+.logo{display:inline-flex;align-items:center;gap:calc(var(--s,76px)*0.11)}
 .logo-mark{
   position:relative;display:flex;align-items:center;justify-content:center;
-  gap:calc(var(--s,76px)*0.085);
+  gap:calc(var(--s,76px)*0.05);
   width:var(--s,76px);height:var(--s,76px);border-radius:calc(var(--s,76px)*0.28);
-  background:linear-gradient(160deg,#6d4fe8,#5B3FD9);
-  /* efeito 2D leve de botão: brilho no topo + sombra suave */
-  box-shadow:0 4px 10px rgba(91,63,217,.30), inset 0 1.5px 0 rgba(255,255,255,.30), inset 0 -2px 4px rgba(26,14,68,.18);
+  background:linear-gradient(180deg,#7053ea,#4a32b0);
+  /* botão 2D: rim de luz no topo, base escura e centro recuado (roxo mais fundo) */
+  box-shadow:
+    0 6px 14px rgba(74,50,176,.40),
+    inset 0 2px 1px rgba(255,255,255,.5),
+    inset 0 -3px 6px rgba(22,12,60,.55),
+    inset 0 7px 13px rgba(22,12,60,.40);
 }
 .logo-mark .bar{
-  width:calc(var(--s,76px)*0.115);height:calc(var(--s,76px)*0.46);
-  background:#fff;border-radius:calc(var(--s,76px)*0.055);
+  width:calc(var(--s,76px)*0.12);height:calc(var(--s,76px)*0.46);
+  background:#fff;border-radius:calc(var(--s,76px)*0.05);
+  box-shadow:0 2px 3px rgba(16,8,48,.55);  /* H em alto-relevo */
 }
 .logo-mark .dot{
-  width:calc(var(--s,76px)*0.135);height:calc(var(--s,76px)*0.135);
-  background:#fff;border-radius:calc(var(--s,76px)*0.045);
+  width:calc(var(--s,76px)*0.13);height:calc(var(--s,76px)*0.13);
+  background:#fff;border-radius:calc(var(--s,76px)*0.04);
+  box-shadow:0 2px 3px rgba(16,8,48,.55);
 }
 .word{font-weight:900;letter-spacing:-.03em;line-height:1;color:var(--quase-preto);
   font-size:calc(var(--s,76px)*0.5)}
