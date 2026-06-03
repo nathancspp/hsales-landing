@@ -212,10 +212,10 @@ header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-sh
 .problem-head .lead{margin:0 auto}
 .pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
 .pain{background:#fff;border-radius:var(--radius);padding:26px;border:1px solid var(--linha);box-shadow:var(--shadow-sm);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
-.pain:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
-.pain:active{transform:translateY(-2px) scale(.99)}
+.pain:hover{transform:scale(1.05);box-shadow:var(--shadow-lg)}
+.pain:active{transform:scale(1.02)}
 .pain .em{font-size:1.7rem;margin-bottom:12px;display:block;transition:transform .4s var(--ease)}
-.pain:hover .em{transform:scale(1.15) rotate(-6deg)}
+.pain:hover .em{transform:scale(1.3) translateY(-3px)}
 .pain h3{font-size:1.1rem;margin-bottom:8px}
 .pain p{font-size:0.95rem;color:var(--corpo)}
 
@@ -226,7 +226,14 @@ header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-sh
 .timeline{position:relative;display:flex;flex-direction:column;gap:0}
 .timeline::before{
   content:"";position:absolute;left:27px;top:30px;bottom:30px;width:2px;
-  background:linear-gradient(var(--roxo),var(--lavanda));
+  background:var(--linha);
+}
+.timeline::after{
+  content:"";position:absolute;left:27px;top:30px;width:2px;z-index:1;
+  height:var(--progress,0px);max-height:calc(100% - 60px);
+  background:linear-gradient(var(--roxo),var(--roxo-vibrante));
+  box-shadow:0 0 14px oklch(0.5 0.2 285 / 0.55);
+  transition:height .12s linear;
 }
 .step{display:grid;grid-template-columns:56px 1fr;gap:26px;padding:22px 0;position:relative}
 .step-num{
@@ -234,8 +241,9 @@ header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-sh
   background:#fff;border:2px solid var(--roxo);color:var(--roxo);
   display:grid;place-items:center;font-weight:900;font-size:1.25rem;
   box-shadow:0 6px 18px oklch(0.5 0.18 285 / 0.15);
+  transition:background .45s var(--ease),color .45s var(--ease),transform .45s var(--ease),box-shadow .45s var(--ease);
 }
-.step.done .step-num{background:var(--roxo);color:#fff}
+.step.done .step-num{background:var(--roxo);color:#fff;transform:scale(1.08);box-shadow:0 10px 26px oklch(0.5 0.2 285 / 0.4)}
 .step-body{padding-top:4px}
 .step-body .stage-label{font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--roxo);margin-bottom:5px}
 .step-body h3{margin-bottom:8px}
@@ -295,7 +303,7 @@ header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-sh
 .compare{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-md);overflow:hidden;border:1px solid var(--linha)}
 .compare-row{display:grid;grid-template-columns:1.4fr 1fr 1fr}
 .compare-row.head{background:var(--quase-preto);color:#fff;font-weight:700;font-size:0.88rem}
-.compare-row.head .hs{background:var(--roxo)}
+.compare-row.head .hs{background:var(--roxo);color:#fff}
 .compare-row>div{padding:15px 16px;font-size:0.9rem;border-bottom:1px solid var(--linha);display:flex;align-items:center;gap:7px}
 .compare-row .lbl{font-weight:600;color:var(--quase-preto)}
 .compare-row .hs{color:var(--roxo);font-weight:700}
@@ -368,12 +376,9 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 .features .geo-stroke{stroke:oklch(0.6 0.12 290);opacity:.4}
 .cta-box .geo-stroke,.price-card .geo-stroke{stroke:#fff;opacity:.35}
 .geo-fill{fill:var(--lavanda);opacity:.35}
-@keyframes floaty{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-26px) rotate(calc(var(--r,0deg) + 10deg))}}
-@keyframes drift{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(20px,-18px) rotate(-12deg)}}
-@keyframes spin{to{transform:rotate(360deg)}}
-.g-float{animation:floaty var(--d,11s) ease-in-out infinite}
-.g-drift{animation:drift var(--d,14s) ease-in-out infinite}
-.g-spin{animation:spin var(--d,40s) linear infinite}
+@keyframes geospin{to{rotate:360deg}}
+.geo{animation:geospin var(--d,34s) linear infinite}
+.geo.g-drift,.geo.g-spin{animation-direction:reverse}
 .parallax{will-change:transform}
 
 /* interações em caixas */
@@ -559,47 +564,47 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
     </div>
 
     <div class="timeline">
-      <div class="step done reveal">
+      <div class="step reveal">
         <div class="step-num">1</div>
         <div class="step-body">
           <div class="stage-label">Atendimento</div>
           <h3>Responde em qualquer canal, a qualquer hora</h3>
           <p>WhatsApp, Instagram, Facebook e o site caem numa única caixa. O agente atende em segundos, 24 horas por dia, 7 dias por semana, em qualquer idioma, com o tom de uma recepcionista de alto nível.</p>
-          <span class="benefit"><span class="ck">✓</span> Omnichannel num só lugar</span>
-          <span class="benefit"><span class="ck">✓</span> 24/7 sem escala extra</span>
+          <span class="benefit"><span class="ck">✓</span> Atendimento omnichannel</span>
+          <span class="benefit"><span class="ck">✓</span> Disponível 24/7</span>
         </div>
       </div>
 
-      <div class="step done reveal">
+      <div class="step reveal">
         <div class="step-num">2</div>
         <div class="step-body">
           <div class="stage-label">Qualificação</div>
-          <h3>Pede os dados certos e separa o joio do trigo</h3>
-          <p>O agente faz as perguntas certas, identifica quem está pronto pra reservar e quem ainda pesquisa, e classifica cada lead automaticamente no CRM, movendo o card pela etapa certa sem ninguém tocar.</p>
-          <span class="benefit"><span class="ck">✓</span> Leads bons priorizados</span>
-          <span class="benefit"><span class="ck">✓</span> Classifica e move no CRM sozinho</span>
+          <h3>Qualifica e organiza os leads automaticamente</h3>
+          <p>Coleta os dados certos, identifica quem está pronto para reservar e classifica cada lead no CRM, movendo o card para a etapa correta, sem intervenção manual.</p>
+          <span class="benefit"><span class="ck">✓</span> Priorização de leads qualificados</span>
+          <span class="benefit"><span class="ck">✓</span> Classificação automática no CRM</span>
         </div>
       </div>
 
-      <div class="step done reveal">
+      <div class="step reveal">
         <div class="step-num">3</div>
         <div class="step-body">
           <div class="stage-label">Reserva</div>
           <h3>Mostra datas e quartos disponíveis, em tempo real</h3>
           <p>Conectado ao motor de reservas, o agente consulta a disponibilidade ao vivo e apresenta os quartos certos, com fotos, informações e valores atualizados. Nunca inventa disponibilidade e nunca gera overbooking.</p>
           <span class="benefit"><span class="ck">✓</span> Disponibilidade real, sem overbooking</span>
-          <span class="benefit"><span class="ck">✓</span> Fotos e informações corretas</span>
+          <span class="benefit"><span class="ck">✓</span> Fotos e dados atualizados</span>
         </div>
       </div>
 
-      <div class="step done reveal">
+      <div class="step reveal">
         <div class="step-num">4</div>
         <div class="step-body">
           <div class="stage-label">Pagamento integrado</div>
           <h3>Fecha a reserva e cobra, sem passar pra um humano</h3>
           <p>O agente confirma, coleta os dados e gera a cobrança, via Asaas, pelo seu gateway de pagamento ou direto no seu PMS. A reserva vira "paga" automaticamente, sem conferência manual.</p>
-          <span class="benefit"><span class="ck">✓</span> Asaas, seu gateway ou PMS</span>
-          <span class="benefit"><span class="ck">✓</span> Venda concluída ponta a ponta</span>
+          <span class="benefit"><span class="ck">✓</span> Asaas, gateway ou PMS</span>
+          <span class="benefit"><span class="ck">✓</span> Venda concluída automaticamente</span>
         </div>
       </div>
 
@@ -717,8 +722,8 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
   <div class="wrap diff-grid">
     <div class="section-head reveal">
       <span class="kicker">Por que HSales</span>
-      <h2>A maioria qualifica. O HSales fecha.</h2>
-      <p class="lead">Os concorrentes entregam o lead "quente" pro seu time humano fechar na correria. O HSales vai até o fim: cobra, confirma e registra. E com preço previsível, sem comissão.</p>
+      <h2>A maioria só atende. A HSales faz até o pagamento.</h2>
+      <p class="lead">A plataforma executa a jornada completa, do atendimento ao check-out, passando por todas as etapas, 100% automatizada, sem exigir a atenção da sua equipe.</p>
       <div style="margin-top:24px"><a href="#cta" class="btn btn-primary">Quero ver na prática <span class="arrow">→</span></a></div>
     </div>
 
@@ -922,18 +927,44 @@ document.querySelectorAll('[data-count]').forEach(el=>{
   o.observe(el);
 });
 
-// Parallax leve dos elementos geométricos (scroll + mouse)
-const geos=[...document.querySelectorAll('.geo.parallax')];
-if(!reduce && geos.length){
-  let bases=[];
-  const measure=()=>{geos.forEach(g=>g.style.translate='0 0');bases=geos.map(g=>{const r=g.getBoundingClientRect();return r.top+scrollY+r.height/2;});};
-  measure();addEventListener('resize',measure);
-  let gmx=0,gmy=0,graf;
-  const apply=()=>{graf=null;const vc=scrollY+innerHeight/2;geos.forEach((g,i)=>{const s=parseFloat(g.dataset.speed||0.05);const p=(bases[i]-vc)/innerHeight;const ty=p*s*300+gmy*s*150;const tx=gmx*s*150;g.style.translate=tx.toFixed(1)+'px '+ty.toFixed(1)+'px';});};
-  const req=()=>{if(!graf)graf=requestAnimationFrame(apply)};
-  addEventListener('scroll',req,{passive:true});
-  addEventListener('mousemove',e=>{gmx=e.clientX/innerWidth-0.5;gmy=e.clientY/innerHeight-0.5;req()},{passive:true});
-  req();
+// Geométricos: giram no ar + se movem em direção ao mouse
+const allGeo=[...document.querySelectorAll('.geo')];
+if(!reduce && allGeo.length){
+  let gbase=[];
+  const measureGeo=()=>{gbase=allGeo.map(g=>{const prev=g.style.transform;g.style.transform='none';const r=g.getBoundingClientRect();g.style.transform=prev;return{x:r.left+scrollX+r.width/2,y:r.top+scrollY+r.height/2};});};
+  measureGeo();addEventListener('resize',measureGeo);
+  let gmx=innerWidth/2,gmy=innerHeight/2;
+  addEventListener('mousemove',e=>{gmx=e.clientX;gmy=e.clientY},{passive:true});
+  const gt0=performance.now();
+  (function geoLoop(now){
+    const tt=(now-gt0)/1000;
+    for(let i=0;i<allGeo.length;i++){
+      const b=gbase[i];if(!b)continue;
+      const cx=b.x-scrollX, cy=b.y-scrollY;            // centro na viewport
+      let ax=(gmx-cx)*0.05, ay=(gmy-cy)*0.05;          // atração ao mouse (5%)
+      const M=52; ax=Math.max(-M,Math.min(M,ax)); ay=Math.max(-M,Math.min(M,ay));
+      const fx=Math.cos(tt*0.5+i*1.7)*7, fy=Math.sin(tt*0.6+i*1.7)*9; // flutuação idle
+      allGeo[i].style.transform=`translate3d(${(ax+fx).toFixed(1)}px,${(ay+fy).toFixed(1)}px,0)`;
+    }
+    requestAnimationFrame(geoLoop);
+  })(gt0);
+}
+
+// Timeline da jornada: linha enche e números acendem conforme o scroll
+const timeline=document.querySelector('.timeline');
+if(timeline){
+  const tsteps=[...timeline.querySelectorAll('.step')];
+  const onTl=()=>{
+    const rect=timeline.getBoundingClientRect();
+    const trigger=innerHeight*0.55;
+    let prog=Math.max(0,Math.min(trigger-rect.top-30, timeline.offsetHeight-60));
+    timeline.style.setProperty('--progress',prog+'px');
+    tsteps.forEach(s=>{
+      const n=s.querySelector('.step-num').getBoundingClientRect();
+      s.classList.toggle('done', n.top < trigger);
+    });
+  };
+  addEventListener('scroll',onTl,{passive:true});addEventListener('resize',onTl);onTl();
 }
 
 // Reveal on scroll
