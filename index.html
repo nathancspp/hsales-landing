@@ -988,10 +988,13 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
    LINKS DOS BOTÕES — edite só aqui quando tiver os links definitivos
    =================================================================== */
 const LINKS = {
-  agenda:  "#",   // Agendar demo  → link do seu calendário (ex: Calendly / Cal.com)
-  whats:   "#",   // Testar a IA   → WhatsApp da IA (ex: https://wa.me/55SEUNUMERO?text=Oi)
-  comprar: "#",   // Começar agora → link de pagamento / boleto / checkout
-  login:   "#"    // Entrar        → login na plataforma
+  // Agendar demonstração → WhatsApp (sem agenda/calendário, por decisão)
+  agenda:  "https://wa.me/5548996539190?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20da%20plataforma.",
+  // Testar a IA → WhatsApp
+  whats:   "https://wa.me/5548996539190?text=Ol%C3%A1!%20Gostaria%20de%20testar%20a%20IA%20de%20reservas%20para%20hot%C3%A9is.",
+  // Começar agora → TEMPORÁRIO no WhatsApp até definir o pagamento (Asaas)
+  comprar: "https://wa.me/5548996539190?text=Ol%C3%A1!%20Gostaria%20de%20contratar%20a%20HSales%20para%20o%20meu%20hotel.",
+  login:   "#"    // Entrar → login na plataforma (a definir)
 };
 (function(){
   const set=(sel,url)=>document.querySelectorAll(sel).forEach(a=>{
