@@ -234,7 +234,7 @@ header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-sh
 .pains .pain:nth-child(3) .picon{animation-delay:.9s}
 .pains .pain:nth-child(4) .picon{animation-delay:1.35s}
 @keyframes sway{0%,100%{transform:translate(-2px,1px) rotate(-6deg)}50%{transform:translate(2px,-1px) rotate(6deg)}}
-.pain .picon svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pain .picon svg{width:33px;height:33px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .pain h3{font-size:1.12rem;margin-bottom:4px}
 .pain .note{display:block;font-size:0.78rem;color:var(--roxo);font-weight:600;margin-bottom:10px}
 .pain p{font-size:0.94rem;color:var(--corpo);max-width:30ch;margin:8px auto 0}
@@ -307,10 +307,11 @@ header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-sh
 }
 .feat:hover{transform:translateY(-4px);border-color:var(--roxo)}
 .feat .ico{
-  width:48px;height:48px;border-radius:13px;margin-bottom:0;
+  width:54px;height:54px;border-radius:15px;margin-bottom:0;
   background:linear-gradient(135deg,var(--roxo),var(--roxo-vibrante));
-  display:grid;place-items:center;font-size:1.3rem;box-shadow:0 8px 20px oklch(0.5 0.2 285 / 0.4);
+  display:grid;place-items:center;box-shadow:0 8px 20px oklch(0.5 0.2 285 / 0.4);
 }
+.feat .ico svg{width:30px;height:30px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .feat h3{margin-bottom:0;font-size:1.2rem;align-self:center}
 .feat p{color:oklch(0.82 0.02 285);font-size:0.96rem;margin:18px 0 16px;grid-column:1 / -1}
 .feat .specs{list-style:none;display:flex;flex-direction:column;gap:9px;grid-column:1 / -1}
@@ -471,7 +472,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       <a href="#faq">FAQ</a>
     </nav>
     <div class="nav-cta">
-      <a href="#" class="btn btn-ghost cta-whats">Testar a IA</a>
+      <a href="#" class="btn btn-ghost cta-login">Entrar</a>
       <a href="#" class="btn btn-primary cta-agenda">Agendar demo <span class="arrow">→</span></a>
     </div>
   </div>
@@ -485,10 +486,10 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="kicker">IA de vendas para hotéis</span>
-      <h1>A Inteligência Artificial que<br><span class="hl">atende e fecha reservas</span><br>para o seu hotel.<span class="h1-sub">24 horas por dia. 7 dias por semana.</span></h1>
+      <h1>Transforme o atendimento do seu hotel em uma <span class="hl">máquina de reservas</span>.<span class="h1-sub">24 horas por dia. 7 dias por semana.</span></h1>
       <p class="lead">A HSales atende em qualquer canal, qualifica o hóspede, mostra os quartos disponíveis, cobra e confirma a reserva. Sem fila de espera, sem comissão, sem perder venda de madrugada.</p>
       <div class="hero-actions">
-        <a href="#" class="btn btn-primary cta-agenda">Agendar uma demonstração <span class="arrow">→</span></a>
+        <a href="#" class="btn btn-primary cta-agenda">Agendar uma demo <span class="arrow">→</span></a>
         <a href="#" class="btn btn-outline cta-whats">Testar a IA grátis <span class="arrow">→</span></a>
       </div>
       <div class="hero-trust">
@@ -709,7 +710,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 
     <div class="feat-grid">
       <div class="feat reveal">
-        <div class="ico">🧠</div>
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/><path d="M18 14l.8 1.9 1.9.8-1.9.8L18 19.4l-.8-1.9-1.9-.8 1.9-.8z"/></svg></div>
         <h3>IA especializada e personalizada</h3>
         <p>Um único agente com expertise em hotelaria, treinado e validado com as fotos, os dados e o tom do seu hotel.</p>
         <ul class="specs">
@@ -721,7 +722,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       </div>
 
       <div class="feat reveal">
-        <div class="ico">🔌</div>
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9.5h16M9 3v4M15 3v4"/><path d="M8 14l2.2 2.2L16 12"/></svg></div>
         <h3>Motor de reservas próprio + 200 integrações</h3>
         <p>Motor nativo com 200+ integrações (PMS, motores e channel managers). Tempo real, sem overbooking.</p>
         <ul class="specs">
@@ -733,7 +734,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       </div>
 
       <div class="feat reveal">
-        <div class="ico">📊</div>
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><rect x="5" y="11" width="3.4" height="6" rx="1"/><rect x="10.3" y="6" width="3.4" height="11" rx="1"/><rect x="15.6" y="13" width="3.4" height="4" rx="1"/></svg></div>
         <h3>Dashboards dinâmicos</h3>
         <p>Painéis em tempo real de vendas, reservas, hóspedes e CRM. Todos os dados da operação num só lugar.</p>
         <ul class="specs">
@@ -745,7 +746,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       </div>
 
       <div class="feat reveal">
-        <div class="ico">💳</div>
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M3 10h18M7 14.5h4"/></svg></div>
         <h3>Pagamento integrado</h3>
         <p>A cobrança nasce na conversa, via Asaas, seu gateway ou PMS. A reserva vira "paga" por webhook, sem conferência manual.</p>
         <ul class="specs">
@@ -757,7 +758,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       </div>
 
       <div class="feat reveal">
-        <div class="ico">🗂️</div>
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="4.5" height="16" rx="1.2"/><rect x="9.8" y="4" width="4.5" height="11" rx="1.2"/><rect x="15.6" y="4" width="4.5" height="14" rx="1.2"/></svg></div>
         <h3>CRM 100% automático</h3>
         <p>Cada conversa vira um card no pipeline. O agente qualifica, classifica e move o lead pelas etapas, sozinho.</p>
         <ul class="specs">
@@ -769,7 +770,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       </div>
 
       <div class="feat reveal">
-        <div class="ico">💬</div>
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-11.7 7.7L4 21l1.8-5.3A8.4 8.4 0 1 1 21 11.5z"/></svg></div>
         <h3>Omnichannel com follow-up</h3>
         <p>WhatsApp, Instagram, Facebook e site num inbox único. O hóspede troca de canal e o contexto continua.</p>
         <ul class="specs">
@@ -932,7 +933,8 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 const LINKS = {
   agenda:  "#",   // Agendar demo  → link do seu calendário (ex: Calendly / Cal.com)
   whats:   "#",   // Testar a IA   → WhatsApp da IA (ex: https://wa.me/55SEUNUMERO?text=Oi)
-  comprar: "#"    // Começar agora → link de pagamento / boleto / checkout
+  comprar: "#",   // Começar agora → link de pagamento / boleto / checkout
+  login:   "#"    // Entrar        → login na plataforma
 };
 (function(){
   const set=(sel,url)=>document.querySelectorAll(sel).forEach(a=>{
@@ -942,6 +944,7 @@ const LINKS = {
   set(".cta-agenda",LINKS.agenda);
   set(".cta-whats",LINKS.whats);
   set(".cta-comprar",LINKS.comprar);
+  set(".cta-login",LINKS.login);
 })();
 
 // Nav background no scroll
