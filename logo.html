@@ -28,26 +28,36 @@ h1{font-size:1.6rem;font-weight:900;letter-spacing:-.03em;margin-bottom:6px}
 /* ===== LOGO ===== */
 .logo{display:inline-flex;align-items:center;gap:calc(var(--s,76px)*0.11)}
 .logo-mark{
-  position:relative;display:flex;align-items:center;justify-content:center;
+  position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;
   gap:calc(var(--s,76px)*0.05);
   width:var(--s,76px);height:var(--s,76px);border-radius:calc(var(--s,76px)*0.28);
-  background:linear-gradient(180deg,#7053ea,#4a32b0);
-  /* botão 2D: rim de luz no topo, base escura e centro recuado (roxo mais fundo) */
-  box-shadow:
-    0 6px 14px rgba(74,50,176,.40),
-    inset 0 2px 1px rgba(255,255,255,.5),
-    inset 0 -3px 6px rgba(22,12,60,.55),
-    inset 0 7px 13px rgba(22,12,60,.40);
+  background:#5B3FD9;                                   /* roxo flat (borda/topo) */
+  box-shadow:0 calc(var(--s,76px)*0.06) 0 #3a2596;     /* espessura de botão 2D (1 cor) */
+}
+/* piscina: centro afundado, flat, cor sólida */
+.logo-mark::before{
+  content:"";position:absolute;inset:15%;z-index:0;
+  border-radius:calc(var(--s,76px)*0.19);
+  background:#3a2596;
+}
+/* perninha de chat */
+.logo-mark::after{
+  content:"";position:absolute;z-index:-1;
+  left:16%;bottom:calc(var(--s,76px)*-0.02);
+  width:calc(var(--s,76px)*0.26);height:calc(var(--s,76px)*0.26);
+  background:#5B3FD9;border-radius:0 0 0 72%;transform:rotate(6deg);
 }
 .logo-mark .bar{
-  width:calc(var(--s,76px)*0.12);height:calc(var(--s,76px)*0.46);
+  position:relative;z-index:1;
+  width:calc(var(--s,76px)*0.12);height:calc(var(--s,76px)*0.44);
   background:#fff;border-radius:calc(var(--s,76px)*0.05);
-  box-shadow:0 2px 3px rgba(16,8,48,.55);  /* H em alto-relevo */
+  box-shadow:0 calc(var(--s,76px)*0.035) 0 #2a1a72;    /* alto-relevo flat (1 cor) */
 }
 .logo-mark .dot{
+  position:relative;z-index:1;
   width:calc(var(--s,76px)*0.13);height:calc(var(--s,76px)*0.13);
   background:#fff;border-radius:calc(var(--s,76px)*0.04);
-  box-shadow:0 2px 3px rgba(16,8,48,.55);
+  box-shadow:0 calc(var(--s,76px)*0.035) 0 #2a1a72;
 }
 .word{font-weight:900;letter-spacing:-.03em;line-height:1;color:var(--quase-preto);
   font-size:calc(var(--s,76px)*0.5)}
