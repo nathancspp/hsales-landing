@@ -466,8 +466,8 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       <a href="#faq">FAQ</a>
     </nav>
     <div class="nav-cta">
-      <a href="#preco" class="btn btn-ghost">Entrar</a>
-      <a href="#cta" class="btn btn-primary">Agendar demo <span class="arrow">→</span></a>
+      <a href="#" class="btn btn-ghost cta-whats">Testar a IA</a>
+      <a href="#" class="btn btn-primary cta-agenda">Agendar demo <span class="arrow">→</span></a>
     </div>
   </div>
 </header>
@@ -483,8 +483,8 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       <h1>A IA que <span class="hl">atende e fecha reservas</span> para o seu hotel.<span class="h1-sub">24 horas por dia.</span></h1>
       <p class="lead">A HSales atende em qualquer canal, qualifica o hóspede, mostra os quartos disponíveis, cobra e confirma a reserva. Sem fila de espera, sem comissão, sem perder venda de madrugada.</p>
       <div class="hero-actions">
-        <a href="#cta" class="btn btn-primary">Agendar uma demonstração <span class="arrow">→</span></a>
-        <a href="#jornada" class="btn btn-outline">Ver como funciona</a>
+        <a href="#" class="btn btn-primary cta-agenda">Agendar uma demonstração <span class="arrow">→</span></a>
+        <a href="#" class="btn btn-outline cta-whats">Testar a IA grátis</a>
       </div>
       <div class="hero-trust">
         <span><b>R$997</b>/mês ilimitado</span>
@@ -785,7 +785,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       <span class="kicker">Por que HSales</span>
       <h2>A maioria só atende.<br>A HSales faz até o pagamento.</h2>
       <p class="lead">A plataforma executa a jornada completa, do atendimento ao check-out, passando por todas as etapas, 100% automatizada, sem exigir a atenção da sua equipe.</p>
-      <div style="margin-top:24px"><a href="#cta" class="btn btn-primary">Quero ver na prática <span class="arrow">→</span></a></div>
+      <div style="margin-top:24px"><a href="#" class="btn btn-primary cta-whats">Testar a IA grátis <span class="arrow">→</span></a></div>
     </div>
 
     <div class="compare reveal">
@@ -832,7 +832,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
         <li><span class="ck">✓</span> Follow-up e pós-estadia automatizados</li>
         <li><span class="ck">✓</span> Suporte em português</li>
       </ul>
-      <a href="#cta" class="btn btn-light">Começar agora <span class="arrow">→</span></a>
+      <a href="#" class="btn btn-light cta-comprar">Começar agora <span class="arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -878,8 +878,8 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       <h2>Pare de perder reserva enquanto dorme</h2>
       <p>Agende uma demonstração e veja a IA atender, qualificar e fechar uma reserva ao vivo, com a operação do seu hotel.</p>
       <div class="hero-actions">
-        <a href="#" class="btn btn-light">Agendar demonstração <span class="arrow">→</span></a>
-        <a href="https://wa.me/" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.4)">Falar no WhatsApp</a>
+        <a href="#" class="btn btn-light cta-agenda">Agendar demonstração <span class="arrow">→</span></a>
+        <a href="#" class="btn btn-outline cta-whats" style="color:#fff;border-color:rgba(255,255,255,.4)">Testar a IA grátis</a>
       </div>
       <p class="note">Resposta em até 1 dia útil · Sem compromisso</p>
     </div>
@@ -909,8 +909,8 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       </div>
       <div class="foot-col">
         <h4>Comece</h4>
-        <a href="#cta">Agendar demo</a>
-        <a href="https://wa.me/">WhatsApp</a>
+        <a href="#" class="cta-agenda">Agendar demo</a>
+        <a href="#" class="cta-whats">Testar a IA</a>
       </div>
     </div>
     <div class="foot-bottom">
@@ -921,6 +921,24 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 </footer>
 
 <script>
+/* ===================================================================
+   LINKS DOS BOTÕES — edite só aqui quando tiver os links definitivos
+   =================================================================== */
+const LINKS = {
+  agenda:  "#",   // Agendar demo  → link do seu calendário (ex: Calendly / Cal.com)
+  whats:   "#",   // Testar a IA   → WhatsApp da IA (ex: https://wa.me/55SEUNUMERO?text=Oi)
+  comprar: "#"    // Começar agora → link de pagamento / boleto / checkout
+};
+(function(){
+  const set=(sel,url)=>document.querySelectorAll(sel).forEach(a=>{
+    a.href=url||"#";
+    if(url && url!=="#"){a.target="_blank";a.rel="noopener";}
+  });
+  set(".cta-agenda",LINKS.agenda);
+  set(".cta-whats",LINKS.whats);
+  set(".cta-comprar",LINKS.comprar);
+})();
+
 // Nav background no scroll
 const header=document.getElementById('header');
 addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>20));
