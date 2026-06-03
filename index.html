@@ -211,13 +211,14 @@ header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-sh
 .problem-head h2{margin:18px 0 16px}
 .problem-head .lead{margin:0 auto}
 .pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.pain{background:#fff;border-radius:var(--radius);padding:26px;border:1px solid var(--linha);box-shadow:var(--shadow-sm);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
-.pain:hover{transform:scale(1.05);box-shadow:var(--shadow-lg)}
-.pain:active{transform:scale(1.02)}
-.pain .em{font-size:1.7rem;margin-bottom:12px;display:block;transition:transform .4s var(--ease)}
-.pain:hover .em{transform:scale(1.3) translateY(-3px)}
-.pain h3{font-size:1.1rem;margin-bottom:8px}
-.pain p{font-size:0.95rem;color:var(--corpo)}
+.pain{background:#fff;border-radius:var(--radius);padding:32px 24px;border:1px solid var(--linha);box-shadow:var(--shadow-sm);text-align:center;transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.pain:hover{transform:scale(1.06);box-shadow:var(--shadow-md)}
+.pain:active{transform:scale(1.03)}
+.pain .picon{width:58px;height:58px;border-radius:16px;background:var(--lavanda-suave);display:grid;place-items:center;margin:0 auto 18px;color:var(--roxo)}
+.pain .picon svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pain h3{font-size:1.12rem;margin-bottom:4px}
+.pain .note{display:block;font-size:0.78rem;color:var(--roxo);font-weight:600;margin-bottom:10px}
+.pain p{font-size:0.94rem;color:var(--corpo);max-width:30ch;margin:8px auto 0}
 
 /* ---------- JORNADA DO HÓSPEDE ---------- */
 .journey{padding:clamp(80px,10vw,130px) 0;background:#fff}
@@ -404,10 +405,13 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 .hero-copy>.hero-trust{animation-delay:.62s}
 .stage{opacity:0;animation:rise 1s var(--ease) .4s forwards}
 
-/* brilho que segue o mouse no hero */
-.hero-glow{position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(420px circle at var(--gx,72%) var(--gy,22%),oklch(0.68 0.19 290 / 0.18),transparent 60%);
-  transition:background .25s ease-out}
+/* cursor customizado (ponto + anel que segue com atraso) */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+.cursor-dot{width:7px;height:7px;background:var(--roxo)}
+.cursor-ring{width:36px;height:36px;border:2px solid var(--lavanda);
+  transition:width .28s var(--ease),height .28s var(--ease),border-color .28s,background .28s}
+.cursor-ring.hot{width:58px;height:58px;border-color:var(--roxo);background:oklch(0.6 0.16 290 / 0.08)}
+@media(hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none}}
 
 /* conversa do mockup acontecendo em sequência */
 .chat .msg,.chat .pay{opacity:0;transform:translateY(14px) scale(.98);
@@ -417,7 +421,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 @media(prefers-reduced-motion:reduce){
   .hero-copy>*,.stage{opacity:1!important;animation:none!important}
   .chat .msg,.chat .pay{opacity:1!important;transform:none!important}
-  .hero-glow{display:none}
+  .cursor-dot,.cursor-ring{display:none}
 }
 
 /* ---------- Reveal on scroll ---------- */
@@ -452,7 +456,6 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-glow" id="heroGlow"></div>
   <div class="geo g-float parallax" data-speed="0.06" style="top:15%;left:5%;width:64px;--d:13s;--r:8deg"><svg viewBox="0 0 120 120"><path class="geo-stroke" d="M60 6 L114 60 L60 114 L6 60 Z M60 6 L60 114 M6 60 L114 60"/></svg></div>
   <div class="geo g-drift parallax" data-speed="0.1" style="bottom:14%;left:1%;width:46px;--d:16s"><svg viewBox="0 0 120 120"><path class="geo-stroke" d="M60 12 L108 100 L12 100 Z"/></svg></div>
   <div class="geo g-spin" style="top:8%;right:38%;width:38px;--d:48s"><svg viewBox="0 0 120 120"><circle class="geo-stroke" cx="60" cy="60" r="50" stroke-dasharray="5 11"/></svg></div>
@@ -545,10 +548,30 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
       <p class="lead">O hóspede pergunta, espera, e fecha com o concorrente. À noite, no fim de semana, em outro idioma. Sua recepção não dá conta, e as OTAs ficam com a comissão.</p>
     </div>
     <div class="pains">
-      <div class="pain reveal"><span class="em">🕐</span><h3>Resposta lenta</h3><p>76% dos hóspedes fecham com quem responde primeiro. Cada hora de espera é uma reserva a menos.</p></div>
-      <div class="pain reveal"><span class="em">🌙</span><h3>Fora do horário</h3><p>Metade das perguntas chega quando a recepção já fechou. Sem atendimento, sem venda.</p></div>
-      <div class="pain reveal"><span class="em">💸</span><h3>Comissão das OTAs</h3><p>Até 30% de cada diária vai embora. A venda direta fica sempre em segundo plano.</p></div>
-      <div class="pain reveal"><span class="em">🔁</span><h3>Sem follow-up</h3><p>O lead esfria e ninguém retoma. A reserva que estava a um passo simplesmente some.</p></div>
+      <div class="pain reveal">
+        <div class="picon"><svg viewBox="0 0 24 24"><path d="M13 2 L4 14 h7 l-1 8 9-12 h-7 z"/></svg></div>
+        <h3>Resposta instantânea</h3>
+        <span class="note">com delay humanizado</span>
+        <p>76% dos hóspedes fecham com quem responde primeiro. Cada hora de espera é uma reserva a menos.</p>
+      </div>
+      <div class="pain reveal">
+        <div class="picon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3.5 2"/></svg></div>
+        <h3>24 horas, 7 dias</h3>
+        <span class="note">sem escala extra</span>
+        <p>Metade das perguntas chega quando a recepção já fechou. Sem atendimento, não há venda.</p>
+      </div>
+      <div class="pain reveal">
+        <div class="picon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 15.5 L15.5 8.5"/><circle cx="9.3" cy="9.3" r="1.4"/><circle cx="14.7" cy="14.7" r="1.4"/></svg></div>
+        <h3>Sem comissão das OTAs</h3>
+        <span class="note">venda direta no foco</span>
+        <p>Até 30% de cada diária vai embora para as OTAs. A venda direta fica sempre em segundo plano.</p>
+      </div>
+      <div class="pain reveal">
+        <div class="picon"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-8-5"/><path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 8 5"/><path d="M21 4v4h-4"/><path d="M3 20v-4h4"/></svg></div>
+        <h3>Follow-up automático</h3>
+        <span class="note">em todas as etapas</span>
+        <p>Quando o lead esfria, ninguém retoma. A reserva que estava a um passo simplesmente some.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -871,8 +894,6 @@ const layers=[...document.querySelectorAll('.layer')];
 let tx=0,ty=0,cx=0,cy=0;
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-const heroSection=document.querySelector('.hero');
-const heroGlow=document.getElementById('heroGlow');
 if(!reduce){
   stage.addEventListener('mousemove',e=>{
     const r=stage.getBoundingClientRect();
@@ -880,13 +901,6 @@ if(!reduce){
     ty=((e.clientY-r.top)/r.height-0.5);
   });
   stage.addEventListener('mouseleave',()=>{tx=0;ty=0});
-
-  // brilho seguindo o mouse pelo hero
-  heroSection.addEventListener('mousemove',e=>{
-    const r=heroSection.getBoundingClientRect();
-    heroGlow.style.setProperty('--gx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
-    heroGlow.style.setProperty('--gy',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
-  },{passive:true});
 
   const t0=performance.now();
   (function loop(now){
@@ -980,6 +994,27 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
 document.querySelectorAll('.faq-q').forEach(q=>{
   q.addEventListener('click',()=>q.closest('.faq-item').classList.toggle('open'));
 });
+
+// Cursor customizado (ponto + anel com atraso, cresce sobre elementos interativos)
+if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const cdot=document.createElement('div');cdot.className='cursor-dot';
+  const cring=document.createElement('div');cring.className='cursor-ring';
+  document.body.append(cdot,cring);
+  let cmx=innerWidth/2,cmy=innerHeight/2,rx=cmx,ry=cmy;
+  addEventListener('mousemove',e=>{
+    cmx=e.clientX;cmy=e.clientY;
+    cdot.style.transform=`translate(${cmx}px,${cmy}px) translate(-50%,-50%)`;
+  },{passive:true});
+  (function ring(){
+    rx+=(cmx-rx)*0.18;ry+=(cmy-ry)*0.18;
+    cring.style.transform=`translate(${rx.toFixed(1)}px,${ry.toFixed(1)}px) translate(-50%,-50%)`;
+    requestAnimationFrame(ring);
+  })();
+  document.querySelectorAll('a,button,.feat,.pain,.faq-q,.benefit,.float-card,.followup,.price-card li').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cring.classList.add('hot'));
+    el.addEventListener('mouseleave',()=>cring.classList.remove('hot'));
+  });
+}
 </script>
 </body>
 </html>
