@@ -201,11 +201,19 @@ header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-sh
 }
 
 /* ---------- Faixa de marcas/prova ---------- */
-.proof{padding:44px 0;border-top:1px solid var(--linha);border-bottom:1px solid var(--linha);background:#fff}
-.proof p{text-align:center;color:var(--corpo);font-size:0.85rem;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;margin-bottom:22px}
-.proof-row{display:flex;justify-content:center;align-items:center;gap:clamp(24px,6vw,72px);flex-wrap:wrap;opacity:.62}
-.proof-row span{font-weight:800;font-size:1.15rem;letter-spacing:-0.02em;color:var(--quase-preto);display:flex;align-items:center;gap:8px}
-.proof-row span::before{content:"";width:18px;height:18px;border-radius:5px;background:var(--lavanda)}
+.proof{padding:54px 0;border-top:1px solid var(--linha);border-bottom:1px solid var(--linha);background:#fff}
+.proof p{text-align:center;color:var(--corpo);font-size:0.85rem;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;margin-bottom:34px}
+.proof-row{display:flex;justify-content:center;align-items:flex-start;gap:clamp(16px,4vw,52px);flex-wrap:wrap}
+.seal{display:flex;flex-direction:column;align-items:center;gap:11px;width:140px;text-align:center;transition:transform .4s var(--ease)}
+.seal:hover{transform:translateY(-6px)}
+.seal .badge{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;position:relative;
+  background:var(--lavanda-suave);border:2px dashed var(--lavanda);color:var(--roxo);transition:border-color .3s,background .3s}
+.seal:hover .badge{border-color:var(--roxo);background:#fff}
+.seal .badge svg{width:32px;height:32px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.seal .badge::after{content:"✓";position:absolute;right:-2px;bottom:-2px;width:26px;height:26px;border-radius:50%;
+  background:var(--roxo);color:#fff;font-size:0.82rem;font-weight:800;display:grid;place-items:center;border:3px solid #fff}
+.seal .lbl{font-weight:700;font-size:0.92rem;color:var(--quase-preto);line-height:1.25}
+.seal .sub{font-size:0.74rem;color:var(--corpo);margin-top:-5px}
 
 /* ---------- Dor / problema ---------- */
 .problem{padding:clamp(70px,9vw,120px) 0;background:var(--cinza-lavanda)}
@@ -530,11 +538,31 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
   <div class="wrap">
     <p>Construído para a operação real da hotelaria brasileira</p>
     <div class="proof-row">
-      <span>WhatsApp</span>
-      <span>Instagram</span>
-      <span>Motor de Reservas</span>
-      <span>Pix &amp; Cartão</span>
-      <span>CRM</span>
+      <div class="seal">
+        <div class="badge"><svg viewBox="0 0 24 24"><path d="M12 3l1.7 4.1L18 8.8l-4.1 1.7L12 14.6l-1.7-4.1L6 8.8l4.3-1.7z"/><path d="M18 14l.8 1.9 1.9.8-1.9.8L18 19.4l-.8-1.9-1.9-.8 1.9-.8z"/></svg></div>
+        <span class="lbl">IA especializada</span>
+        <span class="sub">em hotelaria</span>
+      </div>
+      <div class="seal">
+        <div class="badge"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-11.7 7.7L4 21l1.8-5.3A8.4 8.4 0 1 1 21 11.5z"/></svg></div>
+        <span class="lbl">Omnichannel</span>
+        <span class="sub">WhatsApp, Insta, site</span>
+      </div>
+      <div class="seal">
+        <div class="badge"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9.5h16M9 3v4M15 3v4"/><path d="M8 14l2.2 2.2L16 12"/></svg></div>
+        <span class="lbl">Motor de reservas</span>
+        <span class="sub">tempo real</span>
+      </div>
+      <div class="seal">
+        <div class="badge"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="4.5" height="16" rx="1.2"/><rect x="9.8" y="4" width="4.5" height="11" rx="1.2"/><rect x="15.6" y="4" width="4.5" height="14" rx="1.2"/></svg></div>
+        <span class="lbl">CRM automatizado</span>
+        <span class="sub">pipeline + dados</span>
+      </div>
+      <div class="seal">
+        <div class="badge"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M3 10h18M7 14.5h4"/></svg></div>
+        <span class="lbl">Pagamento integrado</span>
+        <span class="sub">Pix, cartão, PMS</span>
+      </div>
     </div>
   </div>
 </section>
@@ -747,7 +775,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
   <div class="wrap diff-grid">
     <div class="section-head reveal">
       <span class="kicker">Por que HSales</span>
-      <h2>A maioria só atende. A HSales faz até o pagamento.</h2>
+      <h2>A maioria só atende.<br>A HSales faz até o pagamento.</h2>
       <p class="lead">A plataforma executa a jornada completa, do atendimento ao check-out, passando por todas as etapas, 100% automatizada, sem exigir a atenção da sua equipe.</p>
       <div style="margin-top:24px"><a href="#cta" class="btn btn-primary">Quero ver na prática <span class="arrow">→</span></a></div>
     </div>
