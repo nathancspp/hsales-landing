@@ -3,8 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HSales — A IA que vende para o seu hotel 24/7</title>
-<meta name="description" content="HSales é a plataforma de IA que atende, qualifica, fecha a reserva e cobra pelo seu hotel. Sem comissão, sem cobrança por conversa. R$997/mês ilimitado.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#5B3FD9">
+<title>HSales — IA que atende e fecha reservas pelo seu hotel, 24/7</title>
+<meta name="description" content="A HSales é a plataforma de IA hoteleira que atende, qualifica, reserva e cobra pelo seu hotel, 24 horas por dia. Sem comissão, sem cobrança por conversa, R$997/mês ilimitado.">
+<link rel="canonical" href="https://nathancspp.github.io/hsales-landing/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="HSales">
+<meta property="og:url" content="https://nathancspp.github.io/hsales-landing/">
+<meta property="og:title" content="HSales — IA que atende e fecha reservas pelo seu hotel, 24/7">
+<meta property="og:description" content="A IA hoteleira que atende, qualifica, reserva e cobra pelo seu hotel, 24/7. Sem comissão, R$997/mês ilimitado.">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HSales — IA que atende e fecha reservas pelo seu hotel, 24/7">
+<meta name="twitter:description" content="A IA hoteleira que atende, qualifica, reserva e cobra pelo seu hotel, 24/7. Sem comissão, R$997/mês ilimitado.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -89,13 +109,18 @@ header{
 }
 header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--linha);padding:12px 0}
 .nav{display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.35rem;letter-spacing:-0.04em}
-.logo .mark{
-  width:34px;height:34px;border-radius:9px;
-  background:linear-gradient(135deg,var(--roxo),var(--roxo-vibrante));
-  display:grid;place-items:center;color:#fff;font-size:0.95rem;font-weight:900;
-  box-shadow:var(--shadow-sm);
-}
+.logo{display:flex;align-items:center;gap:8px;--s:36px;text-decoration:none}
+.logo-mark{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;
+  gap:calc(var(--s)*0.07);width:var(--s);height:var(--s);border-radius:calc(var(--s)*0.28);background:var(--roxo)}
+.logo-mark::after{content:"";position:absolute;z-index:-1;left:14%;bottom:calc(var(--s)*-0.04);
+  width:calc(var(--s)*0.34);height:calc(var(--s)*0.34);background:var(--roxo);border-radius:0 0 0 72%;transform:rotate(8deg)}
+.logo-mark .bar{position:relative;z-index:1;width:calc(var(--s)*0.16);height:calc(var(--s)*0.5);
+  background:#fff;border-radius:calc(var(--s)*0.055);box-shadow:0 calc(var(--s)*0.055) 0 #2a1a72}
+.logo-mark .dot{position:relative;z-index:1;width:calc(var(--s)*0.17);height:calc(var(--s)*0.17);
+  background:#fff;border-radius:calc(var(--s)*0.05);box-shadow:0 calc(var(--s)*0.055) 0 #2a1a72}
+.logo-word{font-weight:900;font-size:calc(var(--s)*0.74);letter-spacing:-0.03em;line-height:1;color:var(--quase-preto)}
+footer .logo{--s:34px}
+footer .logo-word{color:#fff}
 .nav-links{display:flex;align-items:center;gap:34px}
 .nav-links a{font-weight:600;font-size:0.96rem;color:var(--quase-preto);opacity:.78;transition:opacity .2s}
 .nav-links a:hover{opacity:1}
@@ -484,7 +509,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 <!-- NAV -->
 <header id="header">
   <div class="wrap nav">
-    <a href="#" class="logo"><span class="mark">H</span>HSales</a>
+    <a href="#" class="logo" aria-label="HSales"><span class="logo-mark"><span class="bar"></span><span class="dot"></span><span class="bar"></span></span><span class="logo-word">Sales</span></a>
     <nav class="nav-links">
       <a href="#jornada">Jornada</a>
       <a href="#features">Recursos</a>
@@ -918,7 +943,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <div class="logo"><span class="mark">H</span>HSales</div>
+        <div class="logo" aria-label="HSales"><span class="logo-mark"><span class="bar"></span><span class="dot"></span><span class="bar"></span></span><span class="logo-word">Sales</span></div>
         <p class="desc">A IA de vendas que atende, fecha a reserva e cobra pelo seu hotel. 24 horas, em qualquer idioma.</p>
       </div>
       <div class="foot-col">
@@ -1116,6 +1141,45 @@ if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
     el.addEventListener('mouseenter',()=>cring.classList.add('hot'));
     el.addEventListener('mouseleave',()=>cring.classList.remove('hot'));
   });
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "HSales",
+      "url": "https://nathancspp.github.io/hsales-landing/",
+      "logo": "https://nathancspp.github.io/hsales-landing/favicon.svg",
+      "description": "Plataforma de IA hoteleira que atende, qualifica, reserva e cobra pelo hotel, 24/7.",
+      "areaServed": "BR"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "HSales",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Agente de IA especializado em hotelaria que conduz o hóspede do atendimento ao pagamento, de forma 100% automatizada, com motor de reservas, CRM e pagamento integrados.",
+      "offers": {
+        "@type": "Offer",
+        "price": "997",
+        "priceCurrency": "BRL",
+        "description": "Plano único ilimitado, sem comissão e sem cobrança por conversa."
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"A IA realmente fecha a reserva sozinha?","acceptedAnswer":{"@type":"Answer","text":"Sim. Um único agente confirma o período, mostra os quartos disponíveis no seu motor, coleta os dados do hóspede, cria a reserva e envia a cobrança, ponta a ponta, sem precisar de um humano. Você pode assumir a conversa a qualquer momento."}},
+        {"@type":"Question","name":"Funciona com o sistema que meu hotel já usa?","acceptedAnswer":{"@type":"Answer","text":"A HSales integra com o motor de reservas e os canais que você já opera (WhatsApp, Instagram, site). Na demonstração mapeamos a sua operação atual e mostramos como a integração acontece."}},
+        {"@type":"Question","name":"Tem cobrança por conversa ou comissão por reserva?","acceptedAnswer":{"@type":"Answer","text":"Não. O plano é flat de R$997/mês, ilimitado. Você não paga por volume de atendimento nem perde uma fatia de cada diária vendida."}},
+        {"@type":"Question","name":"Em quais idiomas a IA atende?","acceptedAnswer":{"@type":"Answer","text":"A IA detecta e responde no idioma do hóspede automaticamente, ideal para hotéis que recebem turistas estrangeiros sem precisar de equipe bilíngue."}},
+        {"@type":"Question","name":"Quanto tempo leva pra colocar no ar?","acceptedAnswer":{"@type":"Answer","text":"O onboarding é simples e não exige equipe técnica do seu lado. Configuramos os agentes com a base de conhecimento do seu hotel e você acompanha cada etapa."}}
+      ]
+    }
+  ]
 }
 </script>
 </body>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nathancspp.github.io/hsales-landing/sitemap.xml
