@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSales — Logo (variações)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --roxo:#5B3FD9; --roxo-vibrante:#6B4DE6; --roxo-escuro:#4A32B0;
+  --lavanda:#C4B5F4; --cinza-lavanda:#EEEDF6; --quase-preto:#1A1A2E;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:#fff;color:var(--quase-preto);-webkit-font-smoothing:antialiased}
+.page{max-width:1100px;margin:0 auto;padding:60px 24px 100px}
+h1{font-size:1.6rem;font-weight:900;letter-spacing:-.03em;margin-bottom:6px}
+.sub{color:#6B7280;margin-bottom:48px;font-size:.95rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.card{border:1px solid #EEE;border-radius:20px;overflow:hidden}
+.card .label{padding:14px 20px;font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#6B7280;border-bottom:1px solid #f1f1f1}
+.stage{padding:64px 30px;display:flex;align-items:center;justify-content:center}
+.stage.light{background:#fff}
+.stage.lav{background:var(--cinza-lavanda)}
+.stage.dark{background:var(--quase-preto)}
+
+/* ===== LOGO ===== */
+.logo{display:inline-flex;align-items:center;gap:14px}
+.logo-mark{
+  position:relative;display:grid;place-items:center;
+  width:var(--s,76px);height:var(--s,76px);border-radius:calc(var(--s,76px)*0.26);
+  background:linear-gradient(145deg,#7a5cf0,#4a32b0);
+  box-shadow:
+    0 10px 24px rgba(74,50,176,.45),
+    inset 0 2px 3px rgba(255,255,255,.5),
+    inset 0 -10px 16px rgba(26,14,68,.55);
+}
+/* brilho de botão no topo */
+.logo-mark::before{
+  content:"";position:absolute;left:12%;right:12%;top:7%;height:34%;border-radius:50%;
+  background:linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,0));
+  filter:blur(1px);pointer-events:none;
+}
+.logo-mark .h{
+  position:relative;z-index:1;color:#fff;font-weight:900;line-height:1;
+  font-size:calc(var(--s,76px)*0.66);
+  text-shadow:0 2px 4px rgba(20,10,50,.55), 0 -1px 1px rgba(255,255,255,.35);
+}
+.word{font-weight:900;letter-spacing:-.02em;line-height:1;color:var(--quase-preto);
+  font-size:calc(var(--s,76px)*0.44);display:inline-flex;align-items:baseline}
+.dark .word{color:#fff}
+.word .big{font-size:calc(var(--s,76px)*0.66);line-height:1} /* S do tamanho do H */
+
+/* tamanhos por demo */
+.big-demo{--s:110px}
+.nav-demo{--s:38px}
+
+.foot{margin-top:60px;color:#6B7280;font-size:.9rem;line-height:1.6}
+.foot b{color:var(--quase-preto)}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>HSales — variações de logo</h1>
+  <p class="sub">"H" maior em alto-relevo, quadrado estilo botão com profundidade, e o "S" do tamanho do "H" pra conectar. Escolha o modelo e o fundo.</p>
+
+  <div class="grid">
+
+    <!-- MODELO 1 -->
+    <div class="card">
+      <div class="label">Modelo 1 — [H]Sales (fundo claro)</div>
+      <div class="stage light">
+        <div class="logo big-demo">
+          <div class="logo-mark"><span class="h">H</span></div>
+          <span class="word"><span class="big">S</span>ales</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODELO 2 -->
+    <div class="card">
+      <div class="label">Modelo 2 — [H]SALES (fundo claro)</div>
+      <div class="stage light">
+        <div class="logo big-demo">
+          <div class="logo-mark"><span class="h">H</span></div>
+          <span class="word"><span class="big">S</span>ALES</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODELO 1 — lavanda -->
+    <div class="card">
+      <div class="label">Modelo 1 — fundo lavanda</div>
+      <div class="stage lav">
+        <div class="logo big-demo">
+          <div class="logo-mark"><span class="h">H</span></div>
+          <span class="word"><span class="big">S</span>ales</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODELO 2 — lavanda -->
+    <div class="card">
+      <div class="label">Modelo 2 — fundo lavanda</div>
+      <div class="stage lav">
+        <div class="logo big-demo">
+          <div class="logo-mark"><span class="h">H</span></div>
+          <span class="word"><span class="big">S</span>ALES</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODELO 1 — escuro -->
+    <div class="card">
+      <div class="label">Modelo 1 — fundo escuro</div>
+      <div class="stage dark">
+        <div class="logo big-demo">
+          <div class="logo-mark"><span class="h">H</span></div>
+          <span class="word"><span class="big">S</span>ales</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODELO 2 — escuro -->
+    <div class="card">
+      <div class="label">Modelo 2 — fundo escuro</div>
+      <div class="stage dark">
+        <div class="logo big-demo">
+          <div class="logo-mark"><span class="h">H</span></div>
+          <span class="word"><span class="big">S</span>ALES</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAMANHO NAV -->
+    <div class="card">
+      <div class="label">Em tamanho de menu (claro)</div>
+      <div class="stage light">
+        <div class="logo nav-demo">
+          <div class="logo-mark"><span class="h">H</span></div>
+          <span class="word"><span class="big">S</span>ales</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="label">Em tamanho de menu (escuro)</div>
+      <div class="stage dark">
+        <div class="logo nav-demo">
+          <div class="logo-mark"><span class="h">H</span></div>
+          <span class="word"><span class="big">S</span>ALES</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="foot">
+    <b>Me diga:</b> qual modelo (1 = Sales / 2 = SALES) e se o "H" em alto-relevo ficou no ponto.<br>
+    Depois eu aplico no menu e no rodapé do site, e geramos os arquivos finais (PNG/SVG) se quiser.
+  </p>
+</div>
+</body>
+</html>
