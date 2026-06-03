@@ -104,23 +104,25 @@ header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-sh
 
 /* ---------- HERO ---------- */
 .hero{
-  padding:160px 0 90px;
+  min-height:100svh;display:flex;align-items:center;
+  padding:90px 0 32px;
   background:
     radial-gradient(1200px 600px at 75% -5%, var(--lavanda-suave), transparent 60%),
     radial-gradient(900px 500px at 5% 30%, oklch(0.95 0.04 290), transparent 55%),
     #fff;
   overflow:hidden;
 }
-.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:50px;align-items:center}
-.hero-copy h1{font-size:clamp(2.5rem,5.4vw,4.3rem);font-weight:900;margin:22px 0 20px}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:44px;align-items:center;width:100%}
+.hero-copy h1{font-size:clamp(2.1rem,4.4vw,3.7rem);font-weight:900;margin:14px 0 14px}
 .hero-copy h1 .hl{color:var(--roxo);position:relative;white-space:nowrap}
-.hero-actions{display:flex;gap:14px;margin:34px 0 26px;flex-wrap:wrap}
+.hero-copy .lead{font-size:1.05rem}
+.hero-actions{display:flex;gap:14px;margin:24px 0 18px;flex-wrap:wrap}
 .hero-trust{display:flex;align-items:center;gap:20px;flex-wrap:wrap;color:var(--corpo);font-size:0.92rem;font-weight:500}
 .hero-trust .dot{width:6px;height:6px;border-radius:50%;background:var(--lavanda)}
 .hero-trust b{color:var(--quase-preto);font-weight:700}
 
 /* Palco 3D do mockup */
-.stage{position:relative;perspective:1400px;height:520px}
+.stage{position:relative;perspective:1400px;height:480px}
 .stage-inner{
   position:absolute;inset:0;
   transform-style:preserve-3d;
@@ -462,8 +464,8 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="kicker">IA de vendas para hotéis</span>
-      <h1>A IA que <span class="hl">fecha a reserva</span> pelo seu hotel. 24 horas.</h1>
-      <p class="lead">O HSales atende em qualquer canal, qualifica o hóspede, mostra os quartos disponíveis, cobra e confirma a reserva. Sem fila de espera, sem comissão, sem perder venda de madrugada.</p>
+      <h1>A IA que <span class="hl">atende e fecha reservas</span> para o seu hotel. 24 horas por dia.</h1>
+      <p class="lead">A HSales atende em qualquer canal, qualifica o hóspede, mostra os quartos disponíveis, cobra e confirma a reserva. Sem fila de espera, sem comissão, sem perder venda de madrugada.</p>
       <div class="hero-actions">
         <a href="#cta" class="btn btn-primary">Agendar uma demonstração <span class="arrow">→</span></a>
         <a href="#jornada" class="btn btn-outline">Ver como funciona</a>
@@ -582,7 +584,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
   <div class="wrap">
     <div class="section-head reveal">
       <span class="kicker">A jornada do hóspede</span>
-      <h2>Do primeiro "oi" à reserva paga, sem você tocar no teclado</h2>
+      <h2>Do primeiro "Oi" até o Pós-Venda.<br>Toda reserva 100% automatizada.</h2>
       <p class="lead">Um único agente de IA, especializado e personalizado pro seu hotel, conduz cada etapa do funil de forma dedicada, com follow-up em todas elas. Veja o que acontece, e o que seu hotel ganha, em cada passo.</p>
     </div>
 
