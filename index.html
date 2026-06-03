@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSales — A IA que vende para o seu hotel 24/7</title>
+<meta name="description" content="HSales é a plataforma de IA que atende, qualifica, fecha a reserva e cobra pelo seu hotel. Sem comissão, sem cobrança por conversa. R$997/mês ilimitado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Paleta HSales — estratégia Committed (roxo carrega a marca) */
+  --roxo: #5B3FD9;
+  --roxo-vibrante: #6B4DE6;
+  --roxo-escuro: #4A32B0;
+  --lavanda: #C4B5F4;
+  --lavanda-suave: #EDE8FB;
+  --cinza-lavanda: #EEEDF6;
+  --branco: #FFFFFF;
+  --quase-preto: #1A1A2E;
+  --corpo: #585770;
+  --linha: oklch(0.92 0.01 285);
+
+  --radius: 16px;
+  --radius-sm: 12px;
+  --max: 1180px;
+  --shadow-sm: 0 2px 8px oklch(0.4 0.1 285 / 0.06);
+  --shadow-md: 0 12px 32px oklch(0.4 0.12 285 / 0.10);
+  --shadow-lg: 0 30px 70px oklch(0.35 0.15 285 / 0.22);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  color:var(--quase-preto);
+  background:var(--branco);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+section{position:relative}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* ---------- Tipografia ---------- */
+h1,h2,h3{line-height:1.08;letter-spacing:-0.03em;font-weight:800}
+h2{font-size:clamp(2rem,4.5vw,3.4rem)}
+h3{font-size:clamp(1.25rem,2vw,1.6rem);letter-spacing:-0.02em}
+.kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:0.8rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
+  color:var(--roxo);background:var(--lavanda-suave);
+  padding:7px 14px;border-radius:100px;
+}
+.lead{font-size:clamp(1.05rem,1.5vw,1.25rem);color:var(--corpo);max-width:62ch}
+
+/* ---------- Botões ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:inherit;font-weight:700;font-size:1rem;
+  padding:15px 28px;border-radius:100px;cursor:pointer;border:0;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .25s;
+  white-space:nowrap;
+}
+.btn .arrow{transition:transform .35s var(--ease)}
+.btn:hover .arrow{transform:translateX(4px)}
+.btn-primary{background:var(--roxo);color:#fff;box-shadow:0 8px 24px oklch(0.5 0.2 285 / 0.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 34px oklch(0.5 0.2 285 / 0.45);background:var(--roxo-vibrante)}
+.btn-outline{background:transparent;color:var(--quase-preto);border:1.5px solid oklch(0.3 0.05 285 / 0.25)}
+.btn-outline:hover{border-color:var(--roxo);color:var(--roxo);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--roxo);padding:15px 10px}
+.btn-ghost:hover{color:var(--roxo-escuro)}
+.btn-light{background:#fff;color:var(--roxo)}
+.btn-light:hover{transform:translateY(-2px);box-shadow:0 14px 34px oklch(0.2 0.1 285 / 0.4)}
+
+/* ---------- Nav ---------- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  transition:background .3s, box-shadow .3s, padding .3s;
+  padding:18px 0;
+}
+header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--linha);padding:12px 0}
+.nav{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.35rem;letter-spacing:-0.04em}
+.logo .mark{
+  width:34px;height:34px;border-radius:9px;
+  background:linear-gradient(135deg,var(--roxo),var(--roxo-vibrante));
+  display:grid;place-items:center;color:#fff;font-size:0.95rem;font-weight:900;
+  box-shadow:var(--shadow-sm);
+}
+.nav-links{display:flex;align-items:center;gap:34px}
+.nav-links a{font-weight:600;font-size:0.96rem;color:var(--quase-preto);opacity:.78;transition:opacity .2s}
+.nav-links a:hover{opacity:1}
+.nav-cta{display:flex;align-items:center;gap:8px}
+.menu-toggle{display:none;background:none;border:0;cursor:pointer}
+@media(max-width:880px){
+  .nav-links{display:none}
+  .nav-cta .btn-ghost{display:none}
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  padding:160px 0 90px;
+  background:
+    radial-gradient(1200px 600px at 75% -5%, var(--lavanda-suave), transparent 60%),
+    radial-gradient(900px 500px at 5% 30%, oklch(0.95 0.04 290), transparent 55%),
+    #fff;
+  overflow:hidden;
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:50px;align-items:center}
+.hero-copy h1{font-size:clamp(2.5rem,5.4vw,4.3rem);font-weight:900;margin:22px 0 20px}
+.hero-copy h1 .hl{color:var(--roxo);position:relative;white-space:nowrap}
+.hero-actions{display:flex;gap:14px;margin:34px 0 26px;flex-wrap:wrap}
+.hero-trust{display:flex;align-items:center;gap:20px;flex-wrap:wrap;color:var(--corpo);font-size:0.92rem;font-weight:500}
+.hero-trust .dot{width:6px;height:6px;border-radius:50%;background:var(--lavanda)}
+.hero-trust b{color:var(--quase-preto);font-weight:700}
+
+/* Palco 3D do mockup */
+.stage{position:relative;perspective:1400px;height:520px}
+.stage-inner{
+  position:absolute;inset:0;
+  transform-style:preserve-3d;
+  transition:transform .25s var(--ease);
+  will-change:transform;
+}
+.layer{position:absolute;will-change:transform}
+
+/* janela principal do SaaS */
+.app{
+  width:430px;max-width:92%;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  background:#fff;border-radius:18px;
+  box-shadow:var(--shadow-lg);
+  border:1px solid var(--linha);
+  overflow:hidden;
+}
+.app-bar{display:flex;align-items:center;gap:7px;padding:13px 16px;border-bottom:1px solid var(--linha);background:oklch(0.985 0.005 285)}
+.app-bar .b{width:11px;height:11px;border-radius:50%;background:var(--cinza-lavanda)}
+.app-bar .b:nth-child(1){background:#FF7A8A}
+.app-bar .b:nth-child(2){background:#FFC979}
+.app-bar .b:nth-child(3){background:#8ED69B}
+.app-bar .ttl{margin-left:10px;font-size:0.78rem;font-weight:700;color:var(--corpo)}
+.app-bar .live{margin-left:auto;font-size:0.68rem;font-weight:700;color:var(--roxo);background:var(--lavanda-suave);padding:3px 9px;border-radius:100px;display:flex;align-items:center;gap:5px}
+.app-bar .live::before{content:"";width:6px;height:6px;border-radius:50%;background:#3EC07B;box-shadow:0 0 0 0 oklch(0.7 0.18 150 / .6);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 oklch(0.7 0.18 150 / .5)}70%{box-shadow:0 0 0 7px oklch(0.7 0.18 150 / 0)}100%{box-shadow:0 0 0 0 transparent}}
+
+.chat{padding:18px 16px;display:flex;flex-direction:column;gap:11px;background:linear-gradient(180deg,#fff,oklch(0.99 0.004 285))}
+.msg{max-width:80%;padding:11px 14px;border-radius:15px;font-size:0.84rem;line-height:1.45}
+.msg.in{align-self:flex-start;background:var(--cinza-lavanda);color:var(--quase-preto);border-bottom-left-radius:5px}
+.msg.out{align-self:flex-end;background:var(--roxo);color:#fff;border-bottom-right-radius:5px}
+.msg .who{display:block;font-size:0.66rem;font-weight:700;opacity:.6;margin-bottom:3px}
+.msg.out .who{color:#fff;opacity:.8}
+.pay{
+  align-self:flex-end;max-width:80%;background:#fff;border:1px solid var(--linha);
+  border-radius:14px;padding:12px 14px;box-shadow:var(--shadow-sm);
+}
+.pay .row{display:flex;justify-content:space-between;gap:12px;font-size:0.78rem;color:var(--corpo)}
+.pay .row b{color:var(--quase-preto)}
+.pay .total{margin-top:7px;padding-top:7px;border-top:1px dashed var(--linha);font-weight:800;font-size:0.95rem;color:var(--roxo);display:flex;justify-content:space-between}
+.pay .paybtn{margin-top:9px;background:var(--roxo);color:#fff;text-align:center;font-weight:700;font-size:0.8rem;padding:9px;border-radius:9px}
+
+/* cards flutuantes em profundidade */
+.float-card{
+  background:#fff;border-radius:14px;box-shadow:var(--shadow-md);
+  border:1px solid var(--linha);padding:13px 15px;width:auto;
+}
+.fc-stat{top:6%;left:-4%}
+.fc-stat .n{font-size:1.6rem;font-weight:900;color:var(--roxo);letter-spacing:-0.03em}
+.fc-stat .l{font-size:0.72rem;color:var(--corpo);font-weight:600}
+.fc-crm{bottom:4%;right:-6%;display:flex;align-items:center;gap:11px}
+.fc-crm .av{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--lavanda),var(--roxo));display:grid;place-items:center;color:#fff;font-weight:800;font-size:0.85rem}
+.fc-crm .t1{font-size:0.82rem;font-weight:800}
+.fc-crm .t2{font-size:0.68rem;color:#3EC07B;font-weight:700}
+.fc-badge{top:42%;right:-9%;display:flex;align-items:center;gap:8px;font-size:0.78rem;font-weight:700}
+.fc-badge .ico{width:26px;height:26px;border-radius:8px;background:var(--lavanda-suave);display:grid;place-items:center;color:var(--roxo)}
+
+/* glow atrás do app */
+.stage::before{
+  content:"";position:absolute;width:380px;height:380px;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,oklch(0.7 0.2 285 / 0.35),transparent 65%);
+  filter:blur(20px);z-index:-1;
+}
+
+@media(max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:60px}
+  .stage{height:440px;order:2}
+  .fc-stat{left:0}.fc-crm{right:0}.fc-badge{right:-2%}
+}
+@media(max-width:560px){
+  .hero{padding:130px 0 60px}
+  .stage{height:400px}
+  .app{width:340px}
+  .fc-badge,.fc-stat,.fc-crm{display:none}
+}
+
+/* ---------- Faixa de marcas/prova ---------- */
+.proof{padding:44px 0;border-top:1px solid var(--linha);border-bottom:1px solid var(--linha);background:#fff}
+.proof p{text-align:center;color:var(--corpo);font-size:0.85rem;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;margin-bottom:22px}
+.proof-row{display:flex;justify-content:center;align-items:center;gap:clamp(24px,6vw,72px);flex-wrap:wrap;opacity:.62}
+.proof-row span{font-weight:800;font-size:1.15rem;letter-spacing:-0.02em;color:var(--quase-preto);display:flex;align-items:center;gap:8px}
+.proof-row span::before{content:"";width:18px;height:18px;border-radius:5px;background:var(--lavanda)}
+
+/* ---------- Dor / problema ---------- */
+.problem{padding:clamp(70px,9vw,120px) 0;background:var(--cinza-lavanda)}
+.problem-head{max-width:760px;margin:0 auto 56px;text-align:center}
+.problem-head h2{margin:18px 0 16px}
+.problem-head .lead{margin:0 auto}
+.pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.pain{background:#fff;border-radius:var(--radius);padding:26px;border:1px solid var(--linha)}
+.pain .em{font-size:1.7rem;margin-bottom:12px;display:block}
+.pain h3{font-size:1.1rem;margin-bottom:8px}
+.pain p{font-size:0.95rem;color:var(--corpo)}
+
+/* ---------- JORNADA DO HÓSPEDE ---------- */
+.journey{padding:clamp(80px,10vw,130px) 0;background:#fff}
+.section-head{max-width:720px;margin-bottom:60px}
+.section-head h2{margin:18px 0 16px}
+.timeline{position:relative;display:flex;flex-direction:column;gap:0}
+.timeline::before{
+  content:"";position:absolute;left:27px;top:30px;bottom:30px;width:2px;
+  background:linear-gradient(var(--roxo),var(--lavanda));
+}
+.step{display:grid;grid-template-columns:56px 1fr;gap:26px;padding:22px 0;position:relative}
+.step-num{
+  width:56px;height:56px;border-radius:16px;z-index:2;
+  background:#fff;border:2px solid var(--roxo);color:var(--roxo);
+  display:grid;place-items:center;font-weight:900;font-size:1.25rem;
+  box-shadow:0 6px 18px oklch(0.5 0.18 285 / 0.15);
+}
+.step.done .step-num{background:var(--roxo);color:#fff}
+.step-body{padding-top:4px}
+.step-body .stage-label{font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--roxo);margin-bottom:5px}
+.step-body h3{margin-bottom:8px}
+.step-body p{color:var(--corpo);max-width:60ch;margin-bottom:14px}
+.benefit{
+  display:inline-flex;align-items:center;gap:9px;
+  background:var(--lavanda-suave);border-radius:11px;padding:9px 15px;
+  font-size:0.9rem;font-weight:600;color:var(--quase-preto);margin:0 8px 8px 0;
+}
+.benefit .ck{width:18px;height:18px;border-radius:50%;background:var(--roxo);color:#fff;display:grid;place-items:center;font-size:0.7rem;flex-shrink:0}
+
+/* ---------- FEATURES TÉCNICAS ---------- */
+.features{padding:clamp(80px,10vw,130px) 0;background:var(--quase-preto);color:#fff}
+.features .section-head h2,.features .section-head .lead{color:#fff}
+.features .section-head .lead{opacity:.72}
+.features .kicker{background:oklch(0.3 0.08 285);color:var(--lavanda)}
+.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.feat{
+  background:oklch(0.22 0.03 285);border:1px solid oklch(0.35 0.04 285);
+  border-radius:var(--radius);padding:30px;transition:transform .4s var(--ease),border-color .3s;
+}
+.feat:hover{transform:translateY(-4px);border-color:var(--roxo)}
+.feat .ico{
+  width:48px;height:48px;border-radius:13px;margin-bottom:18px;
+  background:linear-gradient(135deg,var(--roxo),var(--roxo-vibrante));
+  display:grid;place-items:center;font-size:1.3rem;box-shadow:0 8px 20px oklch(0.5 0.2 285 / 0.4);
+}
+.feat h3{margin-bottom:10px;font-size:1.25rem}
+.feat p{color:oklch(0.82 0.02 285);font-size:0.96rem;margin-bottom:16px}
+.feat .specs{list-style:none;display:flex;flex-direction:column;gap:9px}
+.feat .specs li{display:flex;gap:10px;font-size:0.88rem;color:oklch(0.88 0.02 285)}
+.feat .specs li::before{content:"›";color:var(--lavanda);font-weight:900;font-size:1.05rem;line-height:1.3}
+.feat .tag{display:inline-block;font-family:ui-monospace,monospace;font-size:0.72rem;background:oklch(0.3 0.05 285);color:var(--lavanda);padding:4px 9px;border-radius:6px;margin-top:14px}
+.feat.wide{grid-column:1/-1}
+@media(max-width:760px){.feat-grid{grid-template-columns:1fr}.feat.wide{grid-column:auto}}
+
+/* ---------- Diferenciais ---------- */
+.diff{padding:clamp(80px,10vw,130px) 0;background:var(--cinza-lavanda)}
+.diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.diff-grid .section-head{margin-bottom:0}
+.compare{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-md);overflow:hidden;border:1px solid var(--linha)}
+.compare-row{display:grid;grid-template-columns:1.4fr 1fr 1fr}
+.compare-row.head{background:var(--quase-preto);color:#fff;font-weight:700;font-size:0.88rem}
+.compare-row.head .hs{background:var(--roxo)}
+.compare-row>div{padding:15px 16px;font-size:0.9rem;border-bottom:1px solid var(--linha);display:flex;align-items:center;gap:7px}
+.compare-row .lbl{font-weight:600;color:var(--quase-preto)}
+.compare-row .hs{color:var(--roxo);font-weight:700}
+.compare-row .ot{color:var(--corpo)}
+.compare-row:last-child>div{border-bottom:0}
+.yes{color:#2BA85F;font-weight:800}.no{color:#D26;font-weight:800}
+@media(max-width:860px){.diff-grid{grid-template-columns:1fr;gap:40px}}
+
+/* ---------- Pricing ---------- */
+.pricing{padding:clamp(80px,10vw,130px) 0;background:#fff;text-align:center}
+.pricing .section-head{margin:0 auto 50px;text-align:center}
+.pricing .section-head .lead{margin:0 auto}
+.price-card{
+  max-width:480px;margin:0 auto;background:linear-gradient(160deg,var(--roxo),var(--roxo-escuro));
+  color:#fff;border-radius:24px;padding:46px 40px;box-shadow:var(--shadow-lg);text-align:left;position:relative;overflow:hidden;
+}
+.price-card::after{content:"";position:absolute;width:260px;height:260px;right:-80px;top:-80px;border-radius:50%;background:oklch(0.7 0.18 290 / 0.3);filter:blur(10px)}
+.price-card .pc-tag{position:relative;z-index:1;display:inline-block;background:oklch(1 0 0 / 0.18);font-weight:700;font-size:0.82rem;padding:6px 14px;border-radius:100px;margin-bottom:20px}
+.price-card .amount{position:relative;z-index:1;display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
+.price-card .amount .v{font-size:3.6rem;font-weight:900;letter-spacing:-0.04em}
+.price-card .amount .per{opacity:.8;font-weight:600}
+.price-card .sub{position:relative;z-index:1;opacity:.85;margin-bottom:26px}
+.price-card ul{position:relative;z-index:1;list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:30px}
+.price-card li{display:flex;gap:11px;font-size:0.98rem;font-weight:500}
+.price-card li .ck{width:20px;height:20px;border-radius:50%;background:#fff;color:var(--roxo);display:grid;place-items:center;font-size:0.72rem;font-weight:900;flex-shrink:0}
+.price-card .btn{position:relative;z-index:1;width:100%;justify-content:center}
+
+/* ---------- FAQ ---------- */
+.faq{padding:clamp(70px,9vw,120px) 0;background:var(--cinza-lavanda)}
+.faq .section-head{max-width:680px;margin:0 auto 44px;text-align:center}
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{background:#fff;border-radius:var(--radius-sm);border:1px solid var(--linha);overflow:hidden}
+.faq-q{width:100%;text-align:left;background:none;border:0;cursor:pointer;padding:20px 22px;font-family:inherit;font-weight:700;font-size:1.02rem;color:var(--quase-preto);display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq-q .pm{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--lavanda-suave);color:var(--roxo);display:grid;place-items:center;font-size:1.1rem;font-weight:700;transition:transform .3s var(--ease)}
+.faq-item.open .faq-q .pm{transform:rotate(45deg)}
+.faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s var(--ease)}
+.faq-item.open .faq-a{grid-template-rows:1fr}
+.faq-a-inner{overflow:hidden}
+.faq-a p{padding:0 22px 22px;color:var(--corpo);font-size:0.97rem}
+
+/* ---------- CTA final ---------- */
+.cta{padding:clamp(80px,10vw,120px) 0}
+.cta-box{
+  background:
+    radial-gradient(700px 400px at 80% 0%,var(--roxo-vibrante),transparent 60%),
+    var(--roxo);
+  border-radius:32px;padding:clamp(44px,7vw,80px);text-align:center;color:#fff;position:relative;overflow:hidden;
+}
+.cta-box h2{color:#fff;margin-bottom:18px}
+.cta-box p{color:oklch(0.95 0.03 290);max-width:54ch;margin:0 auto 32px;font-size:1.1rem}
+.cta-box .hero-actions{justify-content:center}
+.cta-box .note{font-size:0.86rem;opacity:.8;margin-top:18px}
+
+/* ---------- Footer ---------- */
+footer{background:var(--quase-preto);color:oklch(0.8 0.02 285);padding:70px 0 34px}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:50px}
+footer .logo{color:#fff;margin-bottom:16px}
+footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
+.foot-col h4{color:#fff;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:16px;opacity:.6}
+.foot-col a{display:block;font-size:0.94rem;margin-bottom:11px;opacity:.8;transition:opacity .2s}
+.foot-col a:hover{opacity:1;color:var(--lavanda)}
+.foot-bottom{border-top:1px solid oklch(0.3 0.03 285);padding-top:26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:0.85rem;opacity:.6}
+@media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr;gap:30px}}
+
+/* ---------- Reveal on scroll ---------- */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header id="header">
+  <div class="wrap nav">
+    <a href="#" class="logo"><span class="mark">H</span>HSales</a>
+    <nav class="nav-links">
+      <a href="#jornada">Jornada</a>
+      <a href="#features">Recursos</a>
+      <a href="#diferenca">Diferença</a>
+      <a href="#preco">Preço</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#preco" class="btn btn-ghost">Entrar</a>
+      <a href="#cta" class="btn btn-primary">Agendar demo <span class="arrow">→</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="kicker">IA de vendas para hotéis</span>
+      <h1>A IA que <span class="hl">fecha a reserva</span> pelo seu hotel. 24 horas.</h1>
+      <p class="lead">O HSales atende em qualquer canal, qualifica o hóspede, mostra os quartos disponíveis, cobra e confirma a reserva. Sem fila de espera, sem comissão, sem perder venda de madrugada.</p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn btn-primary">Agendar uma demonstração <span class="arrow">→</span></a>
+        <a href="#jornada" class="btn btn-outline">Ver como funciona</a>
+      </div>
+      <div class="hero-trust">
+        <span><b>R$997</b>/mês ilimitado</span>
+        <span class="dot"></span>
+        <span><b>0%</b> de comissão</span>
+        <span class="dot"></span>
+        <span>Atende em <b>qualquer idioma</b></span>
+      </div>
+    </div>
+
+    <!-- PALCO 3D com parallax -->
+    <div class="stage" id="stage">
+      <div class="stage-inner" id="stageInner">
+
+        <div class="layer app" data-depth="0.6">
+          <div class="app-bar">
+            <span class="b"></span><span class="b"></span><span class="b"></span>
+            <span class="ttl">Renata · IA de Reservas</span>
+            <span class="live">ao vivo</span>
+          </div>
+          <div class="chat">
+            <div class="msg in"><span class="who">Hóspede · WhatsApp</span>Oi! Tem quarto pra casal dia 12 a 15/07?</div>
+            <div class="msg out"><span class="who">Renata · HSales</span>Tenho sim 😊 Para 3 noites, o Quarto Vista Mar sai por R$1.740. Posso reservar pra você?</div>
+            <div class="msg in">Pode! Vamos fechar.</div>
+            <div class="pay">
+              <div class="row"><span>Vista Mar · 3 noites</span><b>R$1.740</b></div>
+              <div class="row"><span>Check-in 12/07</span><b>2 hóspedes</b></div>
+              <div class="total"><span>Total</span><span>R$1.740</span></div>
+              <div class="paybtn">Pagar agora →</div>
+            </div>
+            <div class="msg out">Reserva confirmada! Link de pagamento enviado ✅</div>
+          </div>
+        </div>
+
+        <div class="layer float-card fc-stat" data-depth="1.6">
+          <div class="n">+28%</div>
+          <div class="l">reservas diretas</div>
+        </div>
+
+        <div class="layer float-card fc-crm" data-depth="1.3">
+          <div class="av">CRM</div>
+          <div>
+            <div class="t1">Lead → Reserva paga</div>
+            <div class="t2">● Movido automaticamente</div>
+          </div>
+        </div>
+
+        <div class="layer float-card fc-badge" data-depth="2">
+          <span class="ico">🌐</span> Responde em 12s
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROVA SOCIAL -->
+<section class="proof">
+  <div class="wrap">
+    <p>Construído para a operação real da hotelaria brasileira</p>
+    <div class="proof-row">
+      <span>WhatsApp</span>
+      <span>Instagram</span>
+      <span>Motor de Reservas</span>
+      <span>Pix &amp; Cartão</span>
+      <span>CRM</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="problem">
+  <div class="wrap">
+    <div class="problem-head reveal">
+      <span class="kicker">O custo de cada minuto</span>
+      <h2>Cada reserva perdida começa com uma mensagem sem resposta</h2>
+      <p class="lead">O hóspede pergunta, espera, e fecha com o concorrente. À noite, no fim de semana, em outro idioma. Sua recepção não dá conta, e as OTAs ficam com a comissão.</p>
+    </div>
+    <div class="pains">
+      <div class="pain reveal"><span class="em">🕐</span><h3>Resposta lenta</h3><p>76% dos hóspedes fecham com quem responde primeiro. Cada hora de espera é uma reserva a menos.</p></div>
+      <div class="pain reveal"><span class="em">🌙</span><h3>Fora do horário</h3><p>Metade das perguntas chega quando a recepção já fechou. Sem atendimento, sem venda.</p></div>
+      <div class="pain reveal"><span class="em">💸</span><h3>Comissão das OTAs</h3><p>Até 30% de cada diária vai embora. A venda direta fica sempre em segundo plano.</p></div>
+      <div class="pain reveal"><span class="em">🔁</span><h3>Sem follow-up</h3><p>O lead esfria e ninguém retoma. A reserva que estava a um passo simplesmente some.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- JORNADA DO HÓSPEDE -->
+<section class="journey" id="jornada">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">A jornada do hóspede</span>
+      <h2>Do primeiro "oi" à reserva paga, sem você tocar no teclado</h2>
+      <p class="lead">O HSales conduz cada etapa com duas IAs especialistas. Veja o que acontece, e o que seu hotel ganha, em cada passo.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="step done reveal">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="stage-label">Primeiro contato</div>
+          <h3>O hóspede chama em qualquer canal</h3>
+          <p>WhatsApp, Instagram, Facebook ou o site, tudo cai numa única caixa. A Sofia responde em segundos, em qualquer idioma, com o tom de uma recepcionista de alto nível.</p>
+          <span class="benefit"><span class="ck">✓</span> Resposta em 12 segundos</span>
+          <span class="benefit"><span class="ck">✓</span> Atendimento 24/7 sem escala extra</span>
+        </div>
+      </div>
+
+      <div class="step done reveal">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="stage-label">Qualificação</div>
+          <h3>Entende o que o hóspede precisa</h3>
+          <p>Com poucas perguntas certeiras, a IA descobre datas, número de hóspedes e perfil da estadia, separando quem está pronto pra reservar de quem ainda está pesquisando.</p>
+          <span class="benefit"><span class="ck">✓</span> Lead já chega qualificado</span>
+          <span class="benefit"><span class="ck">✓</span> Zero tempo gasto com curioso</span>
+        </div>
+      </div>
+
+      <div class="step done reveal">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="stage-label">Cotação em tempo real</div>
+          <h3>Mostra os quartos certos, com o preço certo</h3>
+          <p>A IA consulta o motor de reservas ao vivo, nunca inventa disponibilidade, e apresenta os quartos disponíveis com valores atualizados na hora.</p>
+          <span class="benefit"><span class="ck">✓</span> Disponibilidade sempre real</span>
+          <span class="benefit"><span class="ck">✓</span> Preço correto, sem erro humano</span>
+        </div>
+      </div>
+
+      <div class="step done reveal">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="stage-label">Fechamento &amp; pagamento</div>
+          <h3>A Renata fecha a reserva e cobra</h3>
+          <p>Aqui está a diferença: a IA não passa pra um humano. Ela confirma, coleta os dados, cria a reserva e envia o link de pagamento. A reserva vira "paga" automaticamente.</p>
+          <span class="benefit"><span class="ck">✓</span> Venda concluída sem intervenção</span>
+          <span class="benefit"><span class="ck">✓</span> Pagamento integrado (Pix/cartão)</span>
+        </div>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="stage-label">Pós-estadia</div>
+          <h3>Cuida do hóspede até depois do check-out</h3>
+          <p>Avisos de check-in e check-out, pesquisa de satisfação e follow-up automático pra transformar hóspede em cliente recorrente, tudo registrado no CRM.</p>
+          <span class="benefit"><span class="ck">✓</span> Mais avaliações positivas</span>
+          <span class="benefit"><span class="ck">✓</span> Recompra sem esforço manual</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES TÉCNICAS -->
+<section class="features" id="features">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Por dentro da plataforma</span>
+      <h2>Os recursos que fazem a IA realmente vender</h2>
+      <p class="lead">Não é um chatbot de FAQ. É uma camada de vendas completa, integrada ao seu motor de reservas e ao pagamento.</p>
+    </div>
+
+    <div class="feat-grid">
+      <div class="feat reveal">
+        <div class="ico">🤖</div>
+        <h3>IA conversacional especializada</h3>
+        <p>Dois agentes treinados em hotelaria: Sofia (atendimento e qualificação) e Renata (fechamento). Texto e áudio, multilíngue.</p>
+        <ul class="specs">
+          <li>Processamento de linguagem natural via OpenAI</li>
+          <li>Base de conhecimento por propriedade</li>
+          <li>Detecção automática de idioma do hóspede</li>
+        </ul>
+        <span class="tag">multi-agente</span>
+      </div>
+
+      <div class="feat reveal">
+        <div class="ico">🔌</div>
+        <h3>Motor de reservas integrado</h3>
+        <p>A IA consulta disponibilidade, gera cotação e cria a reserva via funções diretas no motor, sem alucinar preço ou quarto.</p>
+        <ul class="specs">
+          <li>Consulta de quartos e tarifas em tempo real</li>
+          <li>Criação e cancelamento de reserva por API</li>
+          <li>Bloqueio automático da disponibilidade vendida</li>
+        </ul>
+        <span class="tag">tempo real</span>
+      </div>
+
+      <div class="feat reveal">
+        <div class="ico">💳</div>
+        <h3>Pagamento automático</h3>
+        <p>Link de pagamento gerado na conversa. A reserva nasce "aguardando pagamento" e vira "paga" via webhook, sem conferência manual.</p>
+        <ul class="specs">
+          <li>Geração de cobrança integrada (Asaas)</li>
+          <li>Confirmação por webhook em tempo real</li>
+          <li>Pix, cartão e parcelamento</li>
+        </ul>
+        <span class="tag">webhook</span>
+      </div>
+
+      <div class="feat reveal">
+        <div class="ico">📊</div>
+        <h3>CRM 100% automático</h3>
+        <p>Cada conversa vira um card no pipeline. A IA move o lead entre as etapas sozinha, do primeiro contato à reserva paga.</p>
+        <ul class="specs">
+          <li>Pipeline visual com histórico completo</li>
+          <li>Movimentação automática por etapa</li>
+          <li>Segmentação para follow-up e remarketing</li>
+        </ul>
+        <span class="tag">pipeline</span>
+      </div>
+
+      <div class="feat wide reveal">
+        <div class="ico">💬</div>
+        <h3>Atendimento omnichannel numa só interface</h3>
+        <p>WhatsApp, Instagram, Facebook e o chat do site convergem para um único inbox. O hóspede troca de canal, o contexto continua. Sua equipe vê tudo num lugar só, e pode assumir a conversa a qualquer momento.</p>
+        <ul class="specs">
+          <li>Inbox unificado com contexto persistente entre canais</li>
+          <li>Handoff humano com um clique quando necessário</li>
+          <li>Follow-up e recuperação de lead automatizados</li>
+          <li>Avisos de check-in, check-out e pesquisa de satisfação</li>
+        </ul>
+        <span class="tag">omnichannel</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="diff" id="diferenca">
+  <div class="wrap diff-grid">
+    <div class="section-head reveal">
+      <span class="kicker">Por que HSales</span>
+      <h2>A maioria qualifica. O HSales fecha.</h2>
+      <p class="lead">Os concorrentes entregam o lead "quente" pro seu time humano fechar na correria. O HSales vai até o fim: cobra, confirma e registra. E com preço previsível, sem comissão.</p>
+      <div style="margin-top:24px"><a href="#cta" class="btn btn-primary">Quero ver na prática <span class="arrow">→</span></a></div>
+    </div>
+
+    <div class="compare reveal">
+      <div class="compare-row head">
+        <div>Recurso</div><div class="hs">HSales</div><div>Outros</div>
+      </div>
+      <div class="compare-row">
+        <div class="lbl">Fecha a reserva e cobra</div><div class="hs"><span class="yes">✓</span> Sim</div><div class="ot"><span class="no">✕</span> Só qualifica</div>
+      </div>
+      <div class="compare-row">
+        <div class="lbl">Comissão por reserva</div><div class="hs"><span class="yes">✓</span> 0%</div><div class="ot"><span class="no">✕</span> Comum</div>
+      </div>
+      <div class="compare-row">
+        <div class="lbl">Cobrança por conversa</div><div class="hs"><span class="yes">✓</span> Ilimitado</div><div class="ot"><span class="no">✕</span> Por volume</div>
+      </div>
+      <div class="compare-row">
+        <div class="lbl">Preço previsível</div><div class="hs"><span class="yes">✓</span> Flat</div><div class="ot"><span class="no">✕</span> Variável</div>
+      </div>
+      <div class="compare-row">
+        <div class="lbl">Foco em hotel independente</div><div class="hs"><span class="yes">✓</span> Sim</div><div class="ot"><span class="no">✕</span> Enterprise</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="preco">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Preço sem pegadinha</span>
+      <h2>Um plano. Tudo incluído. Ilimitado.</h2>
+      <p class="lead">Sem cobrança por conversa, sem comissão por reserva, sem tier escondido. Você sabe exatamente o que paga, todo mês.</p>
+    </div>
+
+    <div class="price-card reveal">
+      <span class="pc-tag">Plano único · ilimitado</span>
+      <div class="amount"><span class="v">R$997</span><span class="per">/mês</span></div>
+      <p class="sub">Sem limite de conversas. Sem limite de reservas. Sem comissão.</p>
+      <ul>
+        <li><span class="ck">✓</span> IA de atendimento e fechamento 24/7</li>
+        <li><span class="ck">✓</span> Atendimento omnichannel ilimitado</li>
+        <li><span class="ck">✓</span> Motor de reservas + pagamento integrado</li>
+        <li><span class="ck">✓</span> CRM automático com pipeline visual</li>
+        <li><span class="ck">✓</span> Follow-up e pós-estadia automatizados</li>
+        <li><span class="ck">✓</span> Suporte em português</li>
+      </ul>
+      <a href="#cta" class="btn btn-light">Começar agora <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Perguntas frequentes</span>
+      <h2>Tudo que você quer saber antes de começar</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q">A IA realmente fecha a reserva sozinha? <span class="pm">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Sim. A Renata confirma o período, mostra os quartos disponíveis no seu motor, coleta os dados do hóspede, cria a reserva e envia o link de pagamento, ponta a ponta, sem precisar de um humano. Você pode assumir a conversa a qualquer momento se quiser.</p></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Funciona com o sistema que meu hotel já usa? <span class="pm">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>O HSales integra com o motor de reservas e os canais que você já opera (WhatsApp, Instagram, site). Na demonstração mapeamos a sua operação atual e mostramos exatamente como a integração acontece.</p></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Tem cobrança por conversa ou comissão por reserva? <span class="pm">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Não. O plano é flat de R$997/mês, ilimitado. Você não paga por volume de atendimento nem perde uma fatia de cada diária vendida. O que a IA fechar é 100% seu.</p></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Em quais idiomas a IA atende? <span class="pm">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>A IA detecta e responde no idioma do hóspede automaticamente. Ideal para hotéis que recebem turistas estrangeiros sem precisar de equipe bilíngue.</p></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Quanto tempo leva pra colocar no ar? <span class="pm">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>O onboarding é simples e não exige equipe técnica do seu lado. Configuramos os agentes com a base de conhecimento do seu hotel e você acompanha cada etapa.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta" id="cta">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <h2>Pare de perder reserva enquanto dorme</h2>
+      <p>Agende uma demonstração e veja a IA atender, qualificar e fechar uma reserva ao vivo, com a operação do seu hotel.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-light">Agendar demonstração <span class="arrow">→</span></a>
+        <a href="https://wa.me/" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.4)">Falar no WhatsApp</a>
+      </div>
+      <p class="note">Resposta em até 1 dia útil · Sem compromisso</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo"><span class="mark">H</span>HSales</div>
+        <p class="desc">A IA de vendas que atende, fecha a reserva e cobra pelo seu hotel. 24 horas, em qualquer idioma.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Produto</h4>
+        <a href="#jornada">Jornada do hóspede</a>
+        <a href="#features">Recursos</a>
+        <a href="#diferenca">Diferença</a>
+        <a href="#preco">Preço</a>
+      </div>
+      <div class="foot-col">
+        <h4>Empresa</h4>
+        <a href="#">Sobre</a>
+        <a href="#">Contato</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="foot-col">
+        <h4>Comece</h4>
+        <a href="#cta">Agendar demo</a>
+        <a href="https://wa.me/">WhatsApp</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 HSales · AI for Hotel Sales</span>
+      <span>Feito no Brasil 🇧🇷</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav background no scroll
+const header=document.getElementById('header');
+addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>20));
+
+// Parallax 3D do mockup (mouse) + flutuação das camadas
+const stage=document.getElementById('stage');
+const inner=document.getElementById('stageInner');
+const layers=[...document.querySelectorAll('.layer')];
+let tx=0,ty=0,cx=0,cy=0;
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+if(!reduce){
+  stage.addEventListener('mousemove',e=>{
+    const r=stage.getBoundingClientRect();
+    tx=((e.clientX-r.left)/r.width-0.5);
+    ty=((e.clientY-r.top)/r.height-0.5);
+  });
+  stage.addEventListener('mouseleave',()=>{tx=0;ty=0});
+
+  (function loop(){
+    cx+=(tx-cx)*0.08; cy+=(ty-cy)*0.08;
+    inner.style.transform=`rotateY(${cx*10}deg) rotateX(${-cy*10}deg)`;
+    layers.forEach(l=>{
+      const d=parseFloat(l.dataset.depth||1);
+      const base=l.classList.contains('app')?'translate(-50%,-50%)':'';
+      l.style.transform=`${base} translate3d(${cx*d*26}px,${cy*d*26}px,${d*40}px)`;
+    });
+    requestAnimationFrame(loop);
+  })();
+
+  // leve parallax no scroll para os cards flutuantes
+  addEventListener('scroll',()=>{
+    const r=stage.getBoundingClientRect();
+    if(r.bottom<0||r.top>innerHeight)return;
+    const p=(innerHeight-r.top)/(innerHeight+r.height)-0.5;
+    stage.style.setProperty('--sc',p);
+  },{passive:true});
+}
+
+// Reveal on scroll
+const io=new IntersectionObserver((es)=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{
+  el.style.transitionDelay=(i%4*0.06)+'s';
+  io.observe(el);
+});
+
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(q=>{
+  q.addEventListener('click',()=>q.closest('.faq-item').classList.toggle('open'));
+});
+</script>
+</body>
+</html>
