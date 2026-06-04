@@ -527,7 +527,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 header:has(.nav-links.open){backdrop-filter:none!important;background:transparent!important;box-shadow:none!important}
 
 /* elementos internos do menu: ocultos no desktop */
-.menu-header,.menu-items,.menu-footer,.menu-close{display:none}
+.menu-header,.menu-entrar,.menu-items,.menu-footer,.menu-close{display:none}
 
 @media(max-width:880px){
   /* hamburguer visível */
@@ -557,14 +557,22 @@ header:has(.nav-links.open){backdrop-filter:none!important;background:transparen
     flex-shrink:0;
   }
   .menu-header .logo-word{color:#fff}
-  .menu-header .menu-btn-login{
-    font-size:0.88rem;padding:9px 18px;
-    font-weight:700;letter-spacing:0;
-    background:rgba(255,255,255,.15);
-    border:1px solid rgba(255,255,255,.25);
-    color:#fff;border-radius:100px;
-    box-shadow:none;
+
+  /* bloco Entrar: entre logo e nav links */
+  .menu-entrar{
+    display:flex;padding:16px 24px;
+    border-bottom:1px solid rgba(255,255,255,.12);
+    flex-shrink:0;
   }
+  .menu-entrar .menu-btn-login{
+    flex:1;justify-content:center;
+    font-size:1rem;font-weight:700;padding:13px 20px;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.22);
+    color:#fff;border-radius:14px;
+    box-shadow:none;letter-spacing:0;
+  }
+  .menu-entrar .menu-btn-login:hover{background:rgba(255,255,255,.2)}
   /* botão fechar: pill branco no canto superior direito */
   .menu-close{
     position:absolute;top:18px;right:20px;
@@ -750,6 +758,20 @@ header:has(.nav-links.open){backdrop-filter:none!important;background:transparen
 /* -- Geral: impede overflow horizontal -- */
 html,body{overflow-x:hidden}
 .wrap{padding-left:max(16px,4vw);padding-right:max(16px,4vw)}
+
+/* -- WebChat Widget: ícone branco + altura mobile -- */
+[id^="wcw"] button svg,
+[class*="wcw-btn"] svg,
+[class*="webchat-btn"] svg{fill:#fff!important;color:#fff!important}
+@media(max-width:768px){
+  [class*="wcw-container"],
+  [class*="webchat-container"],
+  [id^="wcw-frame"]{
+    max-height:75svh!important;
+    bottom:0!important;
+    border-radius:20px 20px 0 0!important;
+  }
+}
 </style>
 </head>
 <body>
@@ -761,7 +783,9 @@ html,body{overflow-x:hidden}
     <nav class="nav-links" id="navLinks">
       <div class="menu-header">
         <a href="#" class="logo" aria-label="HSales"><span class="logo-mark"><span class="bar"></span><span class="dot"></span><span class="bar"></span></span><span class="logo-word">Sales</span></a>
-        <a href="#" class="btn menu-btn-login cta-login">Entrar</a>
+      </div>
+      <div class="menu-entrar">
+        <a href="#" class="btn menu-btn-login cta-login">Entrar na plataforma <span class="arrow">→</span></a>
       </div>
       <button class="menu-close" id="menuClose" aria-label="Fechar menu">✕</button>
       <div class="menu-items">
@@ -1480,9 +1504,9 @@ if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
   wcw('init', {
     connectionId: 2,
     token: 'webchat_1780615845927_tz1rgzysubj',
-    primaryColor: '#7C4DFF',
+    primaryColor: '#5B3FD9',
     position: 'bottom-right',
-    icon: '🗨️',
+    icon: '💬',
     welcomeMessage: 'Olá! Seja bem vindo a HSales!',
     serverUrl: 'https://chatapi.hsales.app'
   });
