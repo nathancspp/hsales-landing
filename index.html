@@ -457,7 +457,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 
 /* cursor customizado (ponto + anel que segue com atraso) */
 .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-.cursor-dot{width:7px;height:7px;background:var(--roxo)}
+.cursor-dot{width:7px;height:7px;background:var(--roxo);transition:width .18s var(--ease),height .18s var(--ease)}
 .cursor-ring{width:36px;height:36px;border:2px solid var(--lavanda);
   transition:width .28s var(--ease),height .28s var(--ease),border-color .28s,background .28s}
 .cursor-ring.hot{width:58px;height:58px;border-color:var(--roxo);background:oklch(0.6 0.16 290 / 0.08)}
@@ -502,6 +502,254 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
   *{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
 }
+
+/* ============================================================
+   MOBILE RESPONSIVO
+   ============================================================ */
+
+/* -- Hamburguer -- */
+.menu-toggle{
+  display:none;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  width:44px;height:44px;
+  background:var(--lavanda-suave);border:1.5px solid var(--linha);
+  border-radius:12px;cursor:pointer;z-index:201;flex-shrink:0;
+  transition:background .25s,border-color .25s;
+}
+.menu-toggle:hover{background:var(--lavanda);border-color:var(--lavanda)}
+.menu-toggle span{
+  display:block;width:20px;height:2px;
+  background:var(--roxo);border-radius:3px;
+  transition:transform .35s var(--ease),opacity .25s;
+}
+.menu-toggle.open{opacity:0;pointer-events:none}
+
+/* fix: backdrop-filter no header quebra position:fixed dos filhos — remove quando menu aberto */
+header:has(.nav-links.open){backdrop-filter:none!important;background:transparent!important;box-shadow:none!important}
+
+/* elementos internos do menu: ocultos no desktop */
+.menu-header,.menu-items,.menu-footer,.menu-close{display:none}
+
+@media(max-width:880px){
+  /* hamburguer visível */
+  .menu-toggle{display:flex}
+  .nav-cta .btn-ghost{display:none}
+  .nav-cta .btn-primary{font-size:0.88rem;padding:12px 20px}
+
+  /* overlay roxo fullscreen */
+  .nav-links{
+    position:fixed;inset:0;z-index:200;
+    display:flex;flex-direction:column;
+    background:linear-gradient(160deg,var(--roxo-vibrante) 0%,var(--roxo-escuro) 100%);
+    opacity:0;pointer-events:none;
+    transition:opacity .38s var(--ease);
+    overflow:hidden;
+  }
+  .nav-links.open{opacity:1;pointer-events:auto}
+
+  /* links inline do desktop: ocultos no overlay */
+  .nav-links>a{display:none}
+
+  /* cabeçalho do menu: logo + entrar + botão fechar */
+  .menu-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 24px;
+    border-bottom:1px solid rgba(255,255,255,.15);
+    flex-shrink:0;
+  }
+  .menu-header .logo-word{color:#fff}
+  .menu-header .menu-btn-login{
+    font-size:0.88rem;padding:9px 18px;
+    font-weight:700;letter-spacing:0;
+    background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.25);
+    color:#fff;border-radius:100px;
+    box-shadow:none;
+  }
+  /* botão fechar: pill branco no canto superior direito */
+  .menu-close{
+    position:absolute;top:18px;right:20px;
+    display:grid;place-items:center;
+    background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.3);
+    color:#fff;font-size:1.4rem;font-weight:300;line-height:1;
+    width:48px;height:48px;border-radius:100px;cursor:pointer;
+    backdrop-filter:blur(10px);
+    transition:background .2s,transform .2s;
+    z-index:10;
+  }
+  .menu-close:hover{background:rgba(255,255,255,.28);transform:scale(1.06)}
+  /* esconde o hamburguer quando o menu está aberto */
+  .menu-toggle.open{opacity:0;pointer-events:none}
+
+  /* links de navegação */
+  .menu-items{
+    display:flex;flex-direction:column;
+    flex:1;justify-content:center;
+    padding:10px 28px;gap:0;
+  }
+  .menu-items a{
+    font-size:1.55rem;font-weight:800;letter-spacing:-0.02em;
+    color:rgba(255,255,255,.82);
+    padding:11px 0;
+    border-bottom:1px solid rgba(255,255,255,.1);
+    display:flex;align-items:center;justify-content:space-between;
+    transition:color .2s,padding-left .25s var(--ease);
+    opacity:1;
+  }
+  .menu-items a:last-child{border-bottom:0}
+  .menu-items a::after{content:"→";font-size:1rem;opacity:.35;transition:opacity .2s,transform .25s var(--ease)}
+  .menu-items a:hover{color:#fff;padding-left:8px}
+  .menu-items a:hover::after{opacity:.9;transform:translateX(4px)}
+
+  /* animação escalonada dos itens */
+  .nav-links.open .menu-items a{animation:menuIn .4s var(--ease) both}
+  .nav-links.open .menu-items a:nth-child(1){animation-delay:.08s}
+  .nav-links.open .menu-items a:nth-child(2){animation-delay:.13s}
+  .nav-links.open .menu-items a:nth-child(3){animation-delay:.18s}
+  .nav-links.open .menu-items a:nth-child(4){animation-delay:.23s}
+  .nav-links.open .menu-items a:nth-child(5){animation-delay:.28s}
+  @keyframes menuIn{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+
+  /* botões flutuantes no rodapé */
+  .menu-footer{
+    display:flex;flex-direction:column;gap:10px;
+    padding:16px 20px 28px;
+    flex-shrink:0;
+  }
+  .menu-btn-login,.menu-btn-whats,.menu-btn-agenda{
+    width:100%;justify-content:center;
+    font-size:1.45rem;padding:16px 24px;
+    border-radius:16px;
+    backdrop-filter:blur(12px);
+    letter-spacing:-0.01em;
+  }
+  .menu-btn-login,.menu-btn-whats,.menu-btn-agenda{
+    background:#fff;color:var(--roxo);border:0;font-weight:800;
+    box-shadow:0 8px 28px rgba(0,0,0,.22),0 2px 8px rgba(0,0,0,.1);
+  }
+  .menu-btn-login:hover,.menu-btn-whats:hover,.menu-btn-agenda:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 36px rgba(0,0,0,.3);
+  }
+
+  /* animação dos botões */
+  .nav-links.open .menu-footer{animation:menuIn .4s var(--ease) .32s both}
+}
+
+/* -- Hero: remove br hardcoded, deixa fluir -- */
+@media(max-width:760px){
+  .hero-copy h1 br{display:none}
+  .hero-copy h1 .hl{white-space:normal}
+  .lead br{display:none}
+  .section-head h2 br{display:none}
+  .hero-copy h1{font-size:clamp(1.85rem,6.5vw,2.4rem)}
+  h2{font-size:clamp(1.65rem,5.5vw,2rem)}
+
+  /* Padroniza todos os textos auxiliares/cinzas no mobile */
+  .lead,
+  .step-body p,
+  .pain p,
+  .feat p,
+  .feat .specs li,
+  .followup div,
+  .faq-a p,
+  .price-card li,
+  .proof .sub,
+  .desc,
+  section p{
+    font-size:0.93rem !important;
+    line-height:1.6;
+  }
+}
+
+/* -- Hero stage: reposiciona cards flutuantes no mobile -- */
+@media(max-width:560px){
+  .stage{height:500px}
+  .app{width:82%;max-width:300px}
+  /* reativa e reposiciona os cards dentro dos limites seguros */
+  .fc-badge,.fc-stat,.fc-crm{display:flex}
+  .fc-stat{top:3%;left:3%;right:auto}
+  .fc-badge{top:44%;right:3%;left:auto}
+  .fc-crm{bottom:3%;left:3%;right:auto}
+}
+@media(max-width:400px){
+  .stage{height:480px}
+  .app{width:86%;max-width:280px}
+  /* cards menores em tela muito pequena */
+  .fc-crm .t1,.fc-crm .t2,.fc-stat .n,.fc-stat .l,.fc-badge{font-size:0.72rem}
+  .fc-stat .n{font-size:1.2rem}
+}
+
+/* -- Hero trust: empilha verticalmente no mobile -- */
+@media(max-width:560px){
+  .hero-trust{flex-direction:column;align-items:flex-start;gap:8px}
+  .hero-trust .dot{display:none}
+  .hero-trust span:not(.dot){
+    display:flex;align-items:center;gap:8px;
+  }
+  .hero-trust span:not(.dot)::before{
+    content:"✓";
+    display:grid;place-items:center;
+    width:18px;height:18px;flex-shrink:0;
+    background:var(--roxo);color:#fff;
+    border-radius:50%;font-size:0.65rem;font-weight:900;
+  }
+}
+
+/* -- Hero actions: botões full-width em telas pequenas -- */
+@media(max-width:480px){
+  .hero-actions{flex-direction:column}
+  .hero-actions .btn{width:100%;justify-content:center}
+}
+
+/* -- Proof seals: 2 colunas em mobile -- */
+@media(max-width:520px){
+  .proof-row{gap:20px 16px;justify-content:center}
+  .seal{width:calc(50% - 8px);max-width:160px}
+}
+
+/* -- Tabela comparativa: reduz fonte e padding -- */
+@media(max-width:600px){
+  .compare-row>div{padding:11px 10px;font-size:0.8rem}
+  .compare-row.head>div{font-size:0.76rem}
+}
+@media(max-width:420px){
+  .compare-row{grid-template-columns:1.2fr 1fr 1fr}
+  .compare-row>div{padding:10px 8px;font-size:0.74rem}
+}
+
+/* -- Price card: padding responsivo -- */
+@media(max-width:560px){
+  .price-card{padding:32px 22px}
+  .price-card .amount .v{font-size:2.8rem}
+}
+
+/* -- CTA final: botões full-width -- */
+@media(max-width:480px){
+  .cta-box .hero-actions{flex-direction:column;align-items:stretch}
+  .cta-box .hero-actions .btn{width:100%;justify-content:center}
+  .cta-box{border-radius:20px;padding:40px 22px}
+}
+
+/* -- Followup card: empilha em mobile -- */
+@media(max-width:520px){
+  .followup{flex-direction:column;text-align:center;gap:14px;padding:20px 18px}
+}
+
+/* -- Features: specs ficam mais compactos -- */
+@media(max-width:480px){
+  .feat{padding:22px 18px}
+}
+
+/* -- Footer: 1 coluna em telas pequenas -- */
+@media(max-width:480px){
+  .foot-grid{grid-template-columns:1fr;gap:24px}
+  .foot-bottom{flex-direction:column;align-items:center;text-align:center;gap:8px}
+}
+
+/* -- Geral: impede overflow horizontal -- */
+html,body{overflow-x:hidden}
+.wrap{padding-left:max(16px,4vw);padding-right:max(16px,4vw)}
 </style>
 </head>
 <body>
@@ -510,16 +758,29 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 <header id="header">
   <div class="wrap nav">
     <a href="#" class="logo" aria-label="HSales"><span class="logo-mark"><span class="bar"></span><span class="dot"></span><span class="bar"></span></span><span class="logo-word">Sales</span></a>
-    <nav class="nav-links">
-      <a href="#jornada">Jornada</a>
-      <a href="#features">Recursos</a>
-      <a href="#diferenca">Diferença</a>
-      <a href="#preco">Preço</a>
-      <a href="#faq">FAQ</a>
+    <nav class="nav-links" id="navLinks">
+      <div class="menu-header">
+        <a href="#" class="logo" aria-label="HSales"><span class="logo-mark"><span class="bar"></span><span class="dot"></span><span class="bar"></span></span><span class="logo-word">Sales</span></a>
+        <a href="#" class="btn menu-btn-login cta-login">Entrar</a>
+      </div>
+      <button class="menu-close" id="menuClose" aria-label="Fechar menu">✕</button>
+      <div class="menu-items">
+        <a href="#jornada">Jornada</a>
+        <a href="#features">Recursos</a>
+        <a href="#diferenca">Diferença</a>
+        <a href="#preco">Preço</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="menu-footer">
+        <a href="#" class="btn menu-btn-agenda cta-agenda">Agendar Demo</a>
+      </div>
     </nav>
     <div class="nav-cta">
       <a href="#" class="btn btn-ghost cta-login">Entrar</a>
       <a href="#" class="btn btn-primary cta-agenda">Agendar Demo <span class="arrow">→</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
@@ -532,7 +793,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="kicker">IA de vendas para hotéis</span>
-      <h1>A Inteligência Artificial que<br><span class="hl">atende e fecha reservas</span><br>para o seu hotel.<span class="h1-sub">24 horas por dia. 7 dias por semana.</span></h1>
+      <h1>A Inteligência Artificial que <br><span class="hl">atende e fecha reservas</span> <br>para o seu hotel.<span class="h1-sub">24 horas por dia. 7 dias por semana.</span></h1>
       <p class="lead">A HSales atende em qualquer canal, qualifica o hóspede, mostra os quartos disponíveis, cobra e confirma a reserva. Sem fila de espera, sem comissão, sem perder venda de madrugada.</p>
       <div class="hero-actions">
         <a href="#" class="btn btn-primary cta-agenda">Agendar Demo <span class="arrow">→</span></a>
@@ -672,7 +933,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
   <div class="wrap">
     <div class="section-head reveal">
       <span class="kicker">A jornada do hóspede</span>
-      <h2>Transforme o <span style="color:var(--roxo)">atendimento</span><br>do seu <span style="color:var(--roxo)">hotel</span> em<br>uma <span style="color:var(--roxo)">máquina de reservas</span>.</h2>
+      <h2>Transforme o <span style="color:var(--roxo)">atendimento</span> <br>do seu <span style="color:var(--roxo)">hotel</span> em <br>uma <span style="color:var(--roxo)">máquina de reservas</span>.</h2>
       <p class="lead">O único agente de IA hoteleiro especializado e personalizado pro seu hotel, que conduz por todas as etapas do funil de forma 100% automatizada, com follow-up em todas elas.</p>
     </div>
 
@@ -835,7 +1096,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
   <div class="wrap diff-grid">
     <div class="section-head reveal">
       <span class="kicker">Por que HSales</span>
-      <h2>A maioria só atende.<br>A <span style="color:var(--roxo)">HSales</span> vai até o pós-venda.</h2>
+      <h2>A maioria só atende. <br>A <span style="color:var(--roxo)">HSales</span> vai até o pós-venda.</h2>
       <p class="lead">A plataforma executa a jornada completa, do atendimento ao check-out, passando por todas as etapas, 100% automatizada, sem exigir a atenção da sua equipe.</p>
       <div style="margin-top:24px"><a href="#" class="btn btn-primary cta-whats">Testar a IA <span class="arrow">→</span></a></div>
     </div>
@@ -972,7 +1233,8 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
   </div>
 </footer>
 
-<!-- Botão flutuante: testar a IA -->
+<!-- Botão flutuante WhatsApp — em espera, substituído pelo WebChat Widget -->
+<!--
 <div class="fab" id="fab">
   <div class="fab-bubble">
     <a href="#" class="fab-msg cta-whats"><span class="fab-from">HSales</span>Oiii! 👋 Teste aqui!</a>
@@ -982,6 +1244,7 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
     <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-11.7 7.7L4 21l1.8-5.3A8.4 8.4 0 1 1 21 11.5z"/></svg>
   </a>
 </div>
+-->
 
 <script>
 /* ===================================================================
@@ -1010,6 +1273,20 @@ const LINKS = {
 // Nav background no scroll
 const header=document.getElementById('header');
 addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>20));
+
+// Hamburguer menu
+(function(){
+  const toggle=document.getElementById('menuToggle');
+  const closeBtn=document.getElementById('menuClose');
+  const navLinks=document.getElementById('navLinks');
+  if(!toggle||!navLinks)return;
+  const open=()=>{toggle.classList.add('open');navLinks.classList.add('open');toggle.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
+  const close=()=>{toggle.classList.remove('open');navLinks.classList.remove('open');toggle.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+  toggle.addEventListener('click',()=>navLinks.classList.contains('open')?close():open());
+  if(closeBtn)closeBtn.addEventListener('click',close);
+  navLinks.querySelectorAll('.menu-items a, .menu-footer a').forEach(a=>a.addEventListener('click',close));
+  addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+})();
 
 // Parallax 3D do mockup (mouse) + flutuação das camadas
 const stage=document.getElementById('stage');
@@ -1144,6 +1421,11 @@ if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
     el.addEventListener('mouseenter',()=>cring.classList.add('hot'));
     el.addEventListener('mouseleave',()=>cring.classList.remove('hot'));
   });
+  addEventListener('mousedown',()=>{
+    const s=cring.getBoundingClientRect().width;
+    cdot.style.width=s+'px';cdot.style.height=s+'px';
+  });
+  addEventListener('mouseup',()=>{cdot.style.width='7px';cdot.style.height='7px';});
 }
 </script>
 
@@ -1184,6 +1466,26 @@ if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
     }
   ]
 }
+</script>
+<!-- WebChat Widget -->
+<script>
+  (function(w,d,s,o,f,js,fjs){
+    w['WebChatWidget']=o;
+    w[o] = w[o] || function(){(w[o].q=w[o].q||[]).push(arguments)};
+    js=d.createElement(s), fjs=d.getElementsByTagName(s)[0];
+    js.id=o; js.src=f; js.async=1;
+    fjs.parentNode.insertBefore(js,fjs);
+  }(window,document,'script','wcw','https://chat.hsales.app/widget.js'));
+
+  wcw('init', {
+    connectionId: 2,
+    token: 'webchat_1780615845927_tz1rgzysubj',
+    primaryColor: '#7C4DFF',
+    position: 'bottom-right',
+    icon: '🗨️',
+    welcomeMessage: 'Olá! Seja bem vindo a HSales!',
+    serverUrl: 'https://chatapi.hsales.app'
+  });
 </script>
 </body>
 </html>
