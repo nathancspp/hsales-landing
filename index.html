@@ -75,6 +75,7 @@ h3{font-size:clamp(1.25rem,2vw,1.6rem);letter-spacing:-0.02em}
   font-size:0.8rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
   color:var(--roxo);background:var(--lavanda-suave);
   padding:7px 14px;border-radius:100px;
+  box-shadow:2px 2px 0 var(--lavanda);
 }
 .lead{font-size:1.05rem;color:var(--corpo);max-width:62ch}
 .nowrap{white-space:nowrap}
@@ -83,23 +84,52 @@ h3{font-size:clamp(1.25rem,2vw,1.6rem);letter-spacing:-0.02em}
 .btn{
   display:inline-flex;align-items:center;gap:9px;
   font-family:inherit;font-weight:700;font-size:1rem;
-  padding:15px 28px;border-radius:100px;cursor:pointer;border:0;
-  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .25s, color .25s, border-color .25s;
+  padding:15px 28px;border-radius:14px;cursor:pointer;border:0;
+  transition:transform .18s var(--ease), box-shadow .18s var(--ease), background .2s, color .2s, border-color .2s;
   white-space:nowrap;
 }
 .btn .arrow{transition:transform .35s var(--ease)}
 .btn:hover .arrow{transform:translateX(4px)}
-.btn-primary{background:var(--roxo);color:#fff;border:1.5px solid var(--roxo);box-shadow:0 8px 24px oklch(0.5 0.2 285 / 0.35)}
-.btn-primary:hover{background:transparent;color:var(--roxo);border-color:var(--roxo);transform:translateY(-2px);box-shadow:none}
-.btn-outline{background:transparent;color:var(--quase-preto);border:1.5px solid oklch(0.3 0.05 285 / 0.25)}
-.btn-outline:hover{background:var(--roxo);color:#fff;border-color:var(--roxo);transform:translateY(-2px);box-shadow:0 14px 34px oklch(0.5 0.2 285 / 0.45)}
-/* botão vazado sobre fundo roxo (CTA final): inverte pra branco */
-.cta-box .btn-outline{color:#fff;border-color:rgba(255,255,255,.45)}
-.cta-box .btn-outline:hover{background:#fff;color:var(--roxo);border-color:#fff;box-shadow:0 14px 34px oklch(0.2 0.1 285 / 0.4)}
-.btn-ghost{background:transparent;color:var(--roxo);padding:15px 10px}
+.btn:active{transform:translate(2px,2px)!important;box-shadow:none!important}
+
+/* Primary: roxo + sombra sólida escura */
+.btn-primary{
+  background:var(--roxo);color:#fff;
+  border:2px solid var(--roxo-escuro);
+  box-shadow:4px 4px 0 var(--roxo-escuro);
+}
+.btn-primary:hover{
+  background:var(--roxo-vibrante);
+  transform:translate(-2px,-2px);
+  box-shadow:6px 6px 0 var(--roxo-escuro);
+}
+
+/* Outline: vazado + sombra sólida discreta */
+.btn-outline{
+  background:transparent;color:var(--quase-preto);
+  border:2px solid oklch(0.3 0.05 285 / 0.35);
+  box-shadow:3px 3px 0 oklch(0.3 0.05 285 / 0.18);
+}
+.btn-outline:hover{
+  background:var(--roxo);color:#fff;border-color:var(--roxo);
+  transform:translate(-2px,-2px);
+  box-shadow:5px 5px 0 var(--roxo-escuro);
+}
+
+/* Outline sobre fundo roxo (CTA final) */
+.cta-box .btn-outline{color:#fff;border-color:rgba(255,255,255,.5);box-shadow:3px 3px 0 rgba(0,0,0,.2)}
+.cta-box .btn-outline:hover{background:#fff;color:var(--roxo);border-color:#fff;box-shadow:5px 5px 0 rgba(0,0,0,.2)}
+
+.btn-ghost{background:transparent;color:var(--roxo);padding:15px 10px;box-shadow:none;border:0}
 .btn-ghost:hover{color:var(--roxo-escuro)}
-.btn-light{background:#fff;color:var(--roxo)}
-.btn-light:hover{transform:translateY(-2px);box-shadow:0 14px 34px oklch(0.2 0.1 285 / 0.4)}
+
+/* Light: branco + sombra roxa sólida */
+.btn-light{
+  background:#fff;color:var(--roxo);
+  border:2px solid rgba(255,255,255,.6);
+  box-shadow:4px 4px 0 rgba(0,0,0,.18);
+}
+.btn-light:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(0,0,0,.22)}
 
 /* ---------- Nav ---------- */
 header{
@@ -148,9 +178,10 @@ footer .logo-word{color:#fff}
 .hero-copy h1 .hl{color:var(--roxo);position:relative;white-space:nowrap}
 .hero-copy .lead{font-size:1.05rem}
 .hero-actions{display:flex;gap:14px;margin:36px 0 0;flex-wrap:wrap}
-.hero-trust{display:flex;align-items:center;gap:20px;flex-wrap:wrap;color:var(--corpo);font-size:0.92rem;font-weight:500;margin-top:36px}
-.hero-trust .dot{width:6px;height:6px;border-radius:50%;background:var(--lavanda)}
-.hero-trust b{color:var(--quase-preto);font-weight:700}
+.hero-trust{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:36px}
+.hero-trust b{font-weight:800}
+.hero-trust .benefit{padding:6px 12px;font-size:0.82rem;gap:7px;border-radius:9px;margin:0}
+.hero-trust .benefit .ck{width:16px;height:16px;font-size:0.62rem}
 
 /* Palco 3D do mockup */
 .stage{position:relative;perspective:1400px;height:480px}
@@ -167,8 +198,8 @@ footer .logo-word{color:#fff}
   width:430px;max-width:92%;left:50%;top:50%;
   transform:translate(-50%,-50%);
   background:#fff;border-radius:18px;
-  box-shadow:var(--shadow-lg);
-  border:1px solid var(--linha);
+  box-shadow:8px 8px 0 var(--lavanda);
+  border:1.5px solid var(--lavanda);
   overflow:hidden;
 }
 .app-bar{display:flex;align-items:center;gap:7px;padding:13px 16px;border-bottom:1px solid var(--linha);background:oklch(0.985 0.005 285)}
@@ -198,8 +229,9 @@ footer .logo-word{color:#fff}
 
 /* cards flutuantes em profundidade */
 .float-card{
-  background:#fff;border-radius:14px;box-shadow:var(--shadow-md);
-  border:1px solid var(--linha);padding:13px 15px;width:auto;
+  background:#fff;border-radius:14px;
+  border:1.5px solid var(--linha);padding:13px 15px;width:auto;
+  box-shadow:4px 4px 0 var(--linha);
 }
 .fc-stat{top:-3%;left:-13%}
 .fc-stat .n{font-size:1.6rem;font-weight:900;color:var(--roxo);letter-spacing:-0.03em}
@@ -209,7 +241,7 @@ footer .logo-word{color:#fff}
 .fc-crm .t1{font-size:0.82rem;font-weight:800}
 .fc-crm .t2{font-size:0.68rem;color:#3EC07B;font-weight:700}
 .fc-badge{top:42%;right:-9%;display:flex;align-items:center;gap:8px;font-size:0.78rem;font-weight:700}
-.fc-badge .ico{width:26px;height:26px;border-radius:8px;background:var(--lavanda-suave);display:grid;place-items:center;color:var(--roxo)}
+.fc-badge .ico{width:26px;height:26px;border-radius:8px;background:var(--lavanda-suave);display:grid;place-items:center;color:var(--roxo);box-shadow:2px 2px 0 var(--lavanda)}
 
 /* glow atrás do app */
 .stage::before{
@@ -234,25 +266,27 @@ footer .logo-word{color:#fff}
 /* ---------- Faixa de marcas/prova ---------- */
 .proof{padding:62px 0;background:var(--quase-preto)}
 .proof p{display:flex;align-items:center;justify-content:center;gap:12px;color:oklch(0.8 0.03 285);font-size:0.88rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:44px}
-.proof .approval{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--roxo);color:#fff;display:grid;place-items:center;font-size:0.88rem;font-weight:800;box-shadow:0 6px 16px oklch(0.5 0.2 285 / 0.5)}
-.proof-row{display:flex;justify-content:center;align-items:flex-start;gap:clamp(12px,3vw,44px);flex-wrap:nowrap}
-.seal{display:flex;flex-direction:column;align-items:center;gap:14px;flex:1;max-width:180px;text-align:center;transition:transform .4s var(--ease)}
-.seal:hover{transform:translateY(-6px)}
-.seal .badge{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;
-  background:var(--lavanda-suave);border:0;color:var(--roxo);transition:background .3s,box-shadow .3s,transform .3s var(--ease)}
-.seal:hover .badge{background:#fff;box-shadow:0 10px 28px oklch(0.55 0.2 285 / 0.45)}
-.seal .badge svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.seal .lbl{
-  font-weight:700;font-size:0.88rem;color:#fff;line-height:1.3;
-  background:oklch(0.3 0.06 285);border:1px solid oklch(0.4 0.07 285);
-  padding:5px 12px;border-radius:100px;white-space:nowrap;
+.proof .approval{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--roxo);color:#fff;display:grid;place-items:center;font-size:0.88rem;font-weight:800;box-shadow:3px 3px 0 var(--roxo-escuro)}
+.proof-row{display:flex;justify-content:center;align-items:stretch;gap:14px;flex-wrap:nowrap}
+.seal{
+  flex:1;max-width:200px;
+  display:flex;flex-direction:column;align-items:flex-start;gap:10px;
+  background:oklch(0.22 0.03 285);
+  border:1px solid oklch(0.35 0.05 285);
+  border-radius:16px;padding:20px 18px;
+  box-shadow:4px 4px 0 oklch(0.10 0.03 285);
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s;
 }
-.seal .sub{
-  font-size:0.82rem;color:oklch(0.72 0.04 285);margin-top:2px;
-  font-weight:500;letter-spacing:0.3px;line-height:1.4;
-  background:rgba(255,255,255,.04);padding:6px 10px;
-  border-radius:8px;display:inline-block;
+.seal:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 oklch(0.10 0.03 285);border-color:var(--roxo)}
+.seal .ico{
+  width:40px;height:40px;border-radius:11px;
+  background:oklch(0.30 0.08 285);border:1px solid oklch(0.4 0.07 285);
+  display:grid;place-items:center;flex-shrink:0;
+  box-shadow:2px 2px 0 oklch(0.10 0.03 285);
 }
+.seal .ico svg{width:22px;height:22px;fill:none;stroke:var(--lavanda);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.seal .lbl{font-weight:700;font-size:0.88rem;color:#fff;line-height:1.3;margin:0}
+.seal .sub{font-size:0.78rem;color:oklch(0.65 0.04 285);font-weight:500;line-height:1.4;margin:0}
 
 /* ---------- Dor / problema ---------- */
 .problem{padding:clamp(70px,9vw,120px) 0;background:var(--cinza-lavanda)}
@@ -260,10 +294,10 @@ footer .logo-word{color:#fff}
 .problem-head h2{margin:18px 0 16px}
 .problem-head .lead{margin:0 auto;max-width:100%}
 .pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.pain{background:#fff;border-radius:var(--radius);padding:32px 24px;border:1px solid var(--linha);box-shadow:var(--shadow-sm);text-align:center;transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
-.pain:hover{transform:scale(1.06);box-shadow:var(--shadow-md)}
-.pain:active{transform:scale(1.03)}
-.pain .picon{width:60px;height:60px;border-radius:16px;background:linear-gradient(135deg,var(--roxo),var(--roxo-vibrante));display:grid;place-items:center;margin:0 auto 18px;color:#fff;box-shadow:0 10px 24px oklch(0.5 0.2 285 / 0.35);animation:sway 3.6s ease-in-out infinite}
+.pain{background:#fff;border-radius:var(--radius);padding:32px 24px;border:1.5px solid var(--lavanda);box-shadow:5px 5px 0 var(--roxo);text-align:center;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.pain:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--roxo)}
+.pain:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--roxo-escuro)}
+.pain .picon{width:60px;height:60px;border-radius:16px;background:linear-gradient(135deg,var(--roxo),var(--roxo-vibrante));display:grid;place-items:center;margin:0 auto 18px;color:#fff;box-shadow:3px 3px 0 var(--roxo-escuro);animation:sway 3.6s ease-in-out infinite}
 .pains .pain:nth-child(2) .picon{animation-delay:.45s}
 .pains .pain:nth-child(3) .picon{animation-delay:.9s}
 .pains .pain:nth-child(4) .picon{animation-delay:1.35s}
@@ -297,10 +331,10 @@ footer .logo-word{color:#fff}
   width:56px;height:56px;border-radius:16px;z-index:2;
   background:#fff;border:2px solid var(--roxo);color:var(--roxo);
   display:grid;place-items:center;font-weight:900;font-size:1.25rem;
-  box-shadow:0 6px 18px oklch(0.5 0.18 285 / 0.15);
+  box-shadow:3px 3px 0 var(--lavanda);
   transition:background .45s var(--ease),color .45s var(--ease),transform .45s var(--ease),box-shadow .45s var(--ease);
 }
-.step.done .step-num{background:var(--roxo);color:#fff;transform:scale(1.08);box-shadow:0 10px 26px oklch(0.5 0.2 285 / 0.4)}
+.step.done .step-num{background:var(--roxo);color:#fff;transform:scale(1.06);box-shadow:4px 4px 0 var(--roxo-escuro)}
 .step-body{padding-top:4px}
 .step-body .stage-label{font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--roxo);margin-bottom:5px}
 .step-body h3{margin-bottom:8px}
@@ -309,17 +343,21 @@ footer .logo-word{color:#fff}
   display:inline-flex;align-items:center;gap:9px;
   background:var(--lavanda-suave);border-radius:11px;padding:9px 15px;
   font-size:0.9rem;font-weight:600;color:var(--quase-preto);margin:0 8px 8px 0;
+  border:1.5px solid var(--lavanda);
+  box-shadow:3px 3px 0 var(--lavanda);
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease),background .2s;
 }
-.benefit .ck{width:18px;height:18px;border-radius:50%;background:var(--roxo);color:#fff;display:grid;place-items:center;font-size:0.7rem;flex-shrink:0}
+.benefit .ck{width:18px;height:18px;border-radius:50%;background:var(--roxo);color:#fff;display:grid;place-items:center;font-size:0.7rem;flex-shrink:0;box-shadow:2px 2px 0 var(--roxo-escuro)}
 
 .followup{
   margin-top:36px;display:flex;align-items:center;gap:18px;
   background:linear-gradient(120deg,var(--lavanda-suave),var(--cinza-lavanda));
-  border:1px solid var(--lavanda);border-radius:var(--radius);
-  padding:22px 26px;box-shadow:var(--shadow-sm);
-  transition:transform .4s var(--ease),box-shadow .4s var(--ease);
+  border:1.5px solid var(--lavanda);border-radius:var(--radius);
+  padding:22px 26px;
+  box-shadow:4px 4px 0 var(--lavanda);
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
 }
-.followup:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.followup:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--lavanda)}
 .followup .fu-ico{
   flex-shrink:0;width:48px;height:48px;border-radius:14px;
   background:var(--roxo);color:#fff;display:grid;place-items:center;
@@ -332,15 +370,16 @@ footer .logo-word{color:#fff}
 .features{padding:clamp(80px,10vw,130px) 0;background:var(--quase-preto);color:#fff}
 .features .section-head h2,.features .section-head .lead{color:#fff}
 .features .section-head .lead{opacity:.72}
-.features .kicker{background:oklch(0.3 0.08 285);color:var(--lavanda)}
+.features .kicker{background:oklch(0.3 0.08 285);color:var(--lavanda);box-shadow:2px 2px 0 oklch(0.12 0.04 285)}
 .feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .feat{
   background:oklch(0.22 0.03 285);border:1px solid oklch(0.35 0.04 285);
   border-radius:var(--radius);padding:30px;
   display:grid;grid-template-columns:auto 1fr;column-gap:15px;align-items:center;
-  transition:transform .4s var(--ease),border-color .3s;
+  box-shadow:4px 4px 0 oklch(0.14 0.03 285);
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s;
 }
-.feat:hover{transform:translateY(-4px);border-color:var(--roxo)}
+.feat:hover{transform:translate(-3px,-3px);border-color:var(--roxo);box-shadow:7px 7px 0 oklch(0.14 0.03 285)}
 .feat .ico{
   width:54px;height:54px;border-radius:15px;margin-bottom:0;
   background:linear-gradient(135deg,var(--roxo),var(--roxo-vibrante));
@@ -360,7 +399,7 @@ footer .logo-word{color:#fff}
 .diff{padding:clamp(80px,10vw,130px) 0;background:var(--cinza-lavanda)}
 .diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
 .diff-grid .section-head{margin-bottom:0}
-.compare{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-md);overflow:hidden;border:1px solid var(--linha)}
+.compare{background:#fff;border-radius:var(--radius);overflow:hidden;border:1.5px solid var(--linha);box-shadow:5px 5px 0 var(--linha)}
 .compare-row{display:grid;grid-template-columns:1.4fr 1fr 1fr}
 .compare-row.head{background:var(--quase-preto);color:#fff;font-weight:700;font-size:0.88rem}
 .compare-row.head .hs{background:var(--roxo);color:#fff}
@@ -378,8 +417,12 @@ footer .logo-word{color:#fff}
 .pricing .section-head .lead{margin:0 auto}
 .price-card{
   max-width:480px;margin:0 auto;background:linear-gradient(160deg,var(--roxo),var(--roxo-escuro));
-  color:#fff;border-radius:24px;padding:46px 40px;box-shadow:var(--shadow-lg);text-align:left;position:relative;overflow:hidden;
+  color:#fff;border-radius:24px;padding:46px 40px;text-align:left;position:relative;overflow:hidden;
+  border:2px solid var(--roxo-escuro);
+  box-shadow:6px 6px 0 var(--roxo-escuro);
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
 }
+.price-card:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--roxo-escuro)}
 .price-card::after{content:"";position:absolute;width:260px;height:260px;right:-80px;top:-80px;border-radius:50%;background:oklch(0.7 0.18 290 / 0.3);filter:blur(10px)}
 .price-card .pc-tag{position:relative;z-index:1;display:inline-block;background:oklch(1 0 0 / 0.18);font-weight:700;font-size:0.82rem;padding:6px 14px;border-radius:100px;margin-bottom:20px}
 .price-card .amount{position:relative;z-index:1;display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
@@ -395,7 +438,7 @@ footer .logo-word{color:#fff}
 .faq{padding:clamp(70px,9vw,120px) 0;background:var(--cinza-lavanda)}
 .faq .section-head{max-width:680px;margin:0 auto 44px;text-align:center}
 .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
-.faq-item{background:#fff;border-radius:var(--radius-sm);border:1px solid var(--linha);overflow:hidden}
+.faq-item{background:#fff;border-radius:var(--radius-sm);border:1px solid var(--linha);overflow:hidden;box-shadow:3px 3px 0 var(--linha);transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s}
 .faq-q{width:100%;text-align:left;background:none;border:0;cursor:pointer;padding:20px 22px;font-family:inherit;font-weight:700;font-size:1.02rem;color:var(--quase-preto);display:flex;justify-content:space-between;align-items:center;gap:16px}
 .faq-q .pm{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--lavanda-suave);color:var(--roxo);display:grid;place-items:center;font-size:1.1rem;font-weight:700;transition:transform .3s var(--ease)}
 .faq-item.open .faq-q .pm{transform:rotate(45deg)}
@@ -445,12 +488,10 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 .feat:active{transform:translateY(-1px) scale(.99)}
 .feat .ico{transition:transform .4s var(--ease)}
 .feat:hover .ico{transform:translateY(-3px) rotate(-6deg) scale(1.08)}
-.benefit{transition:transform .3s var(--ease),background .3s}
-.benefit:hover{transform:translateY(-2px);background:var(--lavanda)}
-.float-card{transition:box-shadow .35s var(--ease),filter .35s}
-.float-card:hover{filter:brightness(1.04) saturate(1.05);box-shadow:var(--shadow-lg)}
-.faq-item{transition:border-color .3s,box-shadow .3s}
-.faq-item:hover{border-color:var(--lavanda);box-shadow:var(--shadow-sm)}
+.benefit:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--lavanda);background:var(--lavanda-suave)}
+.float-card{transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.float-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--lavanda)}
+.faq-item:hover{border-color:var(--lavanda);transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--lavanda)}
 .price-card li{transition:transform .25s var(--ease)}
 .price-card li:hover{transform:translateX(4px)}
 
@@ -697,20 +738,13 @@ header:has(.nav-links.open){backdrop-filter:none!important;background:transparen
   .fc-stat .n{font-size:1.2rem}
 }
 
-/* -- Hero trust: empilha verticalmente no mobile -- */
-@media(max-width:560px){
-  .hero-trust{flex-direction:column;align-items:flex-start;gap:8px}
-  .hero-trust .dot{display:none}
-  .hero-trust span:not(.dot){
-    display:flex;align-items:center;gap:8px;
-  }
-  .hero-trust span:not(.dot)::before{
-    content:"✓";
-    display:grid;place-items:center;
-    width:18px;height:18px;flex-shrink:0;
-    background:var(--roxo);color:#fff;
-    border-radius:50%;font-size:0.65rem;font-weight:900;
-  }
+/* -- Hero trust: wrap em telas médias, coluna no mobile pequeno -- */
+@media(max-width:700px){
+  .hero-trust{flex-wrap:wrap;gap:8px}
+}
+@media(max-width:400px){
+  .hero-trust{flex-direction:column;align-items:flex-start}
+  .hero-trust .benefit{width:100%}
 }
 
 /* -- Hero actions: botões full-width em telas pequenas -- */
@@ -720,9 +754,12 @@ header:has(.nav-links.open){backdrop-filter:none!important;background:transparen
 }
 
 /* -- Proof seals: 2 colunas em mobile -- */
-@media(max-width:520px){
-  .proof-row{gap:20px 16px;justify-content:center}
-  .seal{width:calc(50% - 8px);max-width:160px}
+@media(max-width:700px){
+  .proof-row{flex-wrap:wrap;gap:10px;justify-content:center}
+  .seal{flex:0 0 calc(50% - 5px);max-width:calc(50% - 5px)}
+}
+@media(max-width:400px){
+  .seal{flex:0 0 100%;max-width:100%}
 }
 
 /* -- Tabela comparativa: reduz fonte e padding -- */
@@ -767,6 +804,47 @@ header:has(.nav-links.open){backdrop-filter:none!important;background:transparen
 /* -- Geral: impede overflow horizontal -- */
 html,body{overflow-x:hidden}
 .wrap{padding-left:max(16px,4vw);padding-right:max(16px,4vw)}
+
+/* -- Scrollbar lateral personalizada -- */
+html::-webkit-scrollbar{width:0}
+html{scrollbar-width:none}
+
+.scroll-track{
+  position:fixed;right:0;top:0;bottom:0;
+  width:12px;
+  background:var(--lavanda-suave);
+  z-index:400;
+  pointer-events:all;
+  cursor:pointer;
+  overflow:visible;
+}
+.scroll-fill{
+  position:absolute;
+  top:0;left:0;right:0;
+  height:0;
+  background:var(--roxo);
+  pointer-events:none;
+}
+.scroll-thumb{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  top:0;
+  width:20px;
+  height:22px;
+  background:var(--roxo);
+  border-radius:5px;
+  border:1.5px solid var(--roxo-escuro);
+  box-shadow:3px 3px 0 var(--roxo-escuro);
+  cursor:grab;
+  pointer-events:all;
+  z-index:1;
+  transition:box-shadow .15s,transform .15s;
+}
+.scroll-thumb:hover{box-shadow:4px 4px 0 var(--roxo-escuro)}
+.scroll-thumb:active{cursor:grabbing;transform:translateX(-50%) scale(.95);box-shadow:2px 2px 0 var(--roxo-escuro)}
+
+@media(hover:none),(pointer:coarse){.scroll-track{display:none}}
 
 /* -- WebChat Widget: ícone branco + altura mobile -- */
 [id^="wcw"] button svg,
@@ -833,11 +911,9 @@ html,body{overflow-x:hidden}
         <a href="#" class="btn btn-outline cta-whats">Testar a IA <span class="arrow">→</span></a>
       </div>
       <div class="hero-trust">
-        <span><b>R$997</b>/mês ilimitado</span>
-        <span class="dot"></span>
-        <span><b>0%</b> de comissão</span>
-        <span class="dot"></span>
-        <span>Atende em <b>qualquer idioma</b></span>
+        <span class="benefit"><span class="ck">✓</span> <b>R$997</b>/mês ilimitado</span>
+        <span class="benefit"><span class="ck">✓</span> <b>0%</b> de comissão</span>
+        <span class="benefit"><span class="ck">✓</span> Atende em <b>qualquer idioma</b></span>
       </div>
     </div>
 
@@ -893,68 +969,29 @@ html,body{overflow-x:hidden}
     <p><span class="approval">✓</span> Construído para a operação real da hotelaria brasileira</p>
     <div class="proof-row">
       <div class="seal">
-        <div class="badge"><svg viewBox="0 0 24 24"><path d="M12 3l1.7 4.1L18 8.8l-4.1 1.7L12 14.6l-1.7-4.1L6 8.8l4.3-1.7z"/><path d="M18 14l.8 1.9 1.9.8-1.9.8L18 19.4l-.8-1.9-1.9-.8 1.9-.8z"/></svg></div>
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l1.7 4.1L18 8.8l-4.1 1.7L12 14.6l-1.7-4.1L6 8.8l4.3-1.7z"/><path d="M18 14l.8 1.9 1.9.8-1.9.8L18 19.4l-.8-1.9-1.9-.8 1.9-.8z"/></svg></div>
         <span class="lbl">IA especializada</span>
         <span class="sub">em hotelaria</span>
       </div>
       <div class="seal">
-        <div class="badge"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-11.7 7.7L4 21l1.8-5.3A8.4 8.4 0 1 1 21 11.5z"/></svg></div>
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-11.7 7.7L4 21l1.8-5.3A8.4 8.4 0 1 1 21 11.5z"/></svg></div>
         <span class="lbl">Omnichannel</span>
         <span class="sub">WhatsApp, Insta, site</span>
       </div>
       <div class="seal">
-        <div class="badge"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9.5h16M9 3v4M15 3v4"/><path d="M8 14l2.2 2.2L16 12"/></svg></div>
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9.5h16M9 3v4M15 3v4"/><path d="M8 14l2.2 2.2L16 12"/></svg></div>
         <span class="lbl">Motor de reservas</span>
         <span class="sub">tempo real</span>
       </div>
       <div class="seal">
-        <div class="badge"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="4.5" height="16" rx="1.2"/><rect x="9.8" y="4" width="4.5" height="11" rx="1.2"/><rect x="15.6" y="4" width="4.5" height="14" rx="1.2"/></svg></div>
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="4.5" height="16" rx="1.2"/><rect x="9.8" y="4" width="4.5" height="11" rx="1.2"/><rect x="15.6" y="4" width="4.5" height="14" rx="1.2"/></svg></div>
         <span class="lbl">CRM automatizado</span>
         <span class="sub">pipeline + dados</span>
       </div>
       <div class="seal">
-        <div class="badge"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M3 10h18M7 14.5h4"/></svg></div>
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M3 10h18M7 14.5h4"/></svg></div>
         <span class="lbl">Pagamento integrado</span>
         <span class="sub">Pix, cartão, PMS</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROBLEMA -->
-<section class="problem">
-  <div class="geo g-spin" style="top:9%;right:5%;width:86px;--d:55s"><svg viewBox="0 0 120 120"><circle class="geo-stroke" cx="60" cy="60" r="50" stroke-dasharray="6 12"/></svg></div>
-  <div class="geo g-float" style="bottom:8%;left:3%;width:58px;--d:12s;--r:-6deg"><svg viewBox="0 0 120 120"><path class="geo-stroke" d="M60 8 L106 34 L106 86 L60 112 L14 86 L14 34 Z M60 8 L60 60 M60 60 L106 34 M60 60 L14 34"/></svg></div>
-  <div class="wrap">
-    <div class="problem-head reveal">
-      <span class="kicker">O custo de cada minuto</span>
-      <h2>Cada <span style="color:var(--roxo)">reserva perdida</span> começa<br>com uma mensagem sem resposta</h2>
-      <p class="lead">O hóspede pergunta, espera, e fecha com o concorrente. À noite, no fim de semana,<br>em outro idioma. Sua recepção não dá conta, e as OTAs ficam com a comissão.</p>
-    </div>
-    <div class="pains">
-      <div class="pain reveal">
-        <div class="picon"><svg viewBox="0 0 24 24"><path d="M13 2 L4 14 h7 l-1 8 9-12 h-7 z"/></svg></div>
-        <h3>Resposta instantânea</h3>
-        <span class="note">com delay humanizado</span>
-        <p>76% dos hóspedes fecham com quem responde primeiro. Cada hora de espera é uma reserva a menos.</p>
-      </div>
-      <div class="pain reveal">
-        <div class="picon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3.5 2"/></svg></div>
-        <h3>24 horas, 7 dias</h3>
-        <span class="note">sem escala extra</span>
-        <p>Metade das perguntas chega quando a recepção já fechou. Sem atendimento, não há venda.</p>
-      </div>
-      <div class="pain reveal">
-        <div class="picon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 15.5 L15.5 8.5"/><circle cx="9.3" cy="9.3" r="1.4"/><circle cx="14.7" cy="14.7" r="1.4"/></svg></div>
-        <h3>Sem comissão das OTAs</h3>
-        <span class="note">venda direta no foco</span>
-        <p>Até 30% de cada diária vai embora para as OTAs. A venda direta fica sempre em segundo plano.</p>
-      </div>
-      <div class="pain reveal">
-        <div class="picon"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-8-5"/><path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 8 5"/><path d="M21 4v4h-4"/><path d="M3 20v-4h4"/></svg></div>
-        <h3>Follow-up automático</h3>
-        <span class="note">em todas as etapas</span>
-        <p>Quando o lead esfria, ninguém retoma. A reserva que estava a um passo simplesmente some.</p>
       </div>
     </div>
   </div>
@@ -1032,6 +1069,45 @@ html,body{overflow-x:hidden}
       <div>
         <strong>Follow-up automático em todas as etapas.</strong>
         Um único agente, especializado, inteligente e personalizado pro seu hotel, retoma o hóspede que esfriou em qualquer ponto do funil, do primeiro contato ao pós-estadia.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="problem">
+  <div class="geo g-spin" style="top:9%;right:5%;width:86px;--d:55s"><svg viewBox="0 0 120 120"><circle class="geo-stroke" cx="60" cy="60" r="50" stroke-dasharray="6 12"/></svg></div>
+  <div class="geo g-float" style="bottom:8%;left:3%;width:58px;--d:12s;--r:-6deg"><svg viewBox="0 0 120 120"><path class="geo-stroke" d="M60 8 L106 34 L106 86 L60 112 L14 86 L14 34 Z M60 8 L60 60 M60 60 L106 34 M60 60 L14 34"/></svg></div>
+  <div class="wrap">
+    <div class="problem-head reveal">
+      <span class="kicker">Por que os hotéis estão perdendo receita direta</span>
+      <h2>Cada <span style="color:var(--roxo)">mensagem sem resposta</span><br>é uma reserva que vai pro concorrente</h2>
+      <p class="lead">O hóspede pergunta, espera segundos, e fecha com quem respondeu primeiro. À noite, no fim de semana, em outro idioma. A HSales garante que o seu hotel sempre responde.</p>
+    </div>
+    <div class="pains">
+      <div class="pain reveal">
+        <div class="picon"><svg viewBox="0 0 24 24"><path d="M13 2 L4 14 h7 l-1 8 9-12 h-7 z"/></svg></div>
+        <h3>Responde rápido</h3>
+        <span class="note">Com delay humanizado</span>
+        <p>76% dos hóspedes fecham com quem responde primeiro. A HSales responde em segundos, a qualquer hora.</p>
+      </div>
+      <div class="pain reveal">
+        <div class="picon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3.5 2"/></svg></div>
+        <h3>24h por dia, 7 dias</h3>
+        <span class="note">Sem escala extra</span>
+        <p>Metade das perguntas chega fora do horário da recepção. A HSales atende e fecha 24h por dia, 7 dias por semana.</p>
+      </div>
+      <div class="pain reveal">
+        <div class="picon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 15.5 L15.5 8.5"/><circle cx="9.3" cy="9.3" r="1.4"/><circle cx="14.7" cy="14.7" r="1.4"/></svg></div>
+        <h3>Sem dividir com OTA</h3>
+        <span class="note">100% da receita pro seu hotel</span>
+        <p>Até 30% de cada diária vai para as OTAs. Com a HSales, o hóspede reserva direto — e a comissão fica com você.</p>
+      </div>
+      <div class="pain reveal">
+        <div class="picon"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-8-5"/><path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 8 5"/><path d="M21 4v4h-4"/><path d="M3 20v-4h4"/></svg></div>
+        <h3>Resgata o lead frio</h3>
+        <span class="note">Follow-up em todas as etapas</span>
+        <p>O agente retoma automaticamente quem parou no meio do caminho — do primeiro contato ao pós-estadia.</p>
       </div>
     </div>
   </div>
@@ -1435,6 +1511,70 @@ document.querySelectorAll('.faq-q').forEach(q=>{
   if(c)c.addEventListener('click',e=>{e.preventDefault();var b=document.querySelector('.fab-bubble');if(b)b.style.display='none';});
 })();
 
+// Scrollbar lateral: barra que enche de roxo + thumb arrastável
+window.addEventListener('load',function(){
+  const track=document.getElementById('scrollTrack');
+  const fill=document.getElementById('scrollFill');
+  const thumb=document.getElementById('scrollThumb');
+  if(!track||!fill||!thumb)return;
+
+  function trackH(){ return track.offsetHeight; }
+  function thumbH(){ return thumb.offsetHeight; }
+  function scrollable(){ return Math.max(1,document.documentElement.scrollHeight-window.innerHeight); }
+  function range(){ return Math.max(1,trackH()-thumbH()); }
+
+  // Atualiza fill + thumb a partir do scroll
+  function update(){
+    const pct=Math.min(1,window.pageYOffset/scrollable());
+    const fillH=pct*trackH();
+    fill.style.height=fillH+'px';
+    thumb.style.top=Math.max(0,Math.min(range(),pct*range()))+'px';
+  }
+
+  window.addEventListener('scroll',update,{passive:true});
+  window.addEventListener('resize',update);
+  update();
+
+  // Drag do thumb
+  const html=document.documentElement;
+  let dragging=false,startY=0,startTop=0;
+
+  thumb.addEventListener('mousedown',function(e){
+    dragging=true;
+    startY=e.clientY;
+    startTop=parseFloat(thumb.style.top)||0;
+    document.body.style.userSelect='none';
+    html.style.scrollBehavior='auto'; // desativa smooth durante drag
+    e.preventDefault();
+    e.stopPropagation();
+  });
+  window.addEventListener('mousemove',function(e){
+    if(!dragging)return;
+    const r=range();
+    const newTop=Math.max(0,Math.min(r,startTop+(e.clientY-startY)));
+    const pct=newTop/r;
+    thumb.style.top=newTop+'px';
+    fill.style.height=(pct*trackH())+'px';
+    window.scrollTo(0,pct*scrollable());
+  });
+  window.addEventListener('mouseup',function(){
+    if(!dragging)return;
+    dragging=false;
+    document.body.style.userSelect='';
+    html.style.scrollBehavior=''; // restaura smooth
+  });
+
+  // Clique na trilha → vai direto, sem snap
+  track.addEventListener('click',function(e){
+    if(e.target===thumb)return;
+    const rect=track.getBoundingClientRect();
+    const pct=Math.max(0,Math.min(1,(e.clientY-rect.top)/trackH()));
+    html.style.scrollBehavior='auto';
+    window.scrollTo(0,pct*scrollable());
+    setTimeout(function(){html.style.scrollBehavior='';},50);
+  });
+});
+
 // Cursor customizado (ponto + anel com atraso, cresce sobre elementos interativos)
 if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
   const cdot=document.createElement('div');cdot.className='cursor-dot';
@@ -1500,6 +1640,12 @@ if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
   ]
 }
 </script>
+<!-- Scrollbar lateral personalizada -->
+<div class="scroll-track" id="scrollTrack">
+  <div class="scroll-fill" id="scrollFill"></div>
+  <div class="scroll-thumb" id="scrollThumb"></div>
+</div>
+
 <!-- WebChat Widget -->
 <script>
   (function(w,d,s,o,f,js,fjs){

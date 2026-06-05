@@ -87,6 +87,7 @@ body {
   font-size: 11px; font-weight: 700;
   padding: 5px 14px; border-radius: 100px;
   text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px;
+  box-shadow: 2px 2px 0 var(--lavanda);
 }
 .kicker-dash { width: 12px; height: 2px; background: currentColor; border-radius: 2px; }
 .page-head h1 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 900; letter-spacing: -.03em; margin-bottom: 8px; }
@@ -95,9 +96,9 @@ body {
 /* CARD PRINCIPAL */
 .card {
   background: #fff;
-  border: 1px solid var(--linha);
+  border: 1.5px solid var(--lavanda);
   border-radius: 16px;
-  box-shadow: 0 12px 40px rgba(91,63,217,.08);
+  box-shadow: 5px 5px 0 var(--lavanda);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   overflow: hidden;
@@ -153,7 +154,7 @@ body {
 }
 .day.clickable:hover { background: var(--lav-s); color: var(--roxo); border-color: var(--lavanda); }
 .day.today { font-weight: 800; color: var(--roxo); }
-.day.selected { background: var(--roxo) !important; color: #fff !important; border-color: var(--roxo) !important; font-weight: 700; }
+.day.selected { background: var(--roxo) !important; color: #fff !important; border-color: var(--roxo-esc) !important; font-weight: 700; box-shadow: 2px 2px 0 var(--roxo-esc); }
 .day.faded { color: #ccc; }
 
 /* HORÁRIOS */
@@ -171,7 +172,7 @@ body {
   user-select: none;
 }
 .slot:hover { border-color: var(--roxo); color: var(--roxo); background: var(--lav-s); }
-.slot.selected { background: var(--roxo); color: #fff; border-color: var(--roxo); }
+.slot.selected { background: var(--roxo); color: #fff; border-color: var(--roxo-esc); box-shadow: 3px 3px 0 var(--roxo-esc); }
 .slot .dur { font-size: 11px; opacity: .7; font-weight: 500; pointer-events: none; }
 .slot span:first-child { pointer-events: none; }
 .empty-state { font-size: 13px; color: var(--corpo); text-align: center; padding: 48px 16px; opacity: .6; line-height: 1.6; }
@@ -192,18 +193,19 @@ body {
 .btn-send {
   width: 100%;
   padding: 14px;
-  border-radius: 100px;
+  border-radius: 14px;
   background: var(--roxo);
   color: #fff;
-  border: 1.5px solid var(--roxo);
+  border: 2px solid var(--roxo-esc);
   font-family: 'Inter', inherit;
   font-size: 14px; font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(91,63,217,.30);
-  transition: all .2s;
+  box-shadow: 4px 4px 0 var(--roxo-esc);
+  transition: transform .18s ease, box-shadow .18s ease, background .2s;
   letter-spacing: -.01em;
 }
-.btn-send:hover { background: var(--roxo-esc); transform: translateY(-1px); }
+.btn-send:hover { background: var(--roxo-v); transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--roxo-esc); }
+.btn-send:active { transform: translate(2px,2px); box-shadow: none; }
 
 /* CONFIRMADO */
 .confirmed {

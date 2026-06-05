@@ -178,7 +178,7 @@ body {
   overflow: hidden;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.section.active { border-color: var(--roxo); box-shadow: 0 2px 16px rgba(91,63,217,0.08); }
+.section.active { border-color: var(--roxo); box-shadow: 4px 4px 0 var(--lavanda); }
 .section-header {
   display: flex;
   align-items: center;
@@ -394,34 +394,37 @@ textarea.tall { min-height: 120px; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 9px 22px;
-  border-radius: 100px;
+  padding: 10px 22px;
+  border-radius: 14px;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
+  transition: transform 0.18s cubic-bezier(0.22,1,0.36,1), box-shadow 0.18s cubic-bezier(0.22,1,0.36,1), background 0.2s, color 0.2s;
   font-family: 'Inter', inherit;
   border: none;
 }
+.btn:active { transform: translate(2px,2px) !important; box-shadow: none !important; }
 .btn-primary {
   background: var(--roxo);
   color: #fff;
-  border: 1.5px solid var(--roxo);
-  box-shadow: 0 8px 24px rgba(91,63,217,0.30);
+  border: 2px solid var(--roxo-escuro);
+  box-shadow: 4px 4px 0 var(--roxo-escuro);
 }
-.btn-primary:hover { background: transparent; color: var(--roxo); transform: translateY(-2px); box-shadow: none; }
+.btn-primary:hover { background: var(--roxo-vibrante); transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--roxo-escuro); }
 .btn-outline {
   background: transparent;
-  border: 1.5px solid var(--roxo);
+  border: 2px solid var(--roxo);
   color: var(--roxo);
+  box-shadow: 3px 3px 0 var(--lavanda);
 }
-.btn-outline:hover { background: var(--roxo); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(91,63,217,0.30); }
+.btn-outline:hover { background: var(--roxo); color: #fff; transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--roxo-escuro); }
 .btn-ghost {
   background: var(--surface2);
   border: 1.5px solid var(--border);
   color: var(--quase-preto);
+  box-shadow: 2px 2px 0 var(--border);
 }
-.btn-ghost:hover { border-color: var(--roxo); color: var(--roxo); }
+.btn-ghost:hover { border-color: var(--roxo); color: var(--roxo); box-shadow: 3px 3px 0 var(--lavanda); }
 .btn-lg { padding: 15px 36px; font-size: 15px; }
 .btn-add-room {
   width: 100%;
@@ -446,7 +449,8 @@ textarea.tall { min-height: 120px; }
   background: linear-gradient(135deg, var(--roxo) 0%, var(--roxo-vibrante) 100%);
   border-radius: var(--radius);
   text-align: center;
-  box-shadow: 0 20px 50px rgba(91,63,217,0.35);
+  border: 2px solid var(--roxo-escuro);
+  box-shadow: 6px 6px 0 var(--roxo-escuro);
 }
 .submit-area p { color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 12px; }
 .submit-area .btn-primary {
