@@ -50,6 +50,11 @@ body {
 }
 
 /* ── HEADER ── */
+.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 .header {
   background: rgba(255,255,255,0.92);
   backdrop-filter: blur(14px);
@@ -58,9 +63,6 @@ body {
   display: flex;
   align-items: center;
   gap: 16px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
   box-shadow: 0 1px 0 var(--border);
 }
 .header-sub {
@@ -448,7 +450,8 @@ textarea.tall { min-height: 120px; }
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- HEADER + PROGRESS (sticky juntos) -->
+<div class="sticky-top">
 <div class="header">
   <div class="logo">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 340 116" height="36" role="img" aria-label="HSales">
@@ -477,14 +480,15 @@ textarea.tall { min-height: 120px; }
   </div>
 </div>
 
-<!-- PROGRESS BAR -->
-<div class="progress-wrap">
+<!-- PROGRESS BAR (sticky junto com o header) -->
+<div class="progress-wrap" id="progressWrap">
   <span style="white-space:nowrap">Progresso</span>
   <div class="progress-bar-outer">
     <div class="progress-bar-inner" id="progressBar"></div>
   </div>
   <span class="progress-label" id="progressLabel">0%</span>
 </div>
+</div><!-- /sticky-top -->
 
 <!-- MAIN -->
 <div class="container">

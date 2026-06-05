@@ -344,54 +344,16 @@ body {
 <script>
 const WPP = '5548999999999'; // substituir pelo número real
 
-// ── Slots 13h–18h ────────────────────────────────────
-const SLOTS = ['13:00','13:45','14:30','15:15','16:00','16:45','17:30'];
+// ── Constantes (devem vir antes de qualquer uso) ──────
+const SLOTS  = ['13:00','13:45','14:30','15:15','16:00','16:45','17:30'];
+const MESES  = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const MESES_C = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const DIAS_S  = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
 
 // ── Estado ───────────────────────────────────────────
 const hoje = new Date();
 let vy = hoje.getFullYear(), vm = hoje.getMonth();
 let selDate = null, selSlot = null;
-
-// ── Init ─────────────────────────────────────────────
-const hotel = sessionStorage.getItem('hs_hotel') || '';
-if (hotel) document.getElementById('bannerTitle').textContent = `Briefing de ${hotel} enviado! 🎉`;
-
-// Pré-seleciona amanhã
-const amanha = new Date(hoje);
-amanha.setDate(hoje.getDate() + 1);
-vy = amanha.getFullYear();
-vm = amanha.getMonth();
-
-renderCal();
-
-// Dispara seleção de amanhã e primeiro slot
-const ds0 = `${DIAS_S[amanha.getDay()]}, ${amanha.getDate()} de ${MESES_C[amanha.getMonth()]}. ${amanha.getFullYear()}`;
-selDate = amanha;
-renderCal(); // re-renderiza com dia selecionado
-
-document.getElementById('labelHora').textContent = ds0;
-const wrap0 = document.getElementById('slotsWrap');
-wrap0.innerHTML = '';
-const div0 = document.createElement('div');
-div0.className = 'slots';
-let firstEl = null;
-SLOTS.forEach((h, i) => {
-  const el = document.createElement('div');
-  el.className = 'slot';
-  el.innerHTML = `<span>${h}</span><span class="dur">45 min</span>`;
-  el.addEventListener('click', () => pickSlot(h, el, ds0));
-  div0.appendChild(el);
-  if (i === 0) firstEl = el;
-});
-wrap0.appendChild(div0);
-
-// Pré-seleciona primeiro horário
-if (firstEl) pickSlot(SLOTS[0], firstEl, ds0);
-
-// ── Calendário ───────────────────────────────────────
-const MESES  = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-const MESES_C = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-const DIAS_S  = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
 
 function renderCal() {
   document.getElementById('monthLabel').textContent = `${MESES[vm]} ${vy}`;
@@ -491,6 +453,26 @@ function confirmar(dt) {
 }
 
 function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+// ── Init: pré-seleciona amanhã + primeiro slot ────────
+const hotel = sessionStorage.getItem('hs_hotel') || '';
+if (hotel) document.getElementById('bannerTitle').textContent = `Briefing de ${hotel} enviado! 🎉`;
+
+const amanha = new Date(hoje);
+amanha.setDate(hoje.getDate() + 1);
+vy = amanha.getFullYear();
+vm = amanha.getMonth();
+selDate = amanha;
+
+renderCal();
+pickDate(amanha);
+
+// pré-seleciona o primeiro slot automaticamente
+const primeiroSlotEl = document.querySelector('.slot');
+if (primeiroSlotEl) {
+  const ds = `${DIAS_S[amanha.getDay()]}, ${amanha.getDate()} de ${MESES_C[amanha.getMonth()]}. ${amanha.getFullYear()}`;
+  pickSlot(SLOTS[0], primeiroSlotEl, ds);
+}
 </script>
 </body>
 </html>
