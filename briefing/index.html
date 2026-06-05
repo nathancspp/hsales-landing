@@ -541,9 +541,9 @@ textarea.tall { min-height: 120px; }
     <div class="progress-fill" id="progressBar"></div>
     <div class="progress-cursor" id="progressCursor">0%</div>
     <!-- ticks -->
-    <div class="ms-tick" id="tk50" style="left:50%"><div class="ms-lbl" id="lb50">50%</div></div>
     <div class="ms-tick" id="tk70" style="left:70%"><div class="ms-lbl" id="lb70">70%</div></div>
     <div class="ms-tick" id="tk90" style="left:90%"><div class="ms-lbl" id="lb90">90%</div></div>
+    <div class="ms-tick" id="tk100" style="left:100%"><div class="ms-lbl" id="lb100">100%</div></div>
   </div>
 </div>
 </div><!-- /sticky-top -->
@@ -1392,7 +1392,7 @@ textarea.tall { min-height: 120px; }
         Agendar minha reunião →
       </button>
       <div id="submitLock" style="color:rgba(255,255,255,0.7);font-size:12px;margin-top:10px;">
-        Preencha pelo menos 50% do briefing para liberar
+        Preencha pelo menos 70% do briefing para liberar
       </div>
       <p>Na próxima página você escolhe o horário — nossa equipe finaliza a personalização com você.</p>
     </div>
@@ -1448,7 +1448,7 @@ document.querySelectorAll('input[type=file]').forEach(input => {
 });
 
 // ── PROGRESS BAR ──────────────────────────────────────
-const SUBMIT_THRESHOLD = 50;
+const SUBMIT_THRESHOLD = 70;
 
 function countFilledFields() {
   let total = 0, filled = 0;
@@ -1493,7 +1493,7 @@ function updateProgress() {
   }
 
   // ticks e labels
-  [['tk50','lb50',50],['tk70','lb70',70],['tk90','lb90',90]].forEach(([tk,lb,thr]) => {
+  [['tk70','lb70',70],['tk90','lb90',90],['tk100','lb100',100]].forEach(([tk,lb,thr]) => {
     const reached = pct >= thr;
     document.getElementById(tk)?.classList.toggle('reached', reached);
     document.getElementById(lb)?.classList.toggle('reached', reached);
