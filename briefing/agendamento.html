@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSales — Agendar Reunião de Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --roxo: #5B3FD9;
+  --roxo-v: #6B4DE6;
+  --roxo-esc: #4A32B0;
+  --lavanda: #C4B5F4;
+  --lav-s: #EDE8FB;
+  --cinza: #EEEDF6;
+  --preto: #1A1A2E;
+  --corpo: #585770;
+  --alto: #2A1A72;
+  --linha: #E8E4F5;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #F7F6FF;
+  color: var(--preto);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* HEADER */
+.header {
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--linha);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo { display: flex; align-items: center; gap: 9px; --s: 34px; text-decoration: none; }
+.lm {
+  position: relative; isolation: isolate;
+  display: flex; align-items: center; justify-content: center;
+  gap: calc(var(--s)*.07);
+  width: var(--s); height: var(--s);
+  border-radius: calc(var(--s)*.28); background: var(--roxo);
+}
+.lm::after {
+  content: ""; position: absolute; z-index: -1;
+  left: 14%; bottom: calc(var(--s)*-.04);
+  width: calc(var(--s)*.34); height: calc(var(--s)*.34);
+  background: var(--roxo); border-radius: 0 0 0 72%; transform: rotate(8deg);
+}
+.lm .bar { position: relative; z-index: 1; width: calc(var(--s)*.16); height: calc(var(--s)*.5); background: #fff; border-radius: calc(var(--s)*.055); box-shadow: 0 calc(var(--s)*.055) 0 var(--alto); }
+.lm .dot { position: relative; z-index: 1; width: calc(var(--s)*.17); height: calc(var(--s)*.17); background: #fff; border-radius: calc(var(--s)*.05); box-shadow: 0 calc(var(--s)*.055) 0 var(--alto); }
+.lw { font-weight: 900; font-size: calc(var(--s)*.74); letter-spacing: -.03em; color: var(--preto); }
+.badge-onboard {
+  margin-left: auto;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--lav-s); color: var(--roxo);
+  font-size: 11px; font-weight: 700;
+  padding: 5px 12px; border-radius: 100px;
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.badge-onboard::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--roxo); }
+
+/* BANNER */
+.banner {
+  background: linear-gradient(135deg, var(--roxo), var(--roxo-v));
+  color: #fff; text-align: center; padding: 16px 24px;
+}
+.banner strong { display: block; font-size: 15px; font-weight: 800; margin-bottom: 2px; }
+.banner p { font-size: 13px; opacity: .88; }
+
+/* CONTAINER */
+.container { max-width: 960px; margin: 0 auto; padding: 28px 20px 80px; }
+
+.page-head { text-align: center; margin-bottom: 28px; }
+.kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--lav-s); color: var(--roxo);
+  font-size: 11px; font-weight: 700;
+  padding: 5px 14px; border-radius: 100px;
+  text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px;
+}
+.kicker-dash { width: 12px; height: 2px; background: currentColor; border-radius: 2px; }
+.page-head h1 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 900; letter-spacing: -.03em; margin-bottom: 8px; }
+.page-head p { font-size: 14px; color: var(--corpo); }
+
+/* CARD PRINCIPAL */
+.card {
+  background: #fff;
+  border: 1px solid var(--linha);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(91,63,217,.08);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  overflow: hidden;
+  min-height: 480px;
+}
+@media (max-width: 680px) {
+  .card { grid-template-columns: 1fr; }
+  .col { border-left: none !important; border-top: 1px solid var(--linha); }
+}
+
+/* COLUNAS */
+.col { padding: 24px; }
+.col + .col { border-left: 1px solid var(--linha); }
+.col-title {
+  font-size: 13px; font-weight: 800; letter-spacing: -.01em;
+  color: var(--preto); margin-bottom: 4px;
+}
+.col-sub {
+  font-size: 12px; color: var(--roxo); font-weight: 600;
+  margin-bottom: 18px; min-height: 18px;
+}
+
+/* CALENDÁRIO */
+.cal-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.cal-nav h3 { font-size: 14px; font-weight: 800; }
+.nav-btn {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1.5px solid var(--linha); background: none;
+  cursor: pointer; font-size: 15px; color: var(--corpo);
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s; font-family: inherit;
+}
+.nav-btn:hover { border-color: var(--roxo); color: var(--roxo); background: var(--lav-s); }
+.weekdays {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 2px; margin-bottom: 4px;
+}
+.weekdays span {
+  text-align: center; font-size: 9px; font-weight: 700;
+  color: var(--corpo); text-transform: uppercase; letter-spacing: .04em; padding: 3px 0;
+}
+.days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.day {
+  height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 500; border-radius: 7px;
+  border: 1.5px solid transparent;
+  color: var(--preto);
+}
+.day.clickable {
+  cursor: pointer;
+  transition: all .15s;
+}
+.day.clickable:hover { background: var(--lav-s); color: var(--roxo); border-color: var(--lavanda); }
+.day.today { font-weight: 800; color: var(--roxo); }
+.day.selected { background: var(--roxo) !important; color: #fff !important; border-color: var(--roxo) !important; font-weight: 700; }
+.day.faded { color: #ccc; }
+
+/* HORÁRIOS */
+.slots { display: flex; flex-direction: column; gap: 7px; }
+.slot {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--linha);
+  background: #fff;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all .15s;
+  color: var(--preto);
+  user-select: none;
+}
+.slot:hover { border-color: var(--roxo); color: var(--roxo); background: var(--lav-s); }
+.slot.selected { background: var(--roxo); color: #fff; border-color: var(--roxo); }
+.slot .dur { font-size: 11px; opacity: .7; font-weight: 500; pointer-events: none; }
+.slot span:first-child { pointer-events: none; }
+.empty-state { font-size: 13px; color: var(--corpo); text-align: center; padding: 48px 16px; opacity: .6; line-height: 1.6; }
+
+/* CONFIRMAÇÃO */
+.confirm-box {
+  background: var(--lav-s);
+  border: 1.5px solid var(--lavanda);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+.confirm-box .cb-label { font-size: 10px; font-weight: 700; color: var(--corpo); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+.confirm-box .cb-date { font-size: 13px; font-weight: 700; color: var(--preto); margin-bottom: 6px; }
+.confirm-box .cb-time { font-size: 32px; font-weight: 900; color: var(--roxo); letter-spacing: -.03em; line-height: 1; }
+.confirm-box .cb-dur  { font-size: 12px; color: var(--corpo); margin-top: 4px; }
+
+.btn-send {
+  width: 100%;
+  padding: 14px;
+  border-radius: 100px;
+  background: var(--roxo);
+  color: #fff;
+  border: 1.5px solid var(--roxo);
+  font-family: 'Inter', inherit;
+  font-size: 14px; font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(91,63,217,.30);
+  transition: all .2s;
+  letter-spacing: -.01em;
+}
+.btn-send:hover { background: var(--roxo-esc); transform: translateY(-1px); }
+
+/* CONFIRMADO */
+.confirmed {
+  display: none;
+  text-align: center;
+  padding: 48px 24px 80px;
+}
+.confirmed .circle {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--roxo), var(--roxo-v));
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; font-size: 30px;
+  box-shadow: 0 12px 32px rgba(91,63,217,.35);
+}
+.confirmed h2 { font-size: 1.8rem; font-weight: 900; letter-spacing: -.03em; margin-bottom: 10px; }
+.confirmed p { font-size: 14px; color: var(--corpo); max-width: 40ch; margin: 0 auto 24px; line-height: 1.6; }
+.conf-box {
+  max-width: 360px; margin: 0 auto 28px;
+  background: var(--lav-s); border: 1.5px solid var(--lavanda);
+  border-radius: 16px; padding: 20px 24px; text-align: left;
+}
+.conf-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; }
+.conf-row:last-child { margin-bottom: 0; }
+.conf-ico { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.conf-lbl { font-size: 10px; font-weight: 700; color: var(--corpo); text-transform: uppercase; letter-spacing: .5px; }
+.conf-val { font-size: 14px; font-weight: 700; color: var(--preto); }
+.conf-val.roxo { color: var(--roxo); font-size: 16px; }
+.conf-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.btn-gcal {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: 100px;
+  background: var(--roxo); color: #fff;
+  font-family: 'Inter', inherit; font-size: 14px; font-weight: 700;
+  text-decoration: none; border: none;
+  box-shadow: 0 8px 24px rgba(91,63,217,.30); transition: all .2s;
+}
+.btn-gcal:hover { background: var(--roxo-esc); transform: translateY(-1px); }
+.btn-wpp {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: 100px;
+  background: #25D366; color: #fff;
+  font-family: 'Inter', inherit; font-size: 14px; font-weight: 700;
+  text-decoration: none; border: none; transition: all .2s;
+}
+.btn-wpp:hover { background: #1ebe5d; transform: translateY(-1px); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <a href="index.html" class="logo">
+    <div class="lm"><div class="bar"></div><div class="dot"></div><div class="bar"></div></div>
+    <span class="lw">Sales</span>
+  </a>
+  <div class="badge-onboard"><span></span>Onboarding</div>
+</div>
+
+<!-- BANNER -->
+<div class="banner">
+  <strong id="bannerTitle">Briefing enviado com sucesso! 🎉</strong>
+  <p>Escolha o melhor horário para sua reunião de onboarding — duração de 45 minutos.</p>
+</div>
+
+<!-- MAIN -->
+<div class="container" id="mainView">
+  <div class="page-head">
+    <div class="kicker"><div class="kicker-dash"></div>Reunião de Onboarding</div>
+    <h1>Agende sua reunião</h1>
+    <p>Selecione uma data e horário disponível para conversarmos e ativar sua IA.</p>
+  </div>
+
+  <div class="card">
+
+    <!-- COL 1: Calendário -->
+    <div class="col">
+      <div class="col-title">Escolha uma data</div>
+      <div class="col-sub" id="labelData">Disponível seg — sex</div>
+      <div class="cal-nav">
+        <button class="nav-btn" onclick="prevMonth()">‹</button>
+        <h3 id="monthLabel"></h3>
+        <button class="nav-btn" onclick="nextMonth()">›</button>
+      </div>
+      <div class="weekdays">
+        <span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span>
+      </div>
+      <div class="days" id="calDays"></div>
+    </div>
+
+    <!-- COL 2: Horários -->
+    <div class="col">
+      <div class="col-title">Horário disponível</div>
+      <div class="col-sub" id="labelHora">Selecione uma data primeiro</div>
+      <div id="slotsWrap">
+        <div class="empty-state">👈<br>Escolha uma<br>data ao lado</div>
+      </div>
+    </div>
+
+    <!-- COL 3: Confirmação -->
+    <div class="col">
+      <div class="col-title">Confirmar</div>
+      <div class="col-sub" id="labelConfirm">Selecione data e horário</div>
+      <div id="confirmWrap">
+        <div class="empty-state">📅<br>Escolha data<br>e horário para<br>confirmar</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TELA CONFIRMADO -->
+<div class="confirmed" id="confirmedView">
+  <div class="circle">✓</div>
+  <h2>Reunião agendada!</h2>
+  <p>Nossa equipe entrará em contato pelo WhatsApp com a confirmação e o link do Google Meet.</p>
+  <div class="conf-box">
+    <div class="conf-row">
+      <span class="conf-ico">📅</span>
+      <div>
+        <div class="conf-lbl">Data e horário</div>
+        <div class="conf-val roxo" id="confDT"></div>
+      </div>
+    </div>
+    <div class="conf-row">
+      <span class="conf-ico">⏱</span>
+      <div>
+        <div class="conf-lbl">Duração</div>
+        <div class="conf-val">45 min · Google Meet</div>
+      </div>
+    </div>
+  </div>
+  <div class="conf-actions">
+    <a id="btnGcal" href="SEU_LINK_GOOGLE_CALENDAR_AQUI" target="_blank" class="btn-gcal">📅 Adicionar ao Google Agenda</a>
+    <a id="btnWpp"  href="#" target="_blank" class="btn-wpp">💬 Confirmar pelo WhatsApp</a>
+  </div>
+</div>
+
+<script>
+const WPP = '5548999999999'; // substituir pelo número real
+
+// ── Slots 13h–18h ────────────────────────────────────
+const SLOTS = ['13:00','13:45','14:30','15:15','16:00','16:45','17:30'];
+
+// ── Estado ───────────────────────────────────────────
+const hoje = new Date();
+let vy = hoje.getFullYear(), vm = hoje.getMonth();
+let selDate = null, selSlot = null;
+
+// ── Init ─────────────────────────────────────────────
+const hotel = sessionStorage.getItem('hs_hotel') || '';
+if (hotel) document.getElementById('bannerTitle').textContent = `Briefing de ${hotel} enviado! 🎉`;
+
+// Pré-seleciona amanhã
+const amanha = new Date(hoje);
+amanha.setDate(hoje.getDate() + 1);
+vy = amanha.getFullYear();
+vm = amanha.getMonth();
+
+renderCal();
+
+// Dispara seleção de amanhã e primeiro slot
+const ds0 = `${DIAS_S[amanha.getDay()]}, ${amanha.getDate()} de ${MESES_C[amanha.getMonth()]}. ${amanha.getFullYear()}`;
+selDate = amanha;
+renderCal(); // re-renderiza com dia selecionado
+
+document.getElementById('labelHora').textContent = ds0;
+const wrap0 = document.getElementById('slotsWrap');
+wrap0.innerHTML = '';
+const div0 = document.createElement('div');
+div0.className = 'slots';
+let firstEl = null;
+SLOTS.forEach((h, i) => {
+  const el = document.createElement('div');
+  el.className = 'slot';
+  el.innerHTML = `<span>${h}</span><span class="dur">45 min</span>`;
+  el.addEventListener('click', () => pickSlot(h, el, ds0));
+  div0.appendChild(el);
+  if (i === 0) firstEl = el;
+});
+wrap0.appendChild(div0);
+
+// Pré-seleciona primeiro horário
+if (firstEl) pickSlot(SLOTS[0], firstEl, ds0);
+
+// ── Calendário ───────────────────────────────────────
+const MESES  = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const MESES_C = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const DIAS_S  = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+
+function renderCal() {
+  document.getElementById('monthLabel').textContent = `${MESES[vm]} ${vy}`;
+  const wrap = document.getElementById('calDays');
+  wrap.innerHTML = '';
+
+  const firstDow = new Date(vy, vm, 1).getDay();
+  const total    = new Date(vy, vm + 1, 0).getDate();
+
+  for (let i = 0; i < firstDow; i++) {
+    const el = document.createElement('div');
+    el.className = 'day';
+    wrap.appendChild(el);
+  }
+
+  for (let d = 1; d <= total; d++) {
+    const dt   = new Date(vy, vm, d);
+    const past = dt < new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+    const el   = document.createElement('div');
+    el.textContent = d;
+
+    if (past) {
+      el.className = 'day faded';
+    } else {
+      el.className = 'day clickable';
+      if (dt.toDateString() === hoje.toDateString()) el.classList.add('today');
+      if (selDate && dt.toDateString() === selDate.toDateString()) el.classList.add('selected');
+      el.addEventListener('click', () => pickDate(dt));
+    }
+    wrap.appendChild(el);
+  }
+}
+
+function prevMonth() { if (--vm < 0) { vm = 11; vy--; } renderCal(); }
+function nextMonth() { if (++vm > 11) { vm = 0;  vy++; } renderCal(); }
+
+// ── Selecionar data ───────────────────────────────────
+function pickDate(dt) {
+  selDate = dt;
+  selSlot = null;
+  renderCal();
+
+  const ds = `${DIAS_S[dt.getDay()]}, ${dt.getDate()} de ${MESES_C[dt.getMonth()]}. ${dt.getFullYear()}`;
+  document.getElementById('labelHora').textContent = ds;
+
+  // renderiza slots
+  const wrap = document.getElementById('slotsWrap');
+  wrap.innerHTML = '';
+  const div = document.createElement('div');
+  div.className = 'slots';
+  SLOTS.forEach(h => {
+    const el = document.createElement('div');
+    el.className = 'slot';
+    el.innerHTML = `<span>${h}</span><span class="dur">45 min</span>`;
+    el.addEventListener('click', () => pickSlot(h, el, ds));
+    div.appendChild(el);
+  });
+  wrap.appendChild(div);
+
+  // reseta confirmação
+  document.getElementById('labelConfirm').textContent = 'Selecione um horário';
+  document.getElementById('confirmWrap').innerHTML = '<div class="empty-state">🕐<br>Selecione um<br>horário ao lado</div>';
+}
+
+// ── Selecionar horário ────────────────────────────────
+function pickSlot(hora, el, ds) {
+  selSlot = hora;
+  document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+
+  const dt = `${capitalize(ds)} · ${hora}`;
+  document.getElementById('labelConfirm').textContent = hora;
+
+  document.getElementById('confirmWrap').innerHTML = `
+    <div class="confirm-box">
+      <div class="cb-label">Data e horário</div>
+      <div class="cb-date">${capitalize(ds)}</div>
+      <div class="cb-time">${hora}</div>
+      <div class="cb-dur">Duração: 45 min · Google Meet</div>
+    </div>
+    <button class="btn-send" onclick="confirmar('${dt}')">
+      Confirmar agendamento →
+    </button>
+  `;
+}
+
+// ── Confirmar ─────────────────────────────────────────
+function confirmar(dt) {
+  document.getElementById('mainView').style.display = 'none';
+  const view = document.getElementById('confirmedView');
+  view.style.display = 'block';
+  document.getElementById('confDT').textContent = dt;
+
+  const msg = encodeURIComponent(`Olá! Agendei minha reunião de onboarding HSales.\n\n📅 *${dt}*\nAguardo a confirmação!`);
+  document.getElementById('btnWpp').href = `https://wa.me/${WPP}?text=${msg}`;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+</script>
+</body>
+</html>
