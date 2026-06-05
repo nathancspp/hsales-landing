@@ -77,79 +77,56 @@ body {
 .progress-wrap {
   background: var(--lavanda-suave);
   border-bottom: 1px solid var(--border);
-  padding: 8px 24px 10px;
-  font-size: 12px;
-  color: var(--muted);
-}
-.progress-top {
+  padding: 14px 24px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 6px;
+  gap: 14px;
 }
-.progress-bar-outer {
+.progress-label-left {
+  font-size: 11px; font-weight: 700; color: var(--corpo);
+  white-space: nowrap;
+}
+.progress-track {
   flex: 1;
-  height: 6px;
-  background: var(--border);
+  height: 8px;
+  background: var(--alto-relevo);
   border-radius: 99px;
   position: relative;
+  overflow: visible;
 }
-.progress-bar-inner {
+.progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--roxo), var(--lavanda));
+  background: linear-gradient(90deg, var(--lavanda), #fff);
   border-radius: 99px;
   width: 0%;
   transition: width 0.4s ease;
+  position: absolute; top: 0; left: 0;
+  z-index: 1;
 }
-/* marcadores de meta */
-.progress-bar-outer::before,
-.progress-bar-outer::after,
-.milestone-70,
-.milestone-90 {
-  content: '';
+/* quadradinhos sobre a barra */
+.ms-node {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 2px;
-  height: 10px;
-  border-radius: 1px;
-  background: rgba(91,63,217,0.25);
-  pointer-events: none;
-}
-.progress-bar-outer::before { left: 50%; }  /* 50% */
-.progress-bar-outer::after  { left: 70%; }  /* 70% */
-.milestone-70 { left: 70%; display:none; }
-.milestone-90 { left: 90%; }
-
-.progress-milestones {
-  display: flex;
-  position: relative;
-  font-size: 10px;
-  font-weight: 700;
+  width: 38px; height: 28px;
+  border-radius: 7px;
+  background: #fff;
+  border: 2px solid var(--lavanda);
   color: var(--corpo);
-  padding: 0 0 0 0;
-  margin-top: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800;
+  z-index: 2;
+  transition: background 0.35s, border-color 0.35s, color 0.35s, box-shadow 0.35s;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(26,26,46,0.15);
 }
-.ms {
-  position: absolute;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-  transition: color 0.3s;
+.ms-node.reached {
+  background: var(--roxo);
+  border-color: var(--roxo);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(91,63,217,0.45);
 }
-.ms .ms-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--border);
-  transition: background 0.3s;
-  margin-bottom: 2px;
-}
-.ms.reached .ms-dot { background: var(--roxo); }
-.ms.reached { color: var(--roxo); }
-.ms-label { white-space: nowrap; }
-.progress-label { white-space: nowrap; color: var(--roxo); font-weight: 700; font-size: 13px; }
+.progress-label { white-space: nowrap; font-size: 14px; font-weight: 900; color: var(--roxo); letter-spacing: -0.02em; min-width: 42px; text-align: right; }
 
 /* ── MAIN LAYOUT ── */
 .container { max-width: 860px; margin: 0 auto; padding: 24px 20px 80px; }
@@ -532,22 +509,16 @@ textarea.tall { min-height: 120px; }
 </div>
 
 <!-- PROGRESS BAR (sticky junto com o header) -->
-<div class="progress-wrap" id="progressWrap">
-  <div class="progress-top">
-    <span style="white-space:nowrap;font-size:11px;font-weight:700;color:var(--corpo)">Progresso</span>
-    <div class="progress-bar-outer">
-      <div class="progress-bar-inner" id="progressBar"></div>
-      <div class="milestone-90" style="position:absolute;top:50%;transform:translate(-50%,-50%);width:2px;height:10px;border-radius:1px;background:rgba(91,63,217,0.25)"></div>
-    </div>
-    <span class="progress-label" id="progressLabel">0%</span>
-    <span id="progressBadge" style="font-size:11px;font-weight:700;padding:2px 10px;border-radius:99px;background:var(--border);color:var(--corpo);white-space:nowrap;transition:all 0.3s"></span>
+<div class="progress-wrap">
+  <span class="progress-label-left">Progresso</span>
+  <div class="progress-track">
+    <div class="progress-fill" id="progressBar"></div>
+    <div class="ms-node" id="ms50" style="left:50%">50%</div>
+    <div class="ms-node" id="ms70" style="left:70%">70%</div>
+    <div class="ms-node" id="ms90" style="left:90%">90%</div>
+    <div class="ms-node" id="ms100" style="left:100%">100%</div>
   </div>
-  <div class="progress-milestones" style="height:28px;margin-left:0;position:relative;">
-    <div class="ms" id="ms50" style="left:50%"><div class="ms-dot"></div><div class="ms-label">50% Mínimo</div></div>
-    <div class="ms" id="ms70" style="left:70%"><div class="ms-dot"></div><div class="ms-label">70% Bom</div></div>
-    <div class="ms" id="ms90" style="left:90%"><div class="ms-dot"></div><div class="ms-label">90% Ideal</div></div>
-    <div class="ms" id="ms100" style="left:99%"><div class="ms-dot"></div><div class="ms-label">100% ✦</div></div>
-  </div>
+  <span class="progress-label" id="progressLabel">0%</span>
 </div>
 </div><!-- /sticky-top -->
 
@@ -1491,24 +1462,10 @@ function updateProgress() {
   document.getElementById('progressBar').style.width = pct + '%';
   document.getElementById('progressLabel').textContent = pct + '%';
 
-  // marcos
+  // acende quadradinhos
   [['ms50',50],['ms70',70],['ms90',90],['ms100',100]].forEach(([id, thr]) => {
     document.getElementById(id)?.classList.toggle('reached', pct >= thr);
   });
-
-  // badge de status
-  const badge = document.getElementById('progressBadge');
-  if (badge) {
-    let label = '', bg = 'var(--border)', color = 'var(--corpo)';
-    if (pct >= 100) { label = '✦ Excelente!';  bg = '#1A1A2E'; color = '#fff'; }
-    else if (pct >= 90) { label = '🎯 Ideal';  bg = 'var(--roxo)'; color = '#fff'; }
-    else if (pct >= 70) { label = '👍 Bom';    bg = 'var(--roxo-escuro)'; color = '#fff'; }
-    else if (pct >= 50) { label = '✓ Mínimo';  bg = '#4A32B0'; color = '#fff'; }
-    else { label = `Faltam ${50 - pct}% para liberar`; }
-    badge.textContent = label;
-    badge.style.background = bg;
-    badge.style.color = color;
-  }
 
   // botão submit
   const btn = document.getElementById('submitBtn');
