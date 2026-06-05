@@ -75,21 +75,21 @@ body {
 
 /* ── PROGRESS ── */
 .progress-wrap {
-  background: var(--lavanda-suave);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 24px;
+  background: linear-gradient(135deg, var(--roxo) 0%, var(--roxo-vibrante) 100%);
+  border-bottom: none;
+  padding: 12px 24px;
   display: flex;
   align-items: center;
   gap: 14px;
 }
 .progress-label-left {
-  font-size: 11px; font-weight: 700; color: var(--corpo);
+  font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.85);
   white-space: nowrap;
 }
 .progress-track {
   flex: 1;
   height: 8px;
-  background: var(--roxo);
+  background: rgba(255,255,255,0.25);
   border-radius: 99px;
   position: relative;
   overflow: visible;
@@ -108,25 +108,24 @@ body {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 38px; height: 28px;
+  width: 38px; height: 26px;
   border-radius: 7px;
-  background: #fff;
-  border: 2px solid var(--lavanda);
-  color: var(--corpo);
+  background: rgba(255,255,255,0.18);
+  border: 1.5px solid rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.9);
   display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 800;
   z-index: 2;
   transition: background 0.35s, border-color 0.35s, color 0.35s, box-shadow 0.35s;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(26,26,46,0.15);
 }
 .ms-node.reached {
-  background: var(--roxo);
-  border-color: var(--roxo);
-  color: #fff;
-  box-shadow: 0 4px 14px rgba(91,63,217,0.45);
+  background: #fff;
+  border-color: #fff;
+  color: var(--roxo);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
-.progress-label { white-space: nowrap; font-size: 14px; font-weight: 900; color: var(--roxo); letter-spacing: -0.02em; min-width: 42px; text-align: right; }
+.progress-label { white-space: nowrap; font-size: 14px; font-weight: 900; color: #fff; letter-spacing: -0.02em; min-width: 42px; text-align: right; }
 
 /* ── MAIN LAYOUT ── */
 .container { max-width: 860px; margin: 0 auto; padding: 24px 20px 80px; }
