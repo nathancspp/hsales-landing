@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>HSales — Fluxo de Vendas</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --roxo:  #5B3FD9;
+  --roxov: #6B4DE6;
+  --roxoe: #4A32B0;
+  --lav:   #C4B5F4;
+  --bg:    #0F0F1C;
+  --card:  #111125;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  height: 100%;
+  background: var(--bg);
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: white;
+  overflow: hidden;
+}
+
+/* ── HEADER ── */
+.hdr {
+  height: 52px;
+  padding: 0 24px;
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid rgba(91,63,217,.22);
+  flex-shrink: 0;
+  position: relative; z-index: 10;
+  background: var(--bg);
+}
+.logo { font-size: 17px; font-weight: 900; letter-spacing: -.5px; }
+.logo b { color: var(--roxov); }
+.chip {
+  font-size: 10px; font-weight: 700;
+  padding: 3px 9px; border-radius: 6px; border: 1px solid;
+}
+.c-a { color: var(--lav);   border-color: var(--roxo);              background: rgba(91,63,217,.13); }
+.c-b { color: #FF9090;      border-color: rgba(255,107,107,.4);     background: rgba(255,107,107,.07); }
+.c-hint { color: rgba(255,255,255,.28); font-size:10px; }
+.dot { display:inline-block;width:5px;height:5px;border-radius:50%;background:currentColor;margin-right:4px;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+.hdr-right { margin-left:auto; display:flex; gap:6px; align-items:center; }
+
+/* ── ZOOM BUTTONS ── */
+.zbtn {
+  width:30px; height:30px;
+  background: var(--card);
+  border: 1.5px solid rgba(91,63,217,.5);
+  box-shadow: 3px 3px 0 var(--roxoe);
+  border-radius: 8px;
+  color: var(--lav); font-size:16px; font-weight:900;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  user-select:none; transition:transform .08s,box-shadow .08s;
+}
+.zbtn:hover  { transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--roxoe); }
+.zbtn:active { transform:translate(2px,2px);  box-shadow:1px 1px 0 var(--roxoe); }
+.zbtn.fit { width:38px; font-size:10px; font-weight:700; }
+
+/* ── CANVAS ── */
+.canvas {
+  position: fixed;
+  top: 52px; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+  cursor: grab;
+  background: var(--bg);
+  /* Subtle dot grid */
+  background-image: radial-gradient(rgba(91,63,217,.18) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.canvas:active { cursor: grabbing; }
+
+/* ── PAN AREA ── */
+#pan {
+  position: absolute;
+  top: 0; left: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+/* ── SVG NODE IDENTITY ── */
+
+/* These rules target Mermaid's SVG output */
+#pan svg {
+  display: block;
+  background: transparent !important;
+}
+
+/* Node rects – neo-brutalist border-radius */
+#pan .node rect,
+#pan .node polygon {
+  rx: 10px !important;
+}
+
+/* Edge lines */
+#pan .edgePath .path {
+  stroke: #5B3FD9 !important;
+  stroke-width: 2px !important;
+}
+
+/* Edge arrowheads */
+#pan .edgePath marker path {
+  fill: #6B4DE6 !important;
+}
+
+/* Edge labels */
+#pan .edgeLabel rect {
+  fill: var(--bg) !important;
+  opacity: 1 !important;
+}
+#pan .edgeLabel .label {
+  color: rgba(255,255,255,.55) !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+}
+
+/* Node text */
+#pan text,
+#pan .nodeLabel {
+  font-family: 'Inter', sans-serif !important;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="logo">H<b>Sales</b></div>
+  <div class="chip c-a">Fluxo de Vendas</div>
+  <div class="chip c-b"><span class="dot"></span>v0.1 · em construção</div>
+  <span class="c-hint">Scroll → mover · Ctrl+scroll → zoom · Arraste → pan livre</span>
+  <div class="hdr-right">
+    <div class="zbtn" id="zin" title="Zoom in">+</div>
+    <div class="zbtn fit" id="zfit" title="Fit">fit</div>
+    <div class="zbtn" id="zout" title="Zoom out">−</div>
+  </div>
+</div>
+
+<!-- CANVAS -->
+<div class="canvas" id="canvas">
+  <div id="pan"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  DIAGRAM
+// ═══════════════════════════════════════════════════════════
+const DIAGRAM = `
+flowchart LR
+
+  META(["🎯 META ADS\\nTopo · Meio · Fundo"])
+  TOPO["📄 Landing\\nhsales.app"]
+  MEIO["📱 Instagram\\nBio"]
+  FUNDO["💬 WA\\nDireto"]
+
+  AGENTE["🤖 AGENTE WA\\nLogyca · Demo\\nQualificação"]
+  D_COMPRA{"Compra\\ndireta?"}
+
+  CONF["💬 WA\\n✉️ Email\\nConfirmação"]
+  DEMO["🎥 DEMO\\nNathan / Vendedor"]
+
+  PROP["📄 PROPOSTA\\nPág. personalizada\\n💬 WA + ✉️ Email"]
+  D_ACEITA{"Aceitou?"}
+
+  D1["💬 D+1\\nWA follow-up"]
+  D7["✉️ D+7\\nEmail"]
+  D15["💬 D+15\\nWA"]
+  D30["D+30\\nÚltimo"]
+  D_CONV{"Converteu?"}
+  FIM(["❌ Arquivado"])
+
+  PAG["💳 PAGAMENTO\\nCheckout / site"]
+  LAUTO["⚙️ Logyca\\nConfirmação auto"]
+
+  BV["🎉 Boas-vindas\\n💬 WA + ✉️ Email\\n+ link briefing"]
+  BRIEF["📋 Briefing\\nCliente preenche"]
+  D_50{"50%\\npreenchido?"}
+  LEMBR["💬 WA\\nLembrete"]
+  AGENDA2["📅 Agenda\\nReunião Impl."]
+  WAIT["⏳ 72h\\nEquipe prepara"]
+  REUN["⚙️ Reunião Impl.\\nTokens · APIs\\nNathan+Thales"]
+  ATIVO(["🏁 CLIENTE ATIVO\\nSuporte contínuo"])
+
+  META --> TOPO & MEIO & FUNDO
+  TOPO & MEIO & FUNDO --> AGENTE
+  AGENTE --> D_COMPRA
+  D_COMPRA -->|"Sim 🛒"| PAG
+  D_COMPRA -->|"Não"| CONF
+  CONF --> DEMO --> PROP --> D_ACEITA
+  D_ACEITA -->|"Sim ✅"| PAG
+  D_ACEITA -->|"Não ❌"| D1
+  D1 --> D7 --> D15 --> D30 --> D_CONV
+  D_CONV -->|"Sim ✅"| PAG
+  D_CONV -->|"Não"| FIM
+  PAG --> LAUTO --> BV --> BRIEF --> D_50
+  D_50 -->|"Sim ✅"| AGENDA2
+  D_50 -->|"Não"| LEMBR
+  LEMBR -->|"↩ retorna"| BRIEF
+  AGENDA2 --> WAIT --> REUN --> ATIVO
+
+  classDef meta    fill:#5B3FD9,stroke:#4A32B0,color:#fff,font-weight:800,stroke-width:2px
+  classDef entry   fill:#1A1A2E,stroke:#FF6868,color:#FFB0B0,stroke-width:2px
+  classDef agente  fill:#1A1A2E,stroke:#2EC9BF,color:#5FE0D8,stroke-width:2px
+  classDef msg     fill:#0D1928,stroke:#2EC9BF,color:#5FE0D8,stroke-width:1.5px
+  classDef action  fill:#1A1A2E,stroke:#5B3FD9,color:#EDE8FB,stroke-width:1.5px
+  classDef decide  fill:#1A1A2E,stroke:#FFD030,color:#FFE060,stroke-width:2px
+  classDef seq     fill:#1A1A2E,stroke:#FF6868,color:#FF9090,stroke-width:1.5px
+  classDef pag     fill:#1A1A2E,stroke:#A898F8,color:#CCC4FF,stroke-width:2px
+  classDef auto_   fill:#131320,stroke:#7050D8,color:#A080F0,stroke-width:1.5px
+  classDef onboard fill:#1A1A2E,stroke:#6844D8,color:#B8A4FF,stroke-width:1.5px
+  classDef finish  fill:#1A1A2E,stroke:#E870A8,color:#FFA0C8,stroke-width:2px
+
+  class META meta
+  class TOPO,MEIO,FUNDO entry
+  class AGENTE agente
+  class CONF,PROP msg
+  class DEMO action
+  class D_COMPRA,D_ACEITA,D_CONV,D_50 decide
+  class D1,D7,D15,D30 seq
+  class PAG pag
+  class LAUTO auto_
+  class BV,BRIEF,LEMBR,AGENDA2,WAIT,REUN onboard
+  class FIM,ATIVO finish
+`;
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER + POST-PROCESS
+// ═══════════════════════════════════════════════════════════
+mermaid.initialize({
+  startOnLoad: false,
+  securityLevel: 'loose',
+  theme: 'dark',
+  themeVariables: {
+    background:          '#0F0F1C',
+    mainBkg:             '#1A1A2E',
+    nodeBorder:          '#5B3FD9',
+    lineColor:           '#5B3FD9',
+    primaryColor:        '#1A1A2E',
+    primaryTextColor:    '#EDE8FB',
+    primaryBorderColor:  '#5B3FD9',
+    edgeLabelBackground: '#0F0F1C',
+    fontSize:            '12px',
+    fontFamily:          'Inter, sans-serif'
+  },
+  flowchart: {
+    curve: 'basis',
+    nodeSpacing: 40,
+    rankSpacing: 60,
+    padding: 16,
+    htmlLabels: false
+  }
+});
+
+async function render() {
+  const pan = document.getElementById('pan');
+  const { svg } = await mermaid.render('hsales-flow', DIAGRAM);
+  pan.innerHTML = svg;
+
+  const svgEl = pan.querySelector('svg');
+  if (!svgEl) return;
+
+  // ── Apply neo-brutalist flat shadows ──────────────────────
+  const NS = 'http://www.w3.org/2000/svg';
+  const SHADOW = '#200E50'; // dark purple shadow
+
+  svgEl.querySelectorAll('g.node').forEach(nodeG => {
+    const shape = nodeG.querySelector('rect, polygon');
+    if (!shape) return;
+
+    const shadow = shape.cloneNode(false);
+    shadow.setAttribute('fill', SHADOW);
+    shadow.removeAttribute('stroke');
+    shadow.removeAttribute('class');
+
+    if (shape.tagName === 'rect') {
+      shadow.setAttribute('x',      String(+shape.getAttribute('x') + 4));
+      shadow.setAttribute('y',      String(+shape.getAttribute('y') + 4));
+      shadow.setAttribute('rx',     '8');
+      shape.setAttribute('rx',      '8');
+    } else if (shape.tagName === 'polygon') {
+      // Diamond: shift all points +4,+4
+      const shifted = (shape.getAttribute('points') || '')
+        .trim().split(/\s+/).map(pt => {
+          const [px, py] = pt.split(',');
+          return `${+px + 4},${+py + 4}`;
+        }).join(' ');
+      shadow.setAttribute('points', shifted);
+    }
+
+    nodeG.insertBefore(shadow, shape);
+  });
+
+  // ── Fix border radius on all rects ───────────────────────
+  svgEl.querySelectorAll('.node rect').forEach(r => r.setAttribute('rx','8'));
+
+  // ── Fit — try immediately, rAF, and 300ms fallback ────────
+  fitToScreen(svgEl);
+  requestAnimationFrame(() => fitToScreen(svgEl));
+  setTimeout(() => fitToScreen(svgEl), 300);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  PAN / ZOOM
+// ═══════════════════════════════════════════════════════════
+let tx = 40, ty = 40, sc = 1;
+const canvas = document.getElementById('canvas');
+const pan    = document.getElementById('pan');
+
+function applyT() {
+  pan.style.transform = `translate(${tx}px,${ty}px) scale(${sc})`;
+}
+
+function fitToScreen(svgEl) {
+  // Mermaid outputs tiny width/height but the real content is in viewBox
+  const vb = svgEl.viewBox?.baseVal;
+  const sw = (vb?.width  > 10 ? vb.width  : null) || +svgEl.getAttribute('width')  || 1000;
+  const sh = (vb?.height > 10 ? vb.height : null) || +svgEl.getAttribute('height') || 600;
+
+  // Fix SVG size to match viewBox so CSS transform is 1:1
+  svgEl.setAttribute('width',  sw);
+  svgEl.setAttribute('height', sh);
+
+  const cw = canvas.clientWidth  - 60;
+  const ch = canvas.clientHeight - 60;
+
+  // For wide LR diagrams: prioritise height fit over width fit
+  // This makes nodes readable; user pans horizontally to see everything
+  const scByH = (ch * 0.80) / sh;  // fill 80% of canvas height
+  const scByW = cw / sw;           // fit entire width (usually too small)
+  sc = Math.max(scByH, scByW);     // pick whichever zooms in more
+
+  const dispW = sw * sc;
+  tx = dispW > canvas.clientWidth ? 20 : (canvas.clientWidth - dispW) / 2;
+  ty = Math.max(20, (canvas.clientHeight - sh * sc) / 2);
+  applyT();
+}
+
+// Scroll = pan horizontal  |  Ctrl+scroll = zoom
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  if (e.ctrlKey || e.metaKey) {
+    // ── Zoom ──────────────────────────────────────────────
+    const rect  = canvas.getBoundingClientRect();
+    const mx    = e.clientX - rect.left;
+    const my    = e.clientY - rect.top;
+    const delta = e.deltaY < 0 ? 1.12 : 0.89;
+    const newSc = Math.min(Math.max(0.15, sc * delta), 5);
+    const ratio = newSc / sc;
+    tx = mx - ratio * (mx - tx);
+    ty = my - ratio * (my - ty);
+    sc = newSc;
+  } else if (e.shiftKey) {
+    // ── Shift+scroll = pan vertical ───────────────────────
+    ty -= e.deltaY;
+  } else {
+    // ── Default scroll = pan horizontal ───────────────────
+    // deltaX handles trackpad swipe; deltaY handles mouse wheel
+    tx -= (e.deltaX !== 0 ? e.deltaX : e.deltaY) * 1.2;
+  }
+  applyT();
+}, { passive: false });
+
+// Drag
+let dragging = false, lx = 0, ly = 0;
+canvas.addEventListener('mousedown', e => { dragging=true; lx=e.clientX; ly=e.clientY; });
+window.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  tx += e.clientX - lx; ty += e.clientY - ly;
+  lx = e.clientX; ly = e.clientY;
+  applyT();
+});
+window.addEventListener('mouseup', () => dragging = false);
+
+// Touch
+let pinchDist = 0;
+canvas.addEventListener('touchstart', e => {
+  if (e.touches.length === 1) { dragging=true; lx=e.touches[0].clientX; ly=e.touches[0].clientY; }
+  if (e.touches.length === 2) {
+    pinchDist = Math.hypot(e.touches[1].clientX-e.touches[0].clientX, e.touches[1].clientY-e.touches[0].clientY);
+  }
+}, { passive:true });
+canvas.addEventListener('touchmove', e => {
+  e.preventDefault();
+  if (e.touches.length === 1 && dragging) {
+    tx += e.touches[0].clientX-lx; ty += e.touches[0].clientY-ly;
+    lx=e.touches[0].clientX; ly=e.touches[0].clientY; applyT();
+  }
+  if (e.touches.length === 2) {
+    const d = Math.hypot(e.touches[1].clientX-e.touches[0].clientX, e.touches[1].clientY-e.touches[0].clientY);
+    sc = Math.min(Math.max(0.15, sc * (d/pinchDist)), 5);
+    pinchDist = d; applyT();
+  }
+}, { passive:false });
+canvas.addEventListener('touchend', () => { dragging=false; });
+
+// Buttons
+document.getElementById('zin').onclick  = () => { sc=Math.min(sc*1.3,5); applyT(); };
+document.getElementById('zout').onclick = () => { sc=Math.max(sc*0.77,0.15); applyT(); };
+document.getElementById('zfit').onclick = () => {
+  const s = pan.querySelector('svg'); if(s) fitToScreen(s);
+};
+
+// ═══════════════════════════════════════════════════════════
+render();
+
+// ── Auto-fit watcher: independent of render() async timing ──
+// Polls every 80ms; once SVG is ready and has real viewBox, fits and stops.
+(function watchForSvg() {
+  let fitted = false;
+  const t = setInterval(() => {
+    const s = document.querySelector('#pan svg');
+    if (!s || fitted) return;
+    const vw = s.viewBox?.baseVal?.width;
+    if (!vw || vw < 100) return;
+    fitted = true;
+    clearInterval(t);
+    fitToScreen(s);
+    // Second pass after browser fully paints
+    setTimeout(() => fitToScreen(s), 200);
+  }, 80);
+})();
+</script>
+</body>
+</html>
