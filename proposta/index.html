@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#5B3FD9">
+<title>HSales — Proposta Comercial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --roxo:#5B3FD9;
+  --roxo-vibrante:#6B4DE6;
+  --roxo-escuro:#4A32B0;
+  --lavanda:#C4B5F4;
+  --lavanda-suave:#EDE8FB;
+  --quase-preto:#1A1A2E;
+  --corpo:#585770;
+  --linha:oklch(0.92 0.01 285);
+  --bg:#FBFAFF;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  color:var(--quase-preto);
+  background:
+    radial-gradient(800px 400px at 90% -5%, var(--lavanda-suave), transparent 50%),
+    radial-gradient(600px 350px at 0% 30%, oklch(0.96 0.03 290), transparent 52%),
+    var(--bg);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+  min-height:100vh;
+}
+a{color:inherit;text-decoration:none}
+
+/* LAYOUT */
+.wrap{max-width:680px;margin:0 auto;padding:40px 20px 60px}
+
+/* LOGO */
+.logo{display:flex;align-items:center;gap:10px;--s:32px;margin-bottom:48px}
+.logo-mark{
+  position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;
+  gap:calc(var(--s)*0.07);width:var(--s);height:var(--s);border-radius:calc(var(--s)*0.28);background:var(--roxo)
+}
+.logo-mark::after{
+  content:"";position:absolute;z-index:-1;left:14%;bottom:calc(var(--s)*-0.04);
+  width:calc(var(--s)*0.34);height:calc(var(--s)*0.34);background:var(--roxo);
+  border-radius:0 0 0 72%;transform:rotate(8deg)
+}
+.logo-mark .bar{
+  position:relative;z-index:1;width:calc(var(--s)*0.16);height:calc(var(--s)*0.5);
+  background:#fff;border-radius:calc(var(--s)*0.055);box-shadow:0 calc(var(--s)*0.055) 0 var(--roxo-escuro)
+}
+.logo-mark .dot{
+  position:relative;z-index:1;width:calc(var(--s)*0.17);height:calc(var(--s)*0.17);
+  background:#fff;border-radius:calc(var(--s)*0.05);box-shadow:0 calc(var(--s)*0.055) 0 var(--roxo-escuro)
+}
+.logo-word{font-weight:900;font-size:calc(var(--s)*0.74);letter-spacing:-0.03em;line-height:1}
+
+/* KICKER */
+.kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.75rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--roxo);background:var(--lavanda-suave);padding:7px 14px;border-radius:100px;
+  box-shadow:2px 2px 0 var(--lavanda);margin-bottom:20px
+}
+
+/* HERO */
+.hero{margin-bottom:40px}
+.hero h1{
+  font-size:clamp(2.2rem,6vw,3.2rem);
+  line-height:.97;
+  letter-spacing:-.04em;
+  font-weight:900;
+  margin-bottom:16px;
+}
+.hero h1 .hl{color:var(--roxo)}
+.hero p{
+  font-size:1.08rem;
+  color:var(--corpo);
+  max-width:50ch;
+  line-height:1.65;
+}
+
+/* INCLUDES */
+.includes{
+  background:#fff;
+  border:1.5px solid var(--linha);
+  border-radius:24px;
+  padding:28px;
+  box-shadow:5px 5px 0 var(--lavanda);
+  margin-bottom:28px;
+}
+.includes h2{
+  font-size:1rem;
+  font-weight:800;
+  letter-spacing:-.01em;
+  margin-bottom:18px;
+  color:var(--quase-preto);
+}
+.item-list{display:grid;gap:12px}
+.item-row{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 14px;
+  background:var(--lavanda-suave);
+  border-radius:14px;
+}
+.tick{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--roxo);color:#fff;
+  display:grid;place-items:center;
+  font-size:.75rem;flex:0 0 auto;
+  box-shadow:2px 2px 0 var(--roxo-escuro);
+}
+.item-row strong{display:block;font-size:.95rem;font-weight:700;margin-bottom:2px}
+.item-row span{font-size:.88rem;color:var(--corpo)}
+
+/* PRICE */
+.price-block{
+  background:linear-gradient(160deg, var(--roxo), var(--roxo-escuro));
+  color:#fff;
+  border-radius:24px;
+  padding:32px 28px;
+  box-shadow:6px 6px 0 var(--lavanda);
+  margin-bottom:28px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.price-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.75rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  color:#fff;background:rgba(255,255,255,.14);padding:7px 14px;border-radius:100px;
+  width:fit-content;
+}
+.amount{
+  font-size:clamp(3rem,8vw,4.5rem);
+  line-height:.9;
+  letter-spacing:-.05em;
+  font-weight:900;
+}
+.amount small{font-size:.38em;font-weight:800;opacity:.85}
+.price-desc{color:rgba(255,255,255,.82);font-size:1rem;line-height:1.55}
+.bullets{display:grid;gap:8px;margin-top:4px}
+.brow{display:flex;align-items:center;gap:10px;font-size:.95rem}
+.brow svg{flex:0 0 auto;opacity:.9}
+
+/* CTA */
+.cta-block{display:flex;flex-direction:column;gap:12px;margin-bottom:48px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:16px 24px;border-radius:14px;font-weight:800;font-size:1rem;border:0;
+  cursor:pointer;transition:transform .18s ease,box-shadow .18s ease;
+  width:100%;
+}
+.btn:hover{transform:translate(-2px,-2px)}
+.btn:active{transform:translate(2px,2px);box-shadow:none!important}
+.btn-primary{
+  background:var(--roxo);color:#fff;
+  box-shadow:4px 4px 0 var(--roxo-escuro);
+}
+.btn-primary:hover{background:var(--roxo-vibrante);box-shadow:6px 6px 0 var(--roxo-escuro)}
+.btn-outline{
+  background:#fff;color:var(--quase-preto);
+  border:1.5px solid var(--linha);
+  box-shadow:3px 3px 0 oklch(0.3 0.05 285 / 0.15);
+}
+.btn-outline:hover{box-shadow:5px 5px 0 var(--roxo-escuro)}
+
+/* TEMPLATES */
+.templates{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.tmpl{
+  background:#fff;border:1.5px solid var(--linha);border-radius:18px;padding:18px;
+  box-shadow:3px 3px 0 var(--linha);
+}
+.tmpl h3{font-size:.85rem;font-weight:800;margin-bottom:10px;color:var(--quase-preto)}
+.tmpl pre{
+  white-space:pre-wrap;word-break:break-word;
+  font-family:inherit;font-size:.84rem;line-height:1.65;color:var(--corpo);
+  background:var(--lavanda-suave);padding:12px;border-radius:12px;
+}
+
+/* FOOTER */
+footer{text-align:center;color:var(--corpo);font-size:.82rem;padding-top:8px}
+
+@media(max-width:600px){
+  .templates{grid-template-columns:1fr}
+  .wrap{padding:28px 16px 40px}
+  .price-block{padding:24px 20px}
+  .includes{padding:20px}
+  .cta-block .btn{font-size:.95rem;padding:14px 20px}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <!-- LOGO -->
+  <a class="logo" href="https://hsales.app" target="_blank" rel="noreferrer">
+    <span class="logo-mark"><span class="bar"></span><span class="dot"></span><span class="bar"></span></span>
+    <span class="logo-word">Sales</span>
+  </a>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="kicker">proposta comercial</span>
+    <h1>Automatize as vendas<br>do seu <span class="hl">hotel.</span></h1>
+    <p>IA que atende, qualifica e fecha reservas 24 horas — sem comissão, sem limite de conversas. Uma mensalidade fixa e o seu hotel operando no piloto automático.</p>
+  </section>
+
+  <!-- O QUE ESTÁ INCLUÍDO -->
+  <section class="includes">
+    <h2>O que entra no plano</h2>
+    <div class="item-list">
+      <div class="item-row">
+        <span class="tick">✓</span>
+        <div><strong>Atendimento por IA 24/7</strong><span>WhatsApp, Instagram e site — em qualquer idioma, sem intervalo.</span></div>
+      </div>
+      <div class="item-row">
+        <span class="tick">✓</span>
+        <div><strong>Qualificação e fechamento automático</strong><span>A IA filtra o lead, mostra disponibilidade e conduz até a reserva.</span></div>
+      </div>
+      <div class="item-row">
+        <span class="tick">✓</span>
+        <div><strong>Motor de reservas + pagamento integrado</strong><span>Link de pagamento e confirmação enviados direto na conversa.</span></div>
+      </div>
+      <div class="item-row">
+        <span class="tick">✓</span>
+        <div><strong>Follow-up automático</strong><span>Resgata o lead frio. Envia lembrete de check-in e pesquisa pós-estadia.</span></div>
+      </div>
+      <div class="item-row">
+        <span class="tick">✓</span>
+        <div><strong>CRM automático com pipeline visual</strong><span>Cada conversa organizada por etapa. Sem planilha manual.</span></div>
+      </div>
+      <div class="item-row">
+        <span class="tick">✓</span>
+        <div><strong>Implantação guiada + suporte contínuo</strong><span>Entrada acompanhada até a operação rodar. Suporte via WhatsApp e email.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREÇO -->
+  <section class="price-block">
+    <span class="price-tag">investimento</span>
+    <div class="amount">R$997<small>/mês</small></div>
+    <p class="price-desc">Plano único. Ilimitado. Sem comissão por reserva e sem cobrança por conversa.</p>
+    <div class="bullets">
+      <div class="brow">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(255,255,255,.18)"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Sem comissão sobre reservas
+      </div>
+      <div class="brow">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(255,255,255,.18)"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Sem limite de conversas ou canais
+      </div>
+      <div class="brow">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(255,255,255,.18)"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Implantação guiada incluída
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <a class="btn btn-primary" href="https://hsales.app" target="_blank" rel="noreferrer">
+      Fechar agora — hsales.app →
+    </a>
+    <a class="btn btn-outline" href="https://hsales.app" target="_blank" rel="noreferrer">
+      Ver o site completo
+    </a>
+  </div>
+
+  <!-- TEMPLATES DE ENVIO -->
+  <div class="templates">
+    <article class="tmpl">
+      <h3>📧 E-mail de envio</h3>
+      <pre>Olá, [nome].
+
+Segue a proposta da HSales para o [hotel].
+
+Plano único de R$997/mês — atendimento por IA, motor de reservas, follow-up e CRM. Sem comissão e sem limite de conversas.
+
+Para fechar: hsales.app
+
+Qualquer dúvida, é só responder aqui.</pre>
+    </article>
+    <article class="tmpl">
+      <h3>💬 WhatsApp de envio</h3>
+      <pre>Oi, [nome]! Segue a proposta da HSales para o [hotel].
+
+R$997/mês — IA de atendimento, reservas, follow-up e CRM. Sem comissão.
+
+Para fechar: hsales.app
+
+Qualquer dúvida me chama aqui.</pre>
+    </article>
+  </div>
+
+  <footer>HSales · hsales.app</footer>
+
+</main>
+</body>
+</html>
