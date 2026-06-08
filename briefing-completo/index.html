@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSales — Briefing de Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --roxo: #5B3FD9;
+  --roxo-vibrante: #6B4DE6;
+  --roxo-escuro: #4A32B0;
+  --lavanda: #C4B5F4;
+  --lavanda-suave: #EDE8FB;
+  --quase-preto: #1A1A2E;
+  --corpo: #585770;
+  --branco: #FFFFFF;
+  --bg: #F7F6FF;
+  --surface: #FFFFFF;
+  --surface2: #F3F1FD;
+  --surface3: #EDE8FB;
+  --border: #E2DCF8;
+  --accent: var(--roxo);
+  --accent2: var(--roxo-escuro);
+  --accent-glow: rgba(91,63,217,0.10);
+  --accent-light: var(--lavanda);
+  --text: var(--quase-preto);
+  --muted: var(--corpo);
+  --success: #0ea56b;
+  --warning: #f59e0b;
+  --danger: #dc2626;
+  --radius: 16px;
+  --radius-sm: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.sticky-top { position: sticky; top: 0; z-index: 100; }
+.header {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 1px 0 var(--border);
+}
+.header-sub { font-size: 12px; color: var(--muted); margin-left: auto; text-align: right; }
+.header-sub strong { color: var(--text); display: block; font-size: 13px; }
+
+/* ── PROGRESS ── */
+.progress-wrap {
+  background: linear-gradient(135deg, var(--roxo) 0%, var(--roxo-vibrante) 100%);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.progress-label-left { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.85); white-space: nowrap; }
+.progress-track {
+  flex: 1; height: 6px;
+  background: rgba(255,255,255,0.22);
+  border-radius: 99px;
+  position: relative; overflow: visible;
+  margin: 18px 0 14px;
+}
+.progress-fill {
+  height: 100%; background: #ffffff; border-radius: 99px;
+  width: 0%; transition: width 0.4s ease;
+  position: absolute; top: 0; left: 0; z-index: 1;
+}
+.progress-cursor {
+  position: absolute; top: 50%; left: 0%;
+  transform: translate(-50%, calc(-50% - 14px));
+  background: #fff; color: var(--roxo);
+  font-size: 10px; font-weight: 900; padding: 3px 8px; border-radius: 99px;
+  white-space: nowrap; z-index: 4;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18); transition: left 0.4s ease;
+  pointer-events: none;
+}
+.progress-cursor::after {
+  content: ''; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent; border-top-color: #fff;
+}
+.ms-tick {
+  position: absolute; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px; height: 14px;
+  background: rgba(255,255,255,0.35); border-radius: 1px;
+  z-index: 2; transition: background 0.3s;
+}
+.ms-tick.reached { background: rgba(255,255,255,0.9); }
+.ms-lbl {
+  position: absolute; top: calc(50% + 10px);
+  transform: translateX(-50%);
+  font-size: 9px; font-weight: 700;
+  color: rgba(255,255,255,0.5); white-space: nowrap;
+  transition: color 0.3s; pointer-events: none;
+}
+.ms-lbl.reached { color: rgba(255,255,255,0.95); }
+
+/* ── LAYOUT ── */
+.container { max-width: 860px; margin: 0 auto; padding: 24px 20px 80px; }
+.intro-card {
+  background: var(--lavanda-suave);
+  border: 1px solid var(--lavanda);
+  border-radius: var(--radius);
+  padding: 16px 20px; margin-bottom: 24px;
+  font-size: 13px; color: var(--corpo); line-height: 1.6;
+}
+.intro-card strong { color: var(--quase-preto); }
+
+/* ── ACCORDION ── */
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px; overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.section.active { border-color: var(--roxo); box-shadow: 0 2px 16px rgba(91,63,217,0.08); }
+.section-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; cursor: pointer; user-select: none;
+  transition: background 0.15s;
+}
+.section-header:hover { background: var(--surface2); }
+.section-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--surface3); border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: var(--muted);
+  flex-shrink: 0; transition: all 0.2s;
+}
+.section.done .section-num { background: var(--success); border-color: var(--success); color: #fff; }
+.section.active .section-num { background: var(--roxo); border-color: var(--roxo); color: #fff; }
+.section-title { font-weight: 700; font-size: 14px; flex: 1; color: var(--quase-preto); letter-spacing: -0.01em; }
+.section-subtitle { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.section-chevron { color: var(--muted); font-size: 12px; transition: transform 0.25s; flex-shrink: 0; }
+.section.open .section-chevron { transform: rotate(180deg); }
+.section-body { display: none; padding: 0 18px 20px; border-top: 1px solid var(--border); }
+.section.open .section-body { display: block; }
+
+/* ── FORM ELEMENTS ── */
+.field-group { margin-top: 16px; }
+.field-group + .field-group { margin-top: 12px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field-row.cols3 { grid-template-columns: 1fr 1fr 1fr; }
+.field-row.cols4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+@media (max-width: 600px) {
+  .field-row, .field-row.cols3, .field-row.cols4 { grid-template-columns: 1fr; }
+}
+label {
+  display: block; font-size: 11px; font-weight: 700;
+  color: var(--corpo); text-transform: uppercase;
+  letter-spacing: 0.5px; margin-bottom: 5px;
+}
+label .req { color: var(--roxo); margin-left: 2px; }
+input[type=text], input[type=email], input[type=tel], input[type=url],
+input[type=number], select, textarea {
+  width: 100%; background: #fff;
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  color: var(--quase-preto); font-size: 13px;
+  padding: 9px 12px; outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: 'Inter', inherit;
+}
+input[type=text]:focus, input[type=email]:focus, input[type=tel]:focus,
+input[type=url]:focus, input[type=number]:focus, select:focus, textarea:focus {
+  border-color: var(--roxo); box-shadow: 0 0 0 3px rgba(91,63,217,0.12);
+}
+input::placeholder, textarea::placeholder { color: #b0aac8; }
+select { cursor: pointer; }
+textarea { resize: vertical; min-height: 80px; }
+
+/* ── FILE UPLOAD ── */
+.file-upload {
+  border: 1.5px dashed var(--border); border-radius: var(--radius-sm);
+  padding: 14px 12px; text-align: center; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative; background: #fff;
+}
+.file-upload:hover { border-color: var(--roxo); background: var(--lavanda-suave); }
+.file-upload input[type=file] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer;
+  width: 100%; height: 100%;
+}
+.file-upload-icon { font-size: 20px; margin-bottom: 4px; }
+.file-upload-label { font-size: 12px; color: var(--corpo); }
+.file-upload-label strong { color: var(--roxo); }
+.file-names { font-size: 11px; color: var(--success); margin-top: 6px; }
+
+/* ── CHECKBOXES / RADIO ── */
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 6px; margin-top: 6px;
+}
+.check-grid.cols2 { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.check-item {
+  display: flex; align-items: center; gap: 7px;
+  background: #fff; border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); padding: 7px 10px;
+  cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  font-size: 12px; user-select: none; color: var(--quase-preto);
+}
+.check-item:hover { border-color: var(--roxo); background: var(--lavanda-suave); }
+.check-item input { accent-color: var(--roxo); width: 14px; height: 14px; flex-shrink: 0; }
+.check-item.checked { border-color: var(--roxo); background: var(--lavanda-suave); color: var(--roxo-escuro); font-weight: 600; }
+.radio-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+.radio-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: #fff; border: 1.5px solid var(--border);
+  border-radius: 100px; padding: 7px 16px;
+  cursor: pointer; font-size: 12px;
+  transition: all 0.15s; user-select: none;
+  color: var(--quase-preto); font-weight: 500;
+}
+.radio-btn:hover { border-color: var(--roxo); color: var(--roxo); }
+.radio-btn input { accent-color: var(--roxo); }
+.radio-btn.selected { border-color: var(--roxo); background: var(--roxo); color: #fff; }
+
+/* ── MISC ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+.subsection-label {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.8px; color: var(--roxo);
+  margin-top: 20px; margin-bottom: 10px;
+}
+.hint { font-size: 11px; color: var(--corpo); margin-top: 4px; font-style: italic; opacity: 0.8; }
+
+/* ── ROOM CARDS ── */
+.rooms-container { margin-top: 12px; }
+.room-card {
+  background: var(--lavanda-suave);
+  border: 1.5px solid var(--lavanda);
+  border-radius: var(--radius);
+  margin-bottom: 12px; overflow: hidden;
+}
+.room-card-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; background: var(--surface3);
+  border-bottom: 1px solid var(--lavanda);
+}
+.room-card-title { font-weight: 700; font-size: 13px; flex: 1; color: var(--roxo-escuro); }
+.room-card-body { padding: 16px; }
+.btn-remove-room {
+  background: none; border: 1px solid var(--danger);
+  color: var(--danger); border-radius: 100px;
+  padding: 4px 12px; font-size: 11px; cursor: pointer;
+  transition: all 0.15s; font-family: 'Inter', inherit; font-weight: 600;
+}
+.btn-remove-room:hover { background: rgba(220,38,38,0.08); }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 22px; border-radius: 100px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
+  font-family: 'Inter', inherit; border: none;
+}
+.btn-primary {
+  background: var(--roxo); color: #fff;
+  border: 1.5px solid var(--roxo);
+  box-shadow: 0 8px 24px rgba(91,63,217,0.30);
+}
+.btn-primary:hover { background: transparent; color: var(--roxo); transform: translateY(-2px); box-shadow: none; }
+.btn-lg { padding: 15px 36px; font-size: 15px; }
+.btn-add-room {
+  width: 100%; padding: 11px;
+  background: #fff; border: 1.5px dashed var(--lavanda);
+  color: var(--roxo); border-radius: var(--radius);
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  transition: all 0.2s; font-family: 'Inter', inherit; margin-top: 8px;
+}
+.btn-add-room:hover { border-color: var(--roxo); background: var(--lavanda-suave); }
+
+/* ── SUBMIT ── */
+.submit-area {
+  margin-top: 28px; padding: 28px;
+  background: linear-gradient(135deg, var(--roxo) 0%, var(--roxo-vibrante) 100%);
+  border-radius: var(--radius); text-align: center;
+  box-shadow: 0 20px 50px rgba(91,63,217,0.35);
+}
+.submit-area p { color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 12px; }
+.submit-area .btn-primary {
+  background: #fff; color: var(--roxo); border-color: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+.submit-area .btn-primary:hover { background: transparent; color: #fff; border-color: #fff; box-shadow: none; }
+
+/* ── REUNIÃO — destaque visual ── */
+.reunion-banner {
+  background: linear-gradient(135deg, var(--quase-preto) 0%, #2d1f6e 100%);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.reunion-banner-icon { font-size: 22px; }
+.reunion-banner-text { font-size: 12px; color: rgba(255,255,255,0.75); line-height: 1.5; }
+.reunion-banner-text strong { color: #fff; font-size: 13px; display: block; margin-bottom: 2px; }
+
+/* ── SCROLL TOP ── */
+.scroll-top {
+  position: fixed; bottom: 24px; right: 24px;
+  width: 40px; height: 40px; background: var(--roxo);
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; cursor: pointer; opacity: 0;
+  transition: opacity 0.3s, transform 0.2s;
+  border: none; color: #fff; font-size: 16px; z-index: 99;
+  box-shadow: 0 4px 16px rgba(91,63,217,0.4);
+}
+.scroll-top.visible { opacity: 1; }
+.scroll-top:hover { transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<!-- HEADER + PROGRESS (sticky juntos) -->
+<div class="sticky-top">
+<div class="header">
+  <div class="logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 340 116" height="36" role="img" aria-label="HSales">
+      <path d="M14 70 H48 V104 H38.5 A24.5 24.5 0 0 1 14 79.5 Z" fill="#5B3FD9" transform="rotate(8 31 87)"/>
+      <rect x="0" y="0" width="100" height="100" rx="28" fill="#5B3FD9"/>
+      <g fill="#2A1A72">
+        <rect x="18.5" y="30.5" width="16" height="50" rx="5.5"/>
+        <rect x="65.5" y="30.5" width="16" height="50" rx="5.5"/>
+        <rect x="41.5" y="47" width="17" height="17" rx="5"/>
+      </g>
+      <g fill="#ffffff">
+        <rect x="18.5" y="25" width="16" height="50" rx="5.5"/>
+        <rect x="65.5" y="25" width="16" height="50" rx="5.5"/>
+        <rect x="41.5" y="41.5" width="17" height="17" rx="5"/>
+      </g>
+      <text x="122" y="50" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="74" font-weight="900" letter-spacing="-2.2" fill="#1A1A2E" dominant-baseline="central">Sales</text>
+    </svg>
+  </div>
+  <div>
+    <div style="font-size:13px;font-weight:600;">Briefing de Onboarding</div>
+    <div style="font-size:11px;color:var(--muted);">Personalização da sua IA hoteleira</div>
+  </div>
+  <div class="header-sub">
+    <strong>Suporte</strong>
+    contato@hsales.app
+  </div>
+</div>
+<div class="progress-wrap">
+  <span class="progress-label-left">Progresso</span>
+  <div class="progress-track">
+    <div class="progress-fill" id="progressBar"></div>
+    <div class="progress-cursor" id="progressCursor">0%</div>
+    <div class="ms-tick" id="tk70" style="left:70%"><div class="ms-lbl" id="lb70">70%</div></div>
+    <div class="ms-tick" id="tk90" style="left:90%"><div class="ms-lbl" id="lb90">90%</div></div>
+    <div class="ms-tick" id="tk100" style="left:100%"><div class="ms-lbl" id="lb100">100%</div></div>
+  </div>
+</div>
+</div><!-- /sticky-top -->
+
+<!-- MAIN -->
+<div class="container">
+
+  <div class="intro-card">
+    <strong>Rápido e direto.</strong>
+    São 6 seções curtas — leva cerca de 10 minutos. Quanto mais você preencher, mais personalizada fica sua IA desde o primeiro dia.
+    O progresso é salvo automaticamente. Ao atingir 70%, o botão de agendamento é liberado.
+  </div>
+
+  <form id="briefingForm" novalidate>
+
+    <!-- ══════════════════════════════════════════════
+         SEÇÃO 1 — O HOTEL
+    ══════════════════════════════════════════════ -->
+    <div class="section open" data-section="1">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-num">1</div>
+        <div>
+          <div class="section-title">O Hotel</div>
+          <div class="section-subtitle">Dados básicos para a IA se apresentar corretamente</div>
+        </div>
+        <div class="section-chevron">▾</div>
+      </div>
+      <div class="section-body">
+        <div class="field-row">
+          <div class="field-group">
+            <label>Nome do hotel <span class="req">*</span></label>
+            <input type="text" name="hotel_nome" placeholder="Ex: Pousada Maresias" required>
+          </div>
+          <div class="field-group">
+            <label>Nome fantasia / como aparece nas OTAs</label>
+            <input type="text" name="hotel_fantasia" placeholder="Ex: Maresias Boutique">
+          </div>
+        </div>
+        <div class="field-row cols3">
+          <div class="field-group">
+            <label>Cidade <span class="req">*</span></label>
+            <input type="text" name="hotel_cidade" placeholder="Florianópolis" required>
+          </div>
+          <div class="field-group">
+            <label>Estado</label>
+            <select name="hotel_estado">
+              <option value="">Selecione...</option>
+              <option>AC</option><option>AL</option><option>AM</option><option>AP</option>
+              <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+              <option>GO</option><option>MA</option><option>MG</option><option>MS</option>
+              <option>MT</option><option>PA</option><option>PB</option><option>PE</option>
+              <option>PI</option><option>PR</option><option>RJ</option><option>RN</option>
+              <option>RO</option><option>RR</option><option>RS</option><option>SC</option>
+              <option>SE</option><option>SP</option><option>TO</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Categoria</label>
+            <select name="hotel_categoria">
+              <option value="">Selecione...</option>
+              <option>Pousada / hostel</option>
+              <option>★★ — 2 estrelas</option>
+              <option>★★★ — 3 estrelas</option>
+              <option>★★★★ — 4 estrelas</option>
+              <option>★★★★★ — 5 estrelas</option>
+              <option>Boutique / design</option>
+              <option>Resort</option>
+              <option>Ecoresort / natureza</option>
+              <option>Apart-hotel</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label>Site oficial</label>
+            <input type="url" name="hotel_site" placeholder="https://...">
+          </div>
+          <div class="field-group">
+            <label>Instagram</label>
+            <input type="text" name="hotel_instagram" placeholder="@nomedobotel">
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Sobre o hotel <span class="req">*</span></label>
+          <p class="hint">2 a 4 linhas — como você apresentaria o hotel para um hóspede. A IA vai usar isso.</p>
+          <textarea name="hotel_descricao" placeholder="Ex: Pousada familiar à beira-mar em Florianópolis. Ambiente aconchegante, café da manhã regional e 15 minutos do centro. Ideal para casais e famílias que buscam descanso com conforto." required></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SEÇÃO 2 — CATEGORIAS DE QUARTOS
+    ══════════════════════════════════════════════ -->
+    <div class="section" data-section="2">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-num">2</div>
+        <div>
+          <div class="section-title">Categorias de Quartos</div>
+          <div class="section-subtitle">Cadastre cada tipo de acomodação com foto e preço</div>
+        </div>
+        <div class="section-chevron">▾</div>
+      </div>
+      <div class="section-body">
+        <p class="hint" style="margin-bottom:12px;">
+          Adicione uma categoria por vez. Ex: Standard, Superior, Suíte Casal, Chalé Família...
+        </p>
+        <div class="rooms-container" id="roomsContainer"></div>
+        <button type="button" class="btn-add-room" onclick="addRoom()">
+          + Adicionar categoria de quarto
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SEÇÃO 3 — ESTRUTURA & DIFERENCIAIS
+    ══════════════════════════════════════════════ -->
+    <div class="section" data-section="3">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-num">3</div>
+        <div>
+          <div class="section-title">Estrutura & Diferenciais</div>
+          <div class="section-subtitle">O que o hotel oferece e o que o faz único</div>
+        </div>
+        <div class="section-chevron">▾</div>
+      </div>
+      <div class="section-body">
+        <div class="subsection-label">Comodidades disponíveis</div>
+        <div class="check-grid">
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Piscina"> 🏊 Piscina</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Piscina aquecida"> ♨️ Piscina aquecida</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Restaurante"> 🍽️ Restaurante</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Café da manhã"> ☕ Café da manhã</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Bar"> 🍹 Bar</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Academia"> 🏋️ Academia</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Spa"> 💆 Spa / Sauna</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Estacionamento gratuito"> 🚗 Estac. gratuito</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Estacionamento pago"> 🚗 Estac. pago</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Wi-Fi gratuito"> 📶 Wi-Fi gratuito</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Room service"> 🛎️ Room service</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Recepção 24h"> 🕐 Recepção 24h</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Churrasqueira"> 🔥 Churrasqueira</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Salão de eventos"> 🎪 Salão de eventos</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Transfer aeroporto"> ✈️ Transfer</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Pet friendly"> 🐾 Pet friendly</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Acessível PCD"> ♿ Acessível PCD</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Vista para o mar"> 🌊 Vista para o mar</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Praia privativa"> 🏖️ Praia privativa</label>
+          <label class="check-item"><input type="checkbox" name="estrutura" value="Playground"> 🛝 Playground</label>
+        </div>
+        <div class="field-group">
+          <label>Outras comodidades não listadas</label>
+          <input type="text" name="estrutura_outros" placeholder="Ex: heliponto, bicicletas, marina, quadra esportiva...">
+        </div>
+        <hr class="divider">
+        <div class="field-group">
+          <label>O que diferencia este hotel? <span class="req">*</span></label>
+          <p class="hint">O principal argumento de venda. A IA vai usar isso para convencer o hóspede a reservar.</p>
+          <textarea name="hotel_diferencial" placeholder="Ex: Única pousada com acesso direto à praia em Garopaba. Café da manhã artesanal premiado. Atendimento ultra-personalizado — o dono conhece cada hóspede pelo nome." required></textarea>
+        </div>
+        <hr class="divider">
+        <div class="subsection-label">Identidade da IA</div>
+        <div class="field-row">
+          <div class="field-group">
+            <label>Nome da IA <span class="req">*</span></label>
+            <p class="hint">Como o assistente vai se apresentar para os hóspedes.</p>
+            <input type="text" name="ia_nome" placeholder="Ex: Luísa, Max, Assistente do Hotel..." required>
+          </div>
+          <div class="field-group">
+            <label>Tom de voz</label>
+            <div class="radio-group">
+              <label class="radio-btn"><input type="radio" name="tom_voz" value="Formal"> 🎩 Formal</label>
+              <label class="radio-btn"><input type="radio" name="tom_voz" value="Semiformal"> 👔 Semiformal</label>
+              <label class="radio-btn"><input type="radio" name="tom_voz" value="Descontraído"> 😊 Descontraído</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SEÇÃO 4 — PÚBLICO & IDIOMAS
+    ══════════════════════════════════════════════ -->
+    <div class="section" data-section="4">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-num">4</div>
+        <div>
+          <div class="section-title">Público & Idiomas</div>
+          <div class="section-subtitle">Quem são os hóspedes e em quais idiomas atender</div>
+        </div>
+        <div class="section-chevron">▾</div>
+      </div>
+      <div class="section-body">
+        <div class="field-row">
+          <div class="field-group">
+            <label>Perfil do hotel</label>
+            <select name="perfil_hotel">
+              <option value="">Selecione...</option>
+              <option>Pousada familiar</option>
+              <option>Boutique / design</option>
+              <option>Resort</option>
+              <option>Hotel urbano / executivo</option>
+              <option>Ecoturismo / natureza</option>
+              <option>Luxo / 5 estrelas</option>
+              <option>Hostel / econômico</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Público principal</label>
+            <div class="check-grid">
+              <label class="check-item"><input type="checkbox" name="publico" value="Casais"> 💑 Casais</label>
+              <label class="check-item"><input type="checkbox" name="publico" value="Famílias"> 👨‍👩‍👧 Famílias</label>
+              <label class="check-item"><input type="checkbox" name="publico" value="Executivos"> 💼 Executivos</label>
+              <label class="check-item"><input type="checkbox" name="publico" value="Turistas"> 🧳 Turistas</label>
+              <label class="check-item"><input type="checkbox" name="publico" value="Grupos"> 👥 Grupos</label>
+              <label class="check-item"><input type="checkbox" name="publico" value="Internacional"> 🌎 Internacional</label>
+            </div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Idiomas que a IA deve atender</label>
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="idiomas" value="Português"> 🇧🇷 Português</label>
+            <label class="check-item"><input type="checkbox" name="idiomas" value="Inglês"> 🇺🇸 Inglês</label>
+            <label class="check-item"><input type="checkbox" name="idiomas" value="Espanhol"> 🇪🇸 Espanhol</label>
+            <label class="check-item"><input type="checkbox" name="idiomas" value="Francês"> 🇫🇷 Francês</label>
+            <label class="check-item"><input type="checkbox" name="idiomas" value="Alemão"> 🇩🇪 Alemão</label>
+            <label class="check-item"><input type="checkbox" name="idiomas" value="Italiano"> 🇮🇹 Italiano</label>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label>Aceita pets?</label>
+            <div class="radio-group">
+              <label class="radio-btn"><input type="radio" name="aceita_pets" value="Sim"> Sim</label>
+              <label class="radio-btn"><input type="radio" name="aceita_pets" value="Não"> Não</label>
+              <label class="radio-btn"><input type="radio" name="aceita_pets" value="Depende"> Depende</label>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Aceita crianças?</label>
+            <div class="radio-group">
+              <label class="radio-btn"><input type="radio" name="aceita_criancas" value="Sim"> Sim</label>
+              <label class="radio-btn"><input type="radio" name="aceita_criancas" value="Não"> Não</label>
+              <label class="radio-btn"><input type="radio" name="aceita_criancas" value="Depende"> Depende</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SEÇÃO 5 — CONTATO
+    ══════════════════════════════════════════════ -->
+    <div class="section" data-section="5">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-num">5</div>
+        <div>
+          <div class="section-title">Contato</div>
+          <div class="section-subtitle">Responsável pelo onboarding e canal de atendimento do hotel</div>
+        </div>
+        <div class="section-chevron">▾</div>
+      </div>
+      <div class="section-body">
+        <div class="field-row cols3">
+          <div class="field-group">
+            <label>Seu nome <span class="req">*</span></label>
+            <input type="text" name="resp_nome" placeholder="João Silva" required>
+          </div>
+          <div class="field-group">
+            <label>Cargo</label>
+            <input type="text" name="resp_cargo" placeholder="Gerente, Proprietário...">
+          </div>
+          <div class="field-group">
+            <label>Seu WhatsApp <span class="req">*</span></label>
+            <input type="tel" name="resp_whatsapp" placeholder="(48) 99999-9999" required>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label>Seu e-mail <span class="req">*</span></label>
+            <input type="email" name="resp_email" placeholder="joao@hotel.com" required>
+          </div>
+          <div class="field-group">
+            <label>WhatsApp de atendimento do hotel</label>
+            <p class="hint">O número onde a IA vai atender os hóspedes.</p>
+            <input type="tel" name="hotel_whatsapp" placeholder="(48) 99999-9999">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SEÇÃO 6 — PARA A REUNIÃO
+    ══════════════════════════════════════════════ -->
+    <div class="section" data-section="6">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-num">6</div>
+        <div>
+          <div class="section-title">Para a Reunião</div>
+          <div class="section-subtitle">Contexto operacional — chegamos preparados</div>
+        </div>
+        <div class="section-chevron">▾</div>
+      </div>
+      <div class="section-body">
+
+        <div class="reunion-banner">
+          <div class="reunion-banner-icon">📋</div>
+          <div class="reunion-banner-text">
+            <strong>Isso fica entre você e nossa equipe.</strong>
+            Essas informações são usadas apenas para preparar a reunião de implementação. Não precisam estar completas agora.
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label>Motor de reservas / PMS atual</label>
+            <p class="hint">Se usa algum sistema hoje (Omnibees, Siteminder, Stays, etc.)</p>
+            <input type="text" name="pms_atual" placeholder="Ex: Omnibees, Siteminder, nenhum...">
+          </div>
+          <div class="field-group">
+            <label>Quantas mensagens por dia (estimado)?</label>
+            <select name="volume_msgs">
+              <option value="">Selecione...</option>
+              <option>Menos de 10</option>
+              <option>10 a 30</option>
+              <option>30 a 60</option>
+              <option>60 a 120</option>
+              <option>Mais de 120</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Principal dor hoje no atendimento</label>
+          <p class="hint">O que mais te incomoda, consome tempo ou faz perder reservas?</p>
+          <textarea name="dor_principal" placeholder="Ex: Atendimento lento no WhatsApp, muitas perguntas repetidas, equipe sobrecarregada nos feriados, leads que somem antes de fechar..."></textarea>
+        </div>
+        <div class="field-group">
+          <label>O que você espera do HSales?</label>
+          <textarea name="expectativa" placeholder="Ex: Quero que a IA responda 24h e feche reservas sem depender de mim. Preciso recuperar leads do Instagram..."></textarea>
+        </div>
+        <div class="field-group">
+          <label>Tem materiais para compartilhar? (opcional)</label>
+          <p class="hint">Tabela de tarifas, cardápio, house rules, fotos — qualquer coisa útil. Link Drive ou arquivo.</p>
+          <input type="url" name="materiais_drive" placeholder="https://drive.google.com/...">
+        </div>
+        <div class="field-group">
+          <label>Ou faça upload direto</label>
+          <div class="file-upload">
+            <input type="file" name="materiais_upload" multiple accept=".jpg,.jpeg,.png,.pdf,.xlsx,.docx,.zip">
+            <div class="file-upload-icon">📁</div>
+            <div class="file-upload-label"><strong>Clique ou arraste</strong> — qualquer formato aceito</div>
+            <div class="file-names" id="materiais_upload_names"></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Alguma observação final?</label>
+          <textarea name="obs_finais" placeholder="Fique à vontade — histórias, detalhes, preferências, o que quiser contar..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-area">
+      <button type="submit" class="btn btn-primary btn-lg" id="submitBtn" disabled style="opacity:0.45;cursor:not-allowed">
+        Agendar minha reunião →
+      </button>
+      <div id="submitLock" style="color:rgba(255,255,255,0.7);font-size:12px;margin-top:10px;">
+        Preencha pelo menos 70% do briefing para liberar
+      </div>
+      <p>Na próxima página você escolhe o horário — nossa equipe finaliza a configuração com você.</p>
+    </div>
+
+  </form>
+</div>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────
+const FORM_ENDPOINT = 'SEU_ENDPOINT_AQUI';
+
+// ── CONSTANTES (topo — evitar TDZ) ──────────────────────
+const SUBMIT_THRESHOLD = 70;
+
+// ── ACCORDION ──────────────────────────────────────────
+function toggleSection(header) {
+  const section = header.parentElement;
+  const isOpen = section.classList.contains('open');
+  section.classList.toggle('open', !isOpen);
+  section.classList.toggle('active', !isOpen);
+  updateProgress();
+}
+
+// ── CHECKBOX / RADIO STYLES ────────────────────────────
+document.addEventListener('change', e => {
+  if (e.target.type === 'checkbox') {
+    const item = e.target.closest('.check-item');
+    if (item) item.classList.toggle('checked', e.target.checked);
+  }
+  if (e.target.type === 'radio') {
+    const group = e.target.closest('.radio-group') || e.target.closest('.section-body');
+    if (group) {
+      group.querySelectorAll('.radio-btn').forEach(btn => {
+        btn.classList.toggle('selected', btn.querySelector('input') === e.target && e.target.checked);
+      });
+    }
+  }
+  updateProgress();
+});
+
+// ── FILE UPLOAD DISPLAY ───────────────────────────────
+document.querySelectorAll('input[type=file]').forEach(input => {
+  input.addEventListener('change', () => {
+    const namesEl = document.getElementById(input.name + '_names');
+    if (!namesEl) return;
+    namesEl.textContent = Array.from(input.files).map(f => f.name).join(', ');
+  });
+});
+
+// ── PROGRESS BAR ──────────────────────────────────────
+function countFilledFields() {
+  let total = 0, filled = 0;
+
+  document.querySelectorAll(
+    'input[type=text], input[type=email], input[type=tel], input[type=url], input[type=number], select, textarea'
+  ).forEach(f => {
+    if (f.closest('[style*="display:none"]') || f.closest('[style*="display: none"]')) return;
+    total++;
+    if (f.value && f.value.trim() !== '') filled++;
+  });
+
+  const cbGroups = new Set();
+  document.querySelectorAll('input[type=checkbox]').forEach(cb => { cbGroups.add(cb.name); });
+  cbGroups.forEach(name => {
+    total++;
+    if (document.querySelector(`input[type=checkbox][name="${name}"]:checked`)) filled++;
+  });
+
+  const rGroups = new Set();
+  document.querySelectorAll('input[type=radio]').forEach(r => { rGroups.add(r.name); });
+  rGroups.forEach(name => {
+    total++;
+    if (document.querySelector(`input[type=radio][name="${name}"]:checked`)) filled++;
+  });
+
+  return { total, filled, pct: total ? Math.round((filled / total) * 100) : 0 };
+}
+
+function updateProgress() {
+  const { pct } = countFilledFields();
+  document.getElementById('progressBar').style.width = pct + '%';
+
+  const cursor = document.getElementById('progressCursor');
+  if (cursor) { cursor.style.left = Math.min(pct, 99) + '%'; cursor.textContent = pct + '%'; }
+
+  [['tk70','lb70',70],['tk90','lb90',90],['tk100','lb100',100]].forEach(([tk,lb,thr]) => {
+    document.getElementById(tk)?.classList.toggle('reached', pct >= thr);
+    document.getElementById(lb)?.classList.toggle('reached', pct >= thr);
+  });
+
+  const btn = document.getElementById('submitBtn');
+  const lock = document.getElementById('submitLock');
+  if (pct >= SUBMIT_THRESHOLD) {
+    btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer';
+    if (lock) lock.style.display = 'none';
+  } else {
+    btn.disabled = true; btn.style.opacity = '0.45'; btn.style.cursor = 'not-allowed';
+    if (lock) { lock.style.display = 'block'; lock.textContent = `Preencha mais ${SUBMIT_THRESHOLD - pct}% para liberar o agendamento`; }
+  }
+}
+
+// ── AUTOSAVE ──────────────────────────────────────────
+function saveToLocal() {
+  const data = {};
+  document.querySelectorAll('input:not([type=file]):not([type=checkbox]):not([type=radio]), textarea, select').forEach(el => {
+    if (el.name) data[el.name] = el.value;
+  });
+  document.querySelectorAll('input[type=checkbox]:checked').forEach(el => {
+    data['__cb_' + el.name + '_' + el.value] = true;
+  });
+  document.querySelectorAll('input[type=radio]:checked').forEach(el => {
+    data['__r_' + el.name] = el.value;
+  });
+  localStorage.setItem('hsales_briefing', JSON.stringify(data));
+}
+
+function loadFromLocal() {
+  const raw = localStorage.getItem('hsales_briefing');
+  if (!raw) return;
+  const data = JSON.parse(raw);
+  Object.entries(data).forEach(([key, val]) => {
+    if (key.startsWith('__cb_')) {
+      const rest = key.slice(5);
+      const lastUnderscore = rest.lastIndexOf('_');
+      const name = rest.slice(0, lastUnderscore);
+      const value = rest.slice(lastUnderscore + 1);
+      const cb = document.querySelector(`input[type=checkbox][name="${name}"][value="${value}"]`);
+      if (cb) { cb.checked = true; cb.closest('.check-item')?.classList.add('checked'); }
+    } else if (key.startsWith('__r_')) {
+      const name = key.slice(4);
+      const r = document.querySelector(`input[type=radio][name="${name}"][value="${val}"]`);
+      if (r) { r.checked = true; r.closest('.radio-btn')?.classList.add('selected'); }
+    } else {
+      const el = document.querySelector(`[name="${key}"]:not([type=checkbox]):not([type=radio]):not([type=file])`);
+      if (el) el.value = val;
+    }
+  });
+  updateProgress();
+}
+
+document.getElementById('briefingForm').addEventListener('input', saveToLocal);
+document.getElementById('briefingForm').addEventListener('change', saveToLocal);
+loadFromLocal();
+
+// ── ROOM CARDS ────────────────────────────────────────
+let roomCount = 0;
+
+function addRoom() {
+  roomCount++;
+  const id = roomCount;
+  const container = document.getElementById('roomsContainer');
+  const card = document.createElement('div');
+  card.className = 'room-card';
+  card.id = 'room_' + id;
+
+  card.innerHTML = `
+    <div class="room-card-header">
+      <div class="room-card-title">Categoria ${id}</div>
+      <button type="button" class="btn-remove-room" onclick="removeRoom(${id})">✕ Remover</button>
+    </div>
+    <div class="room-card-body">
+      <div class="field-row cols3">
+        <div class="field-group">
+          <label>Nome da categoria <span class="req">*</span></label>
+          <input type="text" name="quarto_${id}_nome" placeholder="Ex: Standard, Suíte Luxo, Chalé...">
+        </div>
+        <div class="field-group">
+          <label>Nº de unidades</label>
+          <input type="number" name="quarto_${id}_qtd" placeholder="Ex: 10" min="1">
+        </div>
+        <div class="field-group">
+          <label>Capacidade máxima</label>
+          <input type="text" name="quarto_${id}_capacidade" placeholder="Ex: 2 adultos + 1 criança">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label>Diária mínima (baixa temporada)</label>
+          <input type="text" name="quarto_${id}_diaria_min" placeholder="Ex: R$ 280">
+        </div>
+        <div class="field-group">
+          <label>Diária máxima (alta temporada)</label>
+          <input type="text" name="quarto_${id}_diaria_max" placeholder="Ex: R$ 480">
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Descrição para o hóspede</label>
+        <textarea name="quarto_${id}_descricao" placeholder="Ex: Quarto espaçoso com varanda e vista para o jardim. Cama king, ar-condicionado, frigobar e TV Smart."></textarea>
+      </div>
+      <div class="field-group">
+        <label>Foto desta categoria</label>
+        <div class="field-row">
+          <div>
+            <div class="file-upload">
+              <input type="file" name="quarto_${id}_foto" accept=".jpg,.jpeg,.png,.webp">
+              <div class="file-upload-icon">📸</div>
+              <div class="file-upload-label"><strong>Clique</strong> para anexar foto</div>
+              <div class="file-names" id="quarto_${id}_foto_names"></div>
+            </div>
+          </div>
+          <div class="field-group" style="margin-top:0">
+            <label>Ou link do Drive / Dropbox</label>
+            <input type="url" name="quarto_${id}_foto_link" placeholder="https://drive.google.com/...">
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  container.appendChild(card);
+
+  // file display
+  const fileInput = card.querySelector(`input[name="quarto_${id}_foto"]`);
+  fileInput.addEventListener('change', () => {
+    const namesEl = document.getElementById(`quarto_${id}_foto_names`);
+    if (namesEl) namesEl.textContent = fileInput.files[0]?.name || '';
+  });
+
+  updateProgress();
+}
+
+function removeRoom(id) {
+  const card = document.getElementById('room_' + id);
+  if (card) card.remove();
+  updateProgress();
+}
+
+// ── SUBMIT ────────────────────────────────────────────
+document.getElementById('briefingForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const { pct } = countFilledFields();
+  if (pct < SUBMIT_THRESHOLD) return;
+
+  const btn = document.getElementById('submitBtn');
+  btn.innerHTML = '⏳ Enviando...';
+  btn.disabled = true;
+
+  const formData = new FormData(e.target);
+  const nomeHotel = formData.get('hotel_nome') || '';
+  const nomeResp  = formData.get('resp_nome')  || '';
+  sessionStorage.setItem('hs_hotel', nomeHotel);
+  sessionStorage.setItem('hs_resp',  nomeResp);
+
+  try {
+    if (FORM_ENDPOINT !== 'SEU_ENDPOINT_AQUI') {
+      const res = await fetch(FORM_ENDPOINT, { method: 'POST', body: formData });
+      if (!res.ok) throw new Error('Erro no envio');
+    }
+    localStorage.removeItem('hsales_briefing');
+    window.location.href = 'agendamento.html';
+  } catch {
+    btn.innerHTML = 'Agendar minha reunião →';
+    btn.disabled = false;
+    updateProgress();
+    alert('Ocorreu um erro ao enviar. Por favor, tente novamente ou entre em contato pelo WhatsApp.');
+  }
+});
+
+// ── SCROLL TOP ────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 300);
+});
+
+// ── INIT ──────────────────────────────────────────────
+updateProgress();
+</script>
+</body>
+</html>
