@@ -1,4 +1,23 @@
 User-agent: *
 Allow: /
 
+# IA Crawlers — permitir citação e retrieval (GEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
 Sitemap: https://hsales.app/sitemap.xml
