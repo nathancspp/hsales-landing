@@ -988,7 +988,7 @@ document.getElementById('briefingForm').addEventListener('submit', async e => {
       if (!res.ok) throw new Error('Erro no envio');
     }
     localStorage.removeItem('hsales_briefing');
-    window.location.href = 'agendamento.html';
+    window.location.href = '/briefing/agendamento.html';
   } catch {
     btn.innerHTML = 'Agendar minha reunião →';
     btn.disabled = false;
