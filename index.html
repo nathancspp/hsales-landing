@@ -270,19 +270,19 @@ h3{font-size:clamp(1.25rem,2vw,1.6rem);letter-spacing:-0.02em}
   box-shadow:4px 4px 0 var(--roxo-escuro);
 }
 .btn-primary:hover{
-  background:var(--roxo-vibrante);
+  background:#fff;color:var(--roxo);border-color:var(--roxo);
   transform:translate(-2px,-2px);
   box-shadow:6px 6px 0 var(--roxo-escuro);
 }
 
 /* Outline: vazado + sombra sólida discreta */
 .btn-outline{
-  background:transparent;color:var(--quase-preto);
+  background:transparent;color:var(--roxo);
   border:2px solid oklch(0.3 0.05 285 / 0.35);
-  box-shadow:3px 3px 0 oklch(0.3 0.05 285 / 0.18);
+  box-shadow:3px 3px 0 var(--roxo);
 }
 .btn-outline:hover{
-  background:var(--roxo);color:#fff;border-color:var(--roxo);
+  background:var(--roxo);color:#fff;border-color:var(--roxo-escuro);
   transform:translate(-2px,-2px);
   box-shadow:5px 5px 0 var(--roxo-escuro);
 }
@@ -310,7 +310,7 @@ header{
 }
 header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--linha);padding:12px 0}
 .nav{display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:8px;--s:36px;text-decoration:none}
+.logo{display:flex;align-items:center;gap:10px;--s:47px;text-decoration:none}
 .logo-mark{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;
   gap:calc(var(--s)*0.07);width:var(--s);height:var(--s);border-radius:calc(var(--s)*0.28);background:var(--roxo)}
 .logo-mark::after{content:"";position:absolute;z-index:-1;left:14%;bottom:calc(var(--s)*-0.04);
@@ -320,7 +320,7 @@ header.scrolled{background:oklch(1 0 0 / 0.85);backdrop-filter:blur(14px);box-sh
 .logo-mark .dot{position:relative;z-index:1;width:calc(var(--s)*0.17);height:calc(var(--s)*0.17);
   background:#fff;border-radius:calc(var(--s)*0.05);box-shadow:0 calc(var(--s)*0.055) 0 #2a1a72}
 .logo-word{font-weight:900;font-size:calc(var(--s)*0.74);letter-spacing:-0.03em;line-height:1;color:var(--quase-preto)}
-footer .logo{--s:34px}
+footer .logo{--s:44px}
 footer .logo-word{color:#fff}
 .nav-links{display:flex;align-items:center;gap:34px}
 .nav-links a{font-weight:600;font-size:0.96rem;color:var(--quase-preto);opacity:.78;transition:opacity .2s}
@@ -673,13 +673,10 @@ footer .desc{font-size:0.92rem;max-width:34ch;opacity:.7}
 .hero-copy>.hero-trust{animation-delay:.62s}
 .stage{opacity:0;animation:rise 1s var(--ease) .4s forwards}
 
-/* cursor customizado (ponto + anel que segue com atraso) */
-.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-.cursor-dot{width:7px;height:7px;background:var(--roxo);transition:width .18s var(--ease),height .18s var(--ease)}
-.cursor-ring{width:36px;height:36px;border:2px solid var(--lavanda);
-  transition:width .28s var(--ease),height .28s var(--ease),border-color .28s,background .28s}
-.cursor-ring.hot{width:58px;height:58px;border-color:var(--roxo);background:oklch(0.6 0.16 290 / 0.08)}
-@media(hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none}}
+/* cursor: seta roxa neo-brutalist com sombra sólida */
+*{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='23' height='27' viewBox='0 0 23 27'%3E%3Cpath d='M3 3 L3 21 L8 16 L12 24 L15 23 L11 15 L18 15 Z' fill='%231A1A2E'/%3E%3Cpath d='M2 2 L2 20 L7 15 L11 23 L14 22 L10 14 L17 14 Z' fill='%235B3FD9' stroke='%231A1A2E' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2,auto}
+a,button,[role=button],.feat,.pain,.faq-q,.benefit,.float-card,.followup,.price-card li,.scroll-thumb{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='23' height='27' viewBox='0 0 23 27'%3E%3Cpath d='M3 3 L3 21 L8 16 L12 24 L15 23 L11 15 L18 15 Z' fill='%231A1A2E'/%3E%3Cpath d='M2 2 L2 20 L7 15 L11 23 L14 22 L10 14 L17 14 Z' fill='%236B4DE6' stroke='%231A1A2E' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2,pointer}
+@media(hover:none),(pointer:coarse){*,a,button{cursor:auto}}
 
 /* conversa do mockup acontecendo em sequência */
 .chat .msg,.chat .pay{opacity:0;transform:translateY(14px) scale(.98);
@@ -1082,8 +1079,8 @@ html{scrollbar-width:none}
       <h1>A Inteligência Artificial que <br><span class="hl">atende e fecha reservas</span> <br>para o seu hotel.<span class="h1-sub">24 horas por dia. 7 dias por semana.</span></h1>
       <p class="lead">A HSales atende em qualquer canal, qualifica o hóspede, mostra os quartos disponíveis, cobra e confirma a reserva. Sem fila de espera, sem comissão, sem perder venda de madrugada.</p>
       <div class="hero-actions">
-        <a href="#" class="btn btn-primary cta-agenda">Agendar Demo <span class="arrow">→</span></a>
-        <a href="#" class="btn btn-outline cta-whats">Testar a IA <span class="arrow">→</span></a>
+        <a href="#" class="btn btn-primary cta-whats">Testar a IA <span class="arrow">→</span></a>
+        <a href="#" class="btn btn-outline cta-agenda">Agendar Demo <span class="arrow">→</span></a>
       </div>
       <div class="hero-trust">
         <span class="benefit"><span class="ck">✓</span> <b>R$997</b>/mês ilimitado</span>
@@ -1475,8 +1472,8 @@ html{scrollbar-width:none}
       <h2>Pare de perder reserva enquanto dorme</h2>
       <p>Agende uma demonstração e veja a IA atender, qualificar e fechar uma reserva ao vivo, com a operação do seu hotel.</p>
       <div class="hero-actions">
-        <a href="#" class="btn btn-light cta-agenda">Agendar Demo <span class="arrow">→</span></a>
-        <a href="#" class="btn btn-outline cta-whats">Testar a IA <span class="arrow">→</span></a>
+        <a href="#" class="btn btn-light cta-whats">Testar a IA <span class="arrow">→</span></a>
+        <a href="#" class="btn btn-outline cta-agenda">Agendar Demo <span class="arrow">→</span></a>
       </div>
       <p class="note">Resposta em até 1 dia útil · Sem compromisso</p>
     </div>
@@ -1535,10 +1532,10 @@ html{scrollbar-width:none}
    LINKS DOS BOTÕES — edite só aqui quando tiver os links definitivos
    =================================================================== */
 const LINKS = {
-  // Agendar demonstração → WhatsApp (sem agenda/calendário, por decisão)
-  agenda:  "https://wa.me/5548996539190?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20da%20plataforma.",
-  // Testar a IA → WhatsApp
-  whats:   "https://wa.me/5548996539190?text=Ol%C3%A1!%20Gostaria%20de%20testar%20a%20IA%20de%20reservas%20para%20hot%C3%A9is.",
+  // Agendar Demo → já indica que testou e quer ver ao vivo
+  agenda:  "https://wa.me/5548996539190?text=Ol%C3%A1!%20J%C3%A1%20vi%20a%20HSales%20e%20quero%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20ao%20vivo%20para%20o%20meu%20hotel.",
+  // Testar a IA → primeira interação, curioso, quer experimentar
+  whats:   "https://wa.me/5548996539190?text=Ol%C3%A1!%20Quero%20testar%20a%20IA%20de%20vendas%20da%20HSales%20para%20ver%20como%20ela%20atende%20e%20fecha%20reservas%20no%20meu%20hotel.",
   // Começar agora → TEMPORÁRIO no WhatsApp até definir o pagamento (Asaas)
   comprar: "https://wa.me/5548996539190?text=Ol%C3%A1!%20Gostaria%20de%20contratar%20a%20HSales%20para%20o%20meu%20hotel.",
   login:   "https://chat.hsales.app/"    // Entrar → app/login da plataforma
@@ -1750,31 +1747,6 @@ window.addEventListener('load',function(){
   });
 });
 
-// Cursor customizado (ponto + anel com atraso, cresce sobre elementos interativos)
-if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
-  const cdot=document.createElement('div');cdot.className='cursor-dot';
-  const cring=document.createElement('div');cring.className='cursor-ring';
-  document.body.append(cdot,cring);
-  let cmx=innerWidth/2,cmy=innerHeight/2,rx=cmx,ry=cmy;
-  addEventListener('mousemove',e=>{
-    cmx=e.clientX;cmy=e.clientY;
-    cdot.style.transform=`translate(${cmx}px,${cmy}px) translate(-50%,-50%)`;
-  },{passive:true});
-  (function ring(){
-    rx+=(cmx-rx)*0.18;ry+=(cmy-ry)*0.18;
-    cring.style.transform=`translate(${rx.toFixed(1)}px,${ry.toFixed(1)}px) translate(-50%,-50%)`;
-    requestAnimationFrame(ring);
-  })();
-  document.querySelectorAll('a,button,.feat,.pain,.faq-q,.benefit,.float-card,.followup,.price-card li').forEach(el=>{
-    el.addEventListener('mouseenter',()=>cring.classList.add('hot'));
-    el.addEventListener('mouseleave',()=>cring.classList.remove('hot'));
-  });
-  addEventListener('mousedown',()=>{
-    const s=cring.getBoundingClientRect().width;
-    cdot.style.width=s+'px';cdot.style.height=s+'px';
-  });
-  addEventListener('mouseup',()=>{cdot.style.width='7px';cdot.style.height='7px';});
-}
 </script>
 
 <script type="application/ld+json">
