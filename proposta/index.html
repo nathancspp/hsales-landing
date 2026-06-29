@@ -182,6 +182,14 @@ a{color:inherit;text-decoration:none}
   background:var(--lavanda-suave);padding:12px;border-radius:12px;
 }
 
+/* FEATURE GROUPS */
+.feat-group{margin-bottom:20px;}
+.feat-group:last-child{margin-bottom:0;}
+.feat-group-label{
+  font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--roxo);margin-bottom:8px;padding-left:2px;
+}
+
 /* CONTRATO */
 .contract-block{
   background:#fff;border:1.5px solid var(--linha);border-radius:16px;
@@ -235,32 +243,54 @@ footer{text-align:center;color:var(--corpo);font-size:.82rem;padding-top:8px}
   <!-- O QUE ESTÁ INCLUÍDO -->
   <section class="includes">
     <h2>O que entra no plano</h2>
-    <div class="item-list">
-      <div class="item-row">
-        <span class="tick">✓</span>
-        <div><strong>Atendimento por IA 24/7</strong><span>WhatsApp, Instagram e site — em qualquer idioma, sem intervalo.</span></div>
-      </div>
-      <div class="item-row">
-        <span class="tick">✓</span>
-        <div><strong>Qualificação e fechamento automático</strong><span>A IA filtra o lead, mostra disponibilidade e conduz até a reserva.</span></div>
-      </div>
-      <div class="item-row">
-        <span class="tick">✓</span>
-        <div><strong>Motor de reservas + pagamento integrado</strong><span>Link de pagamento e confirmação enviados direto na conversa.</span></div>
-      </div>
-      <div class="item-row">
-        <span class="tick">✓</span>
-        <div><strong>Follow-up automático</strong><span>Resgata o lead frio. Envia lembrete de check-in e pesquisa pós-estadia.</span></div>
-      </div>
-      <div class="item-row">
-        <span class="tick">✓</span>
-        <div><strong>CRM automático com pipeline visual</strong><span>Cada conversa organizada por etapa. Sem planilha manual.</span></div>
-      </div>
-      <div class="item-row">
-        <span class="tick">✓</span>
-        <div><strong>Implantação guiada + suporte contínuo</strong><span>Entrada acompanhada até a operação rodar. Suporte via WhatsApp e email.</span></div>
+
+    <div class="feat-group">
+      <div class="feat-group-label">Atendimento & vendas</div>
+      <div class="item-list">
+        <div class="item-row"><span class="tick">✓</span><div><strong>IA omnichannel 24/7</strong><span>Atende no WhatsApp, Instagram e site simultaneamente, em qualquer idioma, sem intervalo.</span></div></div>
+        <div class="item-row"><span class="tick">✓</span><div><strong>Qualificação automática de leads</strong><span>A IA identifica interesse, coleta dados e separa leads prontos para comprar dos que precisam de nutrição.</span></div></div>
+        <div class="item-row"><span class="tick">✓</span><div><strong>Fechamento de reservas em tempo real</strong><span>Consulta disponibilidade, apresenta opções e conduz o hóspede até a confirmação — sem depender de ninguém.</span></div></div>
+        <div class="item-row"><span class="tick">✓</span><div><strong>Pagamento integrado na conversa</strong><span>Link de pagamento gerado e enviado direto pelo chat. Confirmação automática ao hóspede.</span></div></div>
       </div>
     </div>
+
+    <div class="feat-group">
+      <div class="feat-group-label">Jornada do hóspede</div>
+      <div class="item-list">
+        <div class="item-row"><span class="tick">✓</span><div><strong>Check-in digital automatizado</strong><span>Envio automático de instruções de chegada, documentos necessários e dados do quarto antes da data.</span></div></div>
+        <div class="item-row"><span class="tick">✓</span><div><strong>Atendimento durante a estadia</strong><span>Hóspede tira dúvidas, solicita serviços e recebe informações pelo WhatsApp sem acionar a recepção.</span></div></div>
+        <div class="item-row"><span class="tick">✓</span><div><strong>Check-out e pesquisa de satisfação</strong><span>Mensagem automática no dia da saída com instruções e pesquisa de experiência para coletar avaliações.</span></div></div>
+      </div>
+    </div>
+
+    <div class="feat-group">
+      <div class="feat-group-label">Retenção & follow-up</div>
+      <div class="item-list">
+        <div class="item-row"><span class="tick">✓</span><div><strong>Reativação de leads frios</strong><span>Sequência automática para contatos que consultaram mas não fecharam — com abordagem personalizada.</span></div></div>
+        <div class="item-row"><span class="tick">✓</span><div><strong>Lembrete de check-in</strong><span>Mensagem automática dias antes da chegada para reduzir no-shows e antecipar necessidades.</span></div></div>
+        <div class="item-row"><span class="tick">✓</span><div><strong>Follow-up pós-estadia</strong><span>Incentiva retorno, pede avaliação no Google e mantém o relacionamento ativo com o hóspede.</span></div></div>
+      </div>
+    </div>
+
+    <div class="feat-group">
+      <div class="feat-group-label">Gestão & visibilidade</div>
+      <div class="item-list">
+        <div class="item-row"><span class="tick">✓</span><div><strong>CRM automático com pipeline visual</strong><span>Cada lead organizado por etapa: novo contato, em negociação, reserva confirmada, hóspede ativo, pós-estadia.</span></div></div>
+        <div class="item-row"><span class="tick">✓</span><div><strong>Histórico completo de conversas</strong><span>Todas as interações centralizadas — sem depender de memória da equipe ou mensagens perdidas no celular.</span></div></div>
+        <div class="item-row"><span class="tick">✓</span><div><strong>Relatórios de atendimento</strong><span>Volume de conversas, taxa de conversão, origem dos leads e performance da IA em um painel único.</span></div></div>
+      </div>
+    </div>
+
+    <div class="feat-group">
+      <div class="feat-group-label">Implantação & suporte</div>
+      <div class="item-list">
+        <div class="item-row"><span class="tick">✓</span><div><strong>Sessão de implantação guiada</strong><span>Reunião de 1 hora com a equipe HSales para configurar canais, treinar a IA com os dados do hotel e validar o fluxo.</span></div></div>
+        <div class="item-row"><span class="tick">✓</span><div><strong>IA treinada com o seu hotel</strong><span>Configuramos a IA com nome, tarifas, quartos, políticas, perguntas frequentes e tom de voz do seu negócio.</span></div></div>
+        <div class="item-row"><span class="tick">✓</span><div><strong>Suporte contínuo incluso</strong><span>Ajustes, dúvidas e melhorias via WhatsApp e email — sem custo adicional enquanto você for cliente.</span></div></div>
+        <div class="item-row"><span class="tick">✓</span><div><strong>Atualizações da plataforma</strong><span>Novos recursos e melhorias são disponibilizados automaticamente, sem custo extra e sem necessidade de reinstalação.</span></div></div>
+      </div>
+    </div>
+
   </section>
 
   <!-- PREÇO -->
