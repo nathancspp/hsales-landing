@@ -325,11 +325,15 @@ footer .logo-word{color:#fff}
 .nav-links{display:flex;align-items:center;gap:34px}
 .nav-links a{font-weight:600;font-size:0.96rem;color:var(--quase-preto);opacity:.78;transition:opacity .2s}
 .nav-links a:hover{opacity:1}
-.nav-cta{display:flex;align-items:center;gap:8px}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.nav-entrar{font-weight:600;font-size:0.9rem;color:var(--corpo);opacity:.78;transition:opacity .2s;text-decoration:none}
+.nav-entrar:hover{opacity:1;color:var(--quase-preto)}
+.nav-contratar{font-weight:700;font-size:0.9rem;color:var(--roxo);opacity:.9;transition:opacity .2s;text-decoration:none;border-bottom:2px solid var(--lavanda)}
+.nav-contratar:hover{opacity:1;border-color:var(--roxo)}
 .menu-toggle{display:none;background:none;border:0;cursor:pointer}
 @media(max-width:880px){
   .nav-links{display:none}
-  .nav-cta .btn-ghost{display:none}
+  .nav-entrar,.nav-contratar{display:none}
 }
 
 /* ---------- HERO ---------- */
@@ -1053,13 +1057,15 @@ html{scrollbar-width:none}
         <a href="#diferenca">Diferença</a>
         <a href="#preco">Preço</a>
         <a href="#faq">FAQ</a>
+        <a href="https://hsales.app/proposta/" class="cta-comprar">Contratar</a>
       </div>
       <div class="menu-footer">
         <a href="#" class="btn menu-btn-agenda cta-agenda">Agendar Demo</a>
       </div>
     </nav>
     <div class="nav-cta">
-      <a href="#" class="btn btn-ghost cta-login">Entrar</a>
+      <a href="#" class="nav-entrar cta-login">Entrar</a>
+      <a href="https://hsales.app/proposta/" class="nav-contratar cta-comprar">Contratar</a>
       <a href="#" class="btn btn-primary cta-agenda">Agendar Demo <span class="arrow">→</span></a>
       <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -1079,8 +1085,7 @@ html{scrollbar-width:none}
       <h1>A Inteligência Artificial que <br><span class="hl">atende e fecha reservas</span> <br>para o seu hotel.<span class="h1-sub">24 horas por dia. 7 dias por semana.</span></h1>
       <p class="lead">A HSales atende em qualquer canal, qualifica o hóspede, mostra os quartos disponíveis, cobra e confirma a reserva. Sem fila de espera, sem comissão, sem perder venda de madrugada.</p>
       <div class="hero-actions">
-        <a href="#" class="btn btn-primary cta-whats">Testar a IA <span class="arrow">→</span></a>
-        <a href="#" class="btn btn-outline cta-agenda">Agendar Demo <span class="arrow">→</span></a>
+        <a href="#" class="btn btn-primary cta-whats">Simular uma reserva <span class="arrow">→</span></a>
       </div>
       <div class="hero-trust">
         <span class="benefit"><span class="ck">✓</span> <b>R$997</b>/mês ilimitado</span>
@@ -1379,7 +1384,7 @@ html{scrollbar-width:none}
       <span class="kicker">Por que HSales</span>
       <h2>A maioria só atende. <br>A <span style="color:var(--roxo)">HSales</span> vai até o pós-venda.</h2>
       <p class="lead">A plataforma executa a jornada completa, do atendimento ao check-out, passando por todas as etapas, 100% automatizada, sem exigir a atenção da sua equipe.</p>
-      <div style="margin-top:24px"><a href="#" class="btn btn-primary cta-whats">Testar a IA <span class="arrow">→</span></a></div>
+      <div style="margin-top:24px"><a href="#" class="btn btn-primary cta-whats">Simular uma reserva <span class="arrow">→</span></a></div>
     </div>
 
     <div class="compare reveal">
@@ -1426,7 +1431,7 @@ html{scrollbar-width:none}
         <li><span class="ck">✓</span> Follow-up e pós-estadia automatizados</li>
         <li><span class="ck">✓</span> Suporte em português</li>
       </ul>
-      <a href="#" class="btn btn-light cta-comprar">Começar agora <span class="arrow">→</span></a>
+      <a href="#" class="btn btn-light cta-comprar">Contratar agora <span class="arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -1472,8 +1477,7 @@ html{scrollbar-width:none}
       <h2>Pare de perder reserva enquanto dorme</h2>
       <p>Agende uma demonstração e veja a IA atender, qualificar e fechar uma reserva ao vivo, com a operação do seu hotel.</p>
       <div class="hero-actions">
-        <a href="#" class="btn btn-light cta-whats">Testar a IA <span class="arrow">→</span></a>
-        <a href="#" class="btn btn-outline cta-agenda">Agendar Demo <span class="arrow">→</span></a>
+        <a href="#" class="btn btn-light cta-agenda">Agendar Demo <span class="arrow">→</span></a>
       </div>
       <p class="note">Resposta em até 1 dia útil · Sem compromisso</p>
     </div>
@@ -1518,7 +1522,7 @@ html{scrollbar-width:none}
 <!--
 <div class="fab" id="fab">
   <div class="fab-bubble">
-    <a href="#" class="fab-msg cta-whats"><span class="fab-from">HSales</span>Oiii! 👋 Teste aqui!</a>
+    <a href="#" class="fab-msg cta-whats"><span class="fab-from">HSales</span>Oiii! 👋 Simule uma reserva!</a>
     <button class="fab-close" id="fabClose" aria-label="Fechar">×</button>
   </div>
   <a href="#" class="fab-btn cta-whats" aria-label="Testar a IA no WhatsApp">
