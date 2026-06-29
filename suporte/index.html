@@ -36,22 +36,20 @@ body {
 
 /* ── HEADER ─────────────────────────────────── */
 .header {
-  background: var(--roxo);
-  border-bottom: 2px solid var(--roxo-esc);
-  box-shadow: 0 2px 0 var(--roxo-esc);
+  background: #fff;
+  border-bottom: 2px solid var(--linha);
   padding: 14px 24px;
   display: flex; align-items: center;
   position: sticky; top: 0; z-index: 100;
 }
-.logo { display: flex; align-items: center; gap: 10px; --s: 44px; text-decoration: none; }
+.logo { display: flex; align-items: center; gap: 10px; --s: 36px; text-decoration: none; }
 .lm {
   position: relative; isolation: isolate;
   display: flex; align-items: center; justify-content: center;
   gap: calc(var(--s)*.07);
   width: var(--s); height: var(--s);
   border-radius: calc(var(--s)*.28); background: var(--roxo);
-  border: 2px solid rgba(255,255,255,.45);
-  box-shadow: 3px 3px 0 var(--alto);
+  box-shadow: 2px 2px 0 var(--alto);
 }
 .lm::after {
   content: ""; position: absolute; z-index: -1;
@@ -61,18 +59,17 @@ body {
 }
 .lm .bar { position: relative; z-index: 1; width: calc(var(--s)*.16); height: calc(var(--s)*.5); background: #fff; border-radius: calc(var(--s)*.055); box-shadow: 0 calc(var(--s)*.055) 0 var(--alto); }
 .lm .dot { position: relative; z-index: 1; width: calc(var(--s)*.17); height: calc(var(--s)*.17); background: #fff; border-radius: calc(var(--s)*.05); box-shadow: 0 calc(var(--s)*.055) 0 var(--alto); }
-.lw { font-weight: 900; font-size: calc(var(--s)*.74); letter-spacing: -.03em; color: #fff; }
+.lw { font-weight: 900; font-size: calc(var(--s)*.74); letter-spacing: -.03em; color: var(--preto); }
 .badge {
   margin-left: auto;
   display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(255,255,255,.15); color: #fff;
-  border: 1.5px solid rgba(255,255,255,.35);
+  background: var(--lav-s); color: var(--roxo);
+  border: 1.5px solid var(--lavanda);
   font-size: 11px; font-weight: 700;
   padding: 5px 14px; border-radius: 100px;
   text-transform: uppercase; letter-spacing: .06em;
-  box-shadow: 2px 2px 0 rgba(0,0,0,.15);
+  box-shadow: 2px 2px 0 var(--lavanda);
 }
-.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
 
 /* ── CONTAINER ───────────────────────────────── */
 .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 72px; }
