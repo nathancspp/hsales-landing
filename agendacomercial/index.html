@@ -32,9 +32,8 @@ body {
 
 /* ── HEADER ─────────────────────────────────── */
 .header {
-  background: rgba(255,255,255,0.94);
-  backdrop-filter: blur(14px);
-  border-bottom: 2px solid var(--linha);
+  background: var(--roxo);
+  border-bottom: 2px solid var(--roxo-esc);
   padding: 14px 24px;
   display: flex;
   align-items: center;
@@ -58,18 +57,17 @@ body {
 }
 .lm .bar { position: relative; z-index: 1; width: calc(var(--s)*.16); height: calc(var(--s)*.5); background: #fff; border-radius: calc(var(--s)*.055); box-shadow: 0 calc(var(--s)*.055) 0 var(--alto); }
 .lm .dot { position: relative; z-index: 1; width: calc(var(--s)*.17); height: calc(var(--s)*.17); background: #fff; border-radius: calc(var(--s)*.05); box-shadow: 0 calc(var(--s)*.055) 0 var(--alto); }
-.lw { font-weight: 900; font-size: calc(var(--s)*.74); letter-spacing: -.03em; color: var(--preto); }
+.lw { font-weight: 900; font-size: calc(var(--s)*.74); letter-spacing: -.03em; color: #fff; }
 .badge {
   margin-left: auto;
   display: inline-flex; align-items: center; gap: 6px;
-  background: var(--lav-s); color: var(--roxo);
-  border: 1.5px solid var(--lavanda);
+  background: rgba(255,255,255,.15); color: #fff;
+  border: 1.5px solid rgba(255,255,255,.35);
   font-size: 11px; font-weight: 700;
   padding: 5px 14px; border-radius: 100px;
   text-transform: uppercase; letter-spacing: .06em;
-  box-shadow: 2px 2px 0 var(--lavanda);
 }
-.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--roxo); }
+.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
 
 /* ── BANNER ──────────────────────────────────── */
 .banner {
@@ -174,18 +172,11 @@ body {
   <div class="badge">Demonstração</div>
 </div>
 
-<!-- BANNER -->
-<div class="banner">
-  <strong>Veja a HSales ao vivo no seu hotel 🚀</strong>
-  <p>Demonstração completa da plataforma com a IA em operação — 45 minutos.</p>
-</div>
-
 <!-- MAIN -->
 <div class="container">
 
   <div class="page-head">
     <h1>Agende sua demonstração</h1>
-    <p>45 min · IA da HSales em operação ao vivo · Google Meet</p>
   </div>
 
   <div class="info-grid">
