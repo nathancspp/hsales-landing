@@ -44,14 +44,15 @@ body {
   line-height: 1.5;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  padding-top: 60px; /* compensa o header fixo */
 }
 
-/* ── HEADER ── */
-.sticky-top { position: sticky; top: 0; z-index: 100; }
+/* ── HEADER fixo no topo ── */
+.sticky-top { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
 .header {
   background: #fff;
   border-bottom: 2px solid var(--border);
-  padding: 16px 24px;
+  padding: 14px 24px;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -68,13 +69,16 @@ body {
 }
 .header-sub strong { color: var(--text); display: block; font-size: 13px; }
 
-/* ── PROGRESS ── */
+/* ── PROGRESS sticky abaixo do header ── */
 .progress-wrap {
   background: linear-gradient(135deg, var(--roxo) 0%, var(--roxo-vibrante) 100%);
   padding: 12px 24px;
   display: flex;
   align-items: center;
   gap: 14px;
+  position: sticky;
+  top: 60px; /* altura do header */
+  z-index: 100;
 }
 .progress-label-left { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.85); white-space: nowrap; }
 .progress-track {
@@ -345,7 +349,7 @@ textarea { resize: vertical; min-height: 80px; }
 </head>
 <body>
 
-<!-- HEADER + PROGRESS (sticky juntos) -->
+<!-- HEADER fixo -->
 <div class="sticky-top">
 <div class="header">
   <a href="https://hsales.app" style="text-decoration:none;">
@@ -367,6 +371,9 @@ textarea { resize: vertical; min-height: 80px; }
   </a>
   <div class="hdr-badge">Onboarding</div>
 </div>
+</div><!-- /sticky-top (header fixo) -->
+
+<!-- PROGRESS sticky — acompanha o scroll, gruda abaixo do header -->
 <div class="progress-wrap">
   <span class="progress-label-left">Progresso</span>
   <div class="progress-track">
@@ -377,17 +384,17 @@ textarea { resize: vertical; min-height: 80px; }
     <div class="ms-tick" id="tk100" style="left:100%"><div class="ms-lbl" id="lb100">100%</div></div>
   </div>
 </div>
-</div><!-- /sticky-top -->
 
 <!-- MAIN -->
 <div class="container">
 
   <div class="intro-card">
-    <strong>Preencha como base inicial — pode ser ajustado a qualquer momento.</strong>
-    São 6 seções curtas, leva cerca de 10 minutos. As informações aqui servem para a IA já começar personalizada desde o primeiro dia, mas nada é definitivo: tudo poderá ser revisado e refinado na <strong>reunião de implementação</strong>, que agendamos assim que você concluir o briefing.
-    <br><br>
-    O progresso é salvo automaticamente. Ao atingir <strong>70%</strong>, o botão de agendamento é liberado.
-    Qualquer dificuldade no preenchimento, é só chamar no <a href="https://wa.me/5548996539190?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20briefing%20da%20HSales." target="_blank" rel="noopener" style="color:var(--roxo);font-weight:700;text-decoration:none;">WhatsApp</a>.
+    <strong style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--roxo);margin-bottom:12px;">Instruções de preenchimento</strong>
+    <strong>1. Responda seção por seção</strong> — são 6 no total. Clique no título de cada seção para abrir e preencher os campos.<br><br>
+    <strong>2. Seja direto e objetivo</strong> — não precisa de texto formal. Escreva como descreveria o hotel para um hóspede ou parceiro.<br><br>
+    <strong>3. O progresso é salvo automaticamente</strong> — pode fechar e voltar depois sem perder nada. Ao atingir <strong>70%</strong>, o botão de agendamento da reunião de implementação é liberado.<br><br>
+    <strong style="color:var(--quase-preto);">Não se preocupe em acertar tudo agora.</strong> <span style="color:var(--corpo)">Estas informações servem como <em>base inicial</em> para a IA — nada é definitivo. Na <strong>reunião de implementação</strong> revisamos tudo juntos, ajustamos os detalhes e refinamos a personalização antes de ir ao ar. Você pode alterar qualquer dado a qualquer momento sem problema.</span><br><br>
+    <span style="color:var(--corpo)">Qualquer dificuldade no preenchimento, é só chamar no <a href="https://wa.me/5548996539190?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20briefing%20da%20HSales." target="_blank" rel="noopener" style="color:var(--roxo);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--lavanda);">WhatsApp</a>.</span>
   </div>
 
   <form id="briefingForm" novalidate>
