@@ -34,15 +34,15 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── HEADER ─────────────────────────────────── */
-.header {
-  background: #fff;
-  border-bottom: 2px solid var(--linha);
-  padding: 14px 24px;
-  display: flex; align-items: center;
-  position: sticky; top: 0; z-index: 100;
+/* ── CONTAINER ───────────────────────────────── */
+.container { max-width: 760px; margin: 0 auto; padding: 40px 20px 72px; }
+
+/* ── DOC TOP ─────────────────────────────────── */
+.doc-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 40px;
 }
-.logo { display: flex; align-items: center; gap: 10px; --s: 36px; text-decoration: none; }
+.logo { display: flex; align-items: center; gap: 10px; --s: 32px; text-decoration: none; }
 .lm {
   position: relative; isolation: isolate;
   display: flex; align-items: center; justify-content: center;
@@ -61,7 +61,6 @@ body {
 .lm .dot { position: relative; z-index: 1; width: calc(var(--s)*.17); height: calc(var(--s)*.17); background: #fff; border-radius: calc(var(--s)*.05); box-shadow: 0 calc(var(--s)*.055) 0 var(--alto); }
 .lw { font-weight: 900; font-size: calc(var(--s)*.74); letter-spacing: -.03em; color: var(--preto); }
 .badge {
-  margin-left: auto;
   display: inline-flex; align-items: center; gap: 6px;
   background: var(--lav-s); color: var(--roxo);
   border: 1.5px solid var(--lavanda);
@@ -71,13 +70,10 @@ body {
   box-shadow: 2px 2px 0 var(--lavanda);
 }
 
-/* ── CONTAINER ───────────────────────────────── */
-.container { max-width: 900px; margin: 0 auto; padding: 40px 20px 72px; }
-
 /* ── PAGE HEAD ───────────────────────────────── */
 .page-head { text-align: center; margin-bottom: 28px; }
 .page-head h1 {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2rem, 4vw, 2.8rem);
   font-weight: 900; letter-spacing: -.03em; line-height: 1.08;
 }
 
@@ -88,29 +84,29 @@ body {
   gap: 16px;
   margin-bottom: 28px;
 }
-@media (max-width: 640px) { .info-grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
 .info-card {
   background: #fff;
   border: 2px solid var(--linha);
   border-radius: 16px;
-  padding: 20px;
+  padding: 18px 16px;
   box-shadow: 4px 4px 0 var(--lavanda);
-  display: flex; gap: 14px; align-items: flex-start;
+  display: flex; gap: 12px; align-items: flex-start;
   transition: transform .2s var(--ease), box-shadow .2s var(--ease);
 }
 .info-card:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--lavanda); }
 .info-card:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--lavanda); }
 .info-ico {
-  font-size: 20px; flex-shrink: 0;
-  width: 40px; height: 40px;
+  font-size: 18px; flex-shrink: 0;
+  width: 38px; height: 38px;
   background: var(--lav-s);
   border: 1.5px solid var(--lavanda);
   border-radius: 10px;
   box-shadow: 2px 2px 0 var(--lavanda);
   display: flex; align-items: center; justify-content: center;
 }
-.info-card h3 { font-size: 13px; font-weight: 800; margin-bottom: 4px; letter-spacing: -.01em; }
-.info-card p  { font-size: 12px; color: var(--corpo); line-height: 1.55; }
+.info-card h3 { font-size: 13px; font-weight: 800; margin-bottom: 3px; letter-spacing: -.01em; }
+.info-card p  { font-size: 12px; color: var(--corpo); line-height: 1.5; }
 
 /* ── CARD IFRAME ─────────────────────────────── */
 .cal-card {
@@ -119,38 +115,36 @@ body {
   border-radius: 16px;
   box-shadow: 6px 6px 0 var(--roxo);
   overflow: hidden;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
   transition: transform .25s var(--ease), box-shadow .25s var(--ease);
 }
-.cal-card:hover { transform: translate(-2px,-2px); box-shadow: 8px 8px 0 var(--roxo); }
 .cal-card-head {
   background: var(--preto);
   color: #fff;
-  padding: 14px 24px;
+  padding: 12px 20px;
   display: flex; align-items: center; gap: 12px;
 }
 .dot-row { display: flex; gap: 6px; }
-.dot-row span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.25); }
-.cal-title { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.85); margin-left: 4px; }
+.dot-row span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.25); }
+.cal-title { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.85); margin-left: 4px; }
 .cal-card iframe { display: block; width: 100%; min-height: 690px; border: none; }
 
 /* ── FOOTER ──────────────────────────────────── */
-.foot { text-align: center; font-size: 12px; color: var(--corpo); margin-top: 16px; }
+.foot { text-align: center; font-size: 12px; color: var(--corpo); }
 .foot a { color: var(--roxo); font-weight: 700; text-decoration: none; border-bottom: 1.5px solid var(--lavanda); transition: border-color .15s; }
 .foot a:hover { border-color: var(--roxo); }
 </style>
 </head>
 <body>
-
-<div class="header">
-  <a href="https://hsales.app" class="logo">
-    <div class="lm"><div class="bar"></div><div class="dot"></div><div class="bar"></div></div>
-    <span class="lw">Sales</span>
-  </a>
-  <div class="badge">Suporte</div>
-</div>
-
 <div class="container">
+
+  <div class="doc-top">
+    <a href="https://hsales.app" class="logo">
+      <div class="lm"><div class="bar"></div><div class="dot"></div><div class="bar"></div></div>
+      <span class="lw">Sales</span>
+    </a>
+    <div class="badge">Suporte</div>
+  </div>
 
   <div class="page-head">
     <h1>Agendar Suporte</h1>
