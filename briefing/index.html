@@ -56,7 +56,16 @@ body {
   align-items: center;
   gap: 16px;
 }
-.header-sub { font-size: 12px; color: var(--muted); margin-left: auto; text-align: right; }
+.hdr-badge {
+  margin-left: auto;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--lavanda-suave); color: var(--roxo);
+  border: 1.5px solid var(--lavanda);
+  font-size: 11px; font-weight: 700;
+  padding: 5px 14px; border-radius: 100px;
+  text-transform: uppercase; letter-spacing: .06em;
+  box-shadow: 2px 2px 0 var(--lavanda);
+}
 .header-sub strong { color: var(--text); display: block; font-size: 13px; }
 
 /* ── PROGRESS ── */
@@ -339,7 +348,7 @@ textarea { resize: vertical; min-height: 80px; }
 <!-- HEADER + PROGRESS (sticky juntos) -->
 <div class="sticky-top">
 <div class="header">
-  <div class="logo">
+  <a href="https://hsales.app" style="text-decoration:none;">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 340 116" height="36" role="img" aria-label="HSales">
       <path d="M14 70 H48 V104 H38.5 A24.5 24.5 0 0 1 14 79.5 Z" fill="#5B3FD9" transform="rotate(8 31 87)"/>
       <rect x="0" y="0" width="100" height="100" rx="28" fill="#5B3FD9"/>
@@ -355,15 +364,8 @@ textarea { resize: vertical; min-height: 80px; }
       </g>
       <text x="122" y="50" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="74" font-weight="900" letter-spacing="-2.2" fill="#1A1A2E" dominant-baseline="central">Sales</text>
     </svg>
-  </div>
-  <div>
-    <div style="font-size:13px;font-weight:600;">Briefing de Onboarding</div>
-    <div style="font-size:11px;color:var(--muted);">Personalização da sua IA hoteleira</div>
-  </div>
-  <div class="header-sub">
-    <strong>Suporte</strong>
-    contato@hsales.app
-  </div>
+  </a>
+  <div class="hdr-badge">Onboarding</div>
 </div>
 <div class="progress-wrap">
   <span class="progress-label-left">Progresso</span>

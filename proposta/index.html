@@ -83,7 +83,7 @@ a{color:inherit;text-decoration:none}
   line-height:1.65;
 }
 
-/* INCLUDES */
+/* INCLUDES / ACCORDION */
 .includes{
   background:#fff;
   border:2px solid var(--linha);
@@ -92,13 +92,25 @@ a{color:inherit;text-decoration:none}
   box-shadow:5px 5px 0 var(--lavanda);
   margin-bottom:28px;
 }
-.includes h2{
-  font-size:1rem;
-  font-weight:800;
-  letter-spacing:-.01em;
-  margin-bottom:18px;
-  color:var(--quase-preto);
+.acc-toggle{
+  display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;user-select:none;gap:12px;
 }
+.acc-toggle h2{
+  font-size:1rem;font-weight:800;letter-spacing:-.01em;
+  color:var(--quase-preto);margin:0;
+}
+.acc-ico{
+  width:30px;height:30px;border-radius:8px;
+  border:2px solid var(--roxo-escuro);background:var(--roxo);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:20px;line-height:1;font-weight:300;flex-shrink:0;
+  box-shadow:2px 2px 0 var(--roxo-escuro);
+  transition:transform .25s cubic-bezier(0.22,1,0.36,1);
+}
+.includes.open .acc-ico{transform:rotate(45deg);}
+.acc-body{display:none;padding-top:18px;}
+.includes.open .acc-body{display:block;}
 .item-list{display:grid;gap:12px}
 .item-row{
   display:flex;align-items:flex-start;gap:12px;
@@ -243,21 +255,16 @@ footer{text-align:center;color:var(--corpo);font-size:.82rem;padding-top:8px}
   </section>
 
   <!-- O QUE ESTÁ INCLUÍDO -->
-  <section class="includes">
-    <h2>O que entra no plano</h2>
+  <section class="includes" id="includesSection">
+    <div class="acc-toggle" onclick="document.getElementById('includesSection').classList.toggle('open')">
+      <h2>O que entra no plano</h2>
+      <div class="acc-ico">+</div>
+    </div>
+    <div class="acc-body">
 
     <div class="feat-group">
       <div class="feat-group-label">Atendimento & vendas</div>
       <div class="item-list">
         <div class="item-row"><span class="tick">✓</span><div><strong>IA omnichannel 24/7</strong><span>WhatsApp, Instagram e site — qualquer idioma, sem intervalo.</span></div></div>
         <div class="item-row"><span class="tick">✓</span><div><strong>Qualificação automática de leads</strong><span>Identifica interesse, coleta dados e separa quem está pronto para comprar.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Fechamento de reservas em tempo real</strong><span>Consulta disponibilidade e conduz até a confirmação sem intervenção humana.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Pagamento integrado na conversa</strong><span>Link gerado e enviado direto no chat, com confirmação automática.</span></div></div>
-      </div>
-    </div>
-
-    <div class="feat-group">
-      <div class="feat-group-label">Jornada do hóspede</div>
-      <div class="item-list">
-        <div class="item-row"><span class="tick">✓</span><div><strong>Check-in digital automatizado</strong><span>Instruções de chegada, documentos e dados do quarto enviados antes da data.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Atendimento durante a estadia</strong><span>Dúvidas e solicitações re
+        <div class="item-row"><span class="tick">✓</span><div><strong>Fechamento de reservas em tempo real</strong><span>Consu
