@@ -11,20 +11,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  --roxo:     #5B3FD9;
-  --roxo-v:   #6B4DE6;
+  --roxo:  #5B3FD9;
+  --roxo-v: #6B4DE6;
   --roxo-esc: #4A32B0;
-  --lavanda:  #C4B5F4;
-  --lav-s:    #EDE8FB;
-  --preto:    #1A1A2E;
-  --corpo:    #585770;
-  --linha:    #E8E4F5;
-  --alto:     #2A1A72;
+  --lavanda: #C4B5F4;
+  --lav-s:  #EDE8FB;
+  --preto:  #1A1A2E;
+  --corpo:  #585770;
+  --linha:  #E8E4F5;
+  --alto:   #2A1A72;
+  --ease:   cubic-bezier(0.22, 1, 0.36, 1);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: #F7F6FF;
+  background:
+    radial-gradient(700px 400px at 100% 0%, var(--lav-s), transparent 60%),
+    radial-gradient(500px 350px at 0% 70%, oklch(0.97 0.015 285), transparent 55%),
+    #fff;
   color: var(--preto);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -34,12 +38,10 @@ body {
 .header {
   background: var(--roxo);
   border-bottom: 2px solid var(--roxo-esc);
+  box-shadow: 0 2px 0 var(--roxo-esc);
   padding: 14px 24px;
-  display: flex;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  display: flex; align-items: center;
+  position: sticky; top: 0; z-index: 100;
 }
 .logo { display: flex; align-items: center; gap: 10px; --s: 44px; text-decoration: none; }
 .lm {
@@ -68,39 +70,19 @@ body {
   font-size: 11px; font-weight: 700;
   padding: 5px 14px; border-radius: 100px;
   text-transform: uppercase; letter-spacing: .06em;
+  box-shadow: 2px 2px 0 rgba(0,0,0,.15);
 }
 .badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
 
-/* ── BANNER ──────────────────────────────────── */
-.banner {
-  background: linear-gradient(135deg, var(--roxo) 0%, var(--roxo-v) 100%);
-  border-bottom: 2px solid var(--roxo-esc);
-  color: #fff; text-align: center; padding: 16px 24px;
-}
-.banner strong { display: block; font-size: 15px; font-weight: 800; margin-bottom: 3px; }
-.banner p { font-size: 13px; opacity: .88; }
-
 /* ── CONTAINER ───────────────────────────────── */
-.container { max-width: 900px; margin: 0 auto; padding: 28px 20px 60px; }
+.container { max-width: 900px; margin: 0 auto; padding: 40px 20px 72px; }
 
 /* ── PAGE HEAD ───────────────────────────────── */
-.page-head { text-align: center; margin-bottom: 20px; }
-.kicker {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--lav-s); color: var(--roxo);
-  border: 1.5px solid var(--lavanda);
-  font-size: 11px; font-weight: 700;
-  padding: 6px 16px; border-radius: 100px;
-  text-transform: uppercase; letter-spacing: .06em;
-  margin-bottom: 14px;
-  box-shadow: 2px 2px 0 var(--lavanda);
-}
+.page-head { text-align: center; margin-bottom: 28px; }
 .page-head h1 {
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  font-weight: 900; letter-spacing: -.03em;
-  margin-bottom: 10px;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900; letter-spacing: -.03em; line-height: 1.08;
 }
-.page-head p { font-size: 14px; color: var(--corpo); max-width: 52ch; margin: 0 auto; line-height: 1.6; }
 
 /* ── INFO CARDS ──────────────────────────────── */
 .info-grid {
@@ -113,20 +95,25 @@ body {
 .info-card {
   background: #fff;
   border: 2px solid var(--linha);
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 20px;
   box-shadow: 4px 4px 0 var(--lavanda);
   display: flex; gap: 14px; align-items: flex-start;
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
 }
+.info-card:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--lavanda); }
+.info-card:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--lavanda); }
 .info-ico {
   font-size: 20px; flex-shrink: 0;
   width: 40px; height: 40px;
-  background: var(--lav-s); border: 1.5px solid var(--lavanda);
+  background: var(--lav-s);
+  border: 1.5px solid var(--lavanda);
   border-radius: 10px;
+  box-shadow: 2px 2px 0 var(--lavanda);
   display: flex; align-items: center; justify-content: center;
 }
-.info-card h3 { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
-.info-card p  { font-size: 12px; color: var(--corpo); line-height: 1.5; }
+.info-card h3 { font-size: 13px; font-weight: 800; margin-bottom: 4px; letter-spacing: -.01em; }
+.info-card p  { font-size: 12px; color: var(--corpo); line-height: 1.55; }
 
 /* ── CARD IFRAME ─────────────────────────────── */
 .cal-card {
@@ -136,7 +123,9 @@ body {
   box-shadow: 6px 6px 0 var(--roxo);
   overflow: hidden;
   margin-bottom: 28px;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease);
 }
+.cal-card:hover { transform: translate(-2px,-2px); box-shadow: 8px 8px 0 var(--roxo); }
 .cal-card-head {
   background: var(--preto);
   color: #fff;
@@ -148,24 +137,14 @@ body {
 .cal-title { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.85); margin-left: 4px; }
 .cal-card iframe { display: block; width: 100%; min-height: 690px; border: none; }
 
-/* ── FOOTER NOTE ─────────────────────────────── */
-.footer-note {
-  text-align: center;
-  background: var(--lav-s);
-  border: 2px solid var(--lavanda);
-  border-radius: 14px;
-  padding: 20px 24px;
-  box-shadow: 4px 4px 0 var(--lavanda);
-}
-.footer-note p { font-size: 13px; color: var(--corpo); line-height: 1.6; }
-.footer-note strong { color: var(--preto); }
-.footer-note a { color: var(--roxo); font-weight: 700; text-decoration: none; }
-.footer-note a:hover { text-decoration: underline; }
+/* ── FOOTER ──────────────────────────────────── */
+.foot { text-align: center; font-size: 12px; color: var(--corpo); margin-top: 16px; }
+.foot a { color: var(--roxo); font-weight: 700; text-decoration: none; border-bottom: 1.5px solid var(--lavanda); transition: border-color .15s; }
+.foot a:hover { border-color: var(--roxo); }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <a href="https://hsales.app" class="logo">
     <div class="lm"><div class="bar"></div><div class="dot"></div><div class="bar"></div></div>
@@ -174,7 +153,6 @@ body {
   <div class="badge">Comercial</div>
 </div>
 
-<!-- MAIN -->
 <div class="container">
 
   <div class="page-head">
@@ -210,19 +188,14 @@ body {
       <div class="dot-row"><span></span><span></span><span></span></div>
       <span class="cal-title">Escolha data e horário — Demo HSales</span>
     </div>
-    <!-- Google Calendar Appointment Scheduling -->
     <iframe
       src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3C8fspYDefPn-ls9jDUsA8YahzrHhjPPibVLwGFy_0ZQ8js9JYXEMp52BoOC7xd192L-81W57I?gv=true"
-      width="100%"
-      height="690"
-      frameborder="0"
+      width="100%" height="690" frameborder="0"
       title="Agendamento Demo HSales">
     </iframe>
   </div>
 
-  <p style="text-align:center;font-size:12px;color:var(--corpo);margin-top:16px;">
-    Dúvidas? <a href="https://wa.me/5548996539190?text=Ol%C3%A1!%20Tenho%20d%C3%BAvidas%20sobre%20a%20demo%20da%20HSales." target="_blank" rel="noopener" style="color:var(--roxo);font-weight:700;text-decoration:none;">WhatsApp</a>
-  </p>
+  <p class="foot">Dúvidas? <a href="https://wa.me/5548996539190?text=Ol%C3%A1!%20Tenho%20d%C3%BAvidas%20sobre%20a%20demo%20da%20HSales." target="_blank" rel="noopener">WhatsApp</a></p>
 
 </div>
 </body>

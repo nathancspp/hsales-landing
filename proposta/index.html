@@ -36,10 +36,7 @@ body{
 a{color:inherit;text-decoration:none}
 
 /* LAYOUT */
-.wrap{max-width:680px;margin:0 auto;padding:40px 20px 60px}
-
-/* LOGO */
-.logo{display:flex;align-items:center;gap:10px;--s:32px;margin-bottom:48px}
+.wrap{max-width:680px;margin:0 auto;padding:32px 20px 60px}
 .logo-mark{
   position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;
   gap:calc(var(--s)*0.07);width:var(--s);height:var(--s);border-radius:calc(var(--s)*0.28);background:var(--roxo)
@@ -87,7 +84,7 @@ a{color:inherit;text-decoration:none}
 /* INCLUDES */
 .includes{
   background:#fff;
-  border:1.5px solid var(--linha);
+  border:2px solid var(--linha);
   border-radius:24px;
   padding:28px;
   box-shadow:5px 5px 0 var(--lavanda);
@@ -164,10 +161,10 @@ a{color:inherit;text-decoration:none}
 .btn-primary:hover{background:var(--roxo-vibrante);box-shadow:6px 6px 0 var(--roxo-escuro)}
 .btn-outline{
   background:#fff;color:var(--quase-preto);
-  border:1.5px solid var(--linha);
-  box-shadow:3px 3px 0 oklch(0.3 0.05 285 / 0.15);
+  border:2px solid var(--linha);
+  box-shadow:4px 4px 0 var(--lavanda);
 }
-.btn-outline:hover{box-shadow:5px 5px 0 var(--roxo-escuro)}
+.btn-outline:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--lavanda)}
 
 /* TEMPLATES */
 .templates{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
@@ -192,9 +189,9 @@ a{color:inherit;text-decoration:none}
 
 /* CONTRATO */
 .contract-block{
-  background:#fff;border:1.5px solid var(--linha);border-radius:16px;
+  background:#fff;border:2px solid var(--linha);border-radius:16px;
   padding:20px;margin-bottom:20px;
-  box-shadow:3px 3px 0 var(--linha);
+  box-shadow:4px 4px 0 var(--lavanda);
 }
 .contract-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--corpo);margin-bottom:12px;}
 .contract-body{
@@ -212,6 +209,24 @@ a{color:inherit;text-decoration:none}
 .contract-check input{accent-color:var(--roxo);width:16px;height:16px;margin-top:1px;flex-shrink:0;cursor:pointer;}
 .pay-lock{font-size:11px;color:var(--corpo);text-align:center;}
 
+/* HEADER */
+.page-header{
+  background:var(--roxo);
+  border-bottom:2px solid var(--roxo-escuro);
+  box-shadow:0 2px 0 var(--roxo-escuro);
+  padding:14px 24px;
+  display:flex;align-items:center;
+  position:sticky;top:0;z-index:100;
+}
+.ph-logo{display:flex;align-items:center;gap:10px;--s:40px;text-decoration:none;}
+.ph-lm{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;gap:calc(var(--s)*.07);width:var(--s);height:var(--s);border-radius:calc(var(--s)*.28);background:var(--roxo);border:2px solid rgba(255,255,255,.45);box-shadow:3px 3px 0 #2A1A72;}
+.ph-lm::after{content:"";position:absolute;z-index:-1;left:14%;bottom:calc(var(--s)*-.04);width:calc(var(--s)*.34);height:calc(var(--s)*.34);background:var(--roxo);border-radius:0 0 0 72%;transform:rotate(8deg);}
+.ph-lm .ph-bar{position:relative;z-index:1;width:calc(var(--s)*.16);height:calc(var(--s)*.5);background:#fff;border-radius:calc(var(--s)*.055);box-shadow:0 calc(var(--s)*.055) 0 #2A1A72;}
+.ph-lm .ph-dot{position:relative;z-index:1;width:calc(var(--s)*.17);height:calc(var(--s)*.17);background:#fff;border-radius:calc(var(--s)*.05);box-shadow:0 calc(var(--s)*.055) 0 #2A1A72;}
+.ph-lw{font-weight:900;font-size:calc(var(--s)*.74);letter-spacing:-.03em;color:#fff;}
+.ph-badge{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.35);font-size:11px;font-weight:700;padding:5px 14px;border-radius:100px;text-transform:uppercase;letter-spacing:.06em;box-shadow:2px 2px 0 rgba(0,0,0,.15);}
+.ph-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#fff;}
+
 /* FOOTER */
 footer{text-align:center;color:var(--corpo);font-size:.82rem;padding-top:8px}
 
@@ -225,13 +240,17 @@ footer{text-align:center;color:var(--corpo);font-size:.82rem;padding-top:8px}
 </style>
 </head>
 <body>
-<main class="wrap">
 
-  <!-- LOGO -->
-  <a class="logo" href="https://hsales.app" target="_blank" rel="noreferrer">
-    <span class="logo-mark"><span class="bar"></span><span class="dot"></span><span class="bar"></span></span>
-    <span class="logo-word">Sales</span>
+<!-- HEADER -->
+<div class="page-header">
+  <a href="https://hsales.app" class="ph-logo">
+    <div class="ph-lm"><div class="ph-bar"></div><div class="ph-dot"></div><div class="ph-bar"></div></div>
+    <span class="ph-lw">Sales</span>
   </a>
+  <div class="ph-badge">Proposta</div>
+</div>
+
+<main class="wrap">
 
   <!-- HERO -->
   <section class="hero">
@@ -242,118 +261,4 @@ footer{text-align:center;color:var(--corpo);font-size:.82rem;padding-top:8px}
 
   <!-- O QUE ESTÁ INCLUÍDO -->
   <section class="includes">
-    <h2>O que entra no plano</h2>
-
-    <div class="feat-group">
-      <div class="feat-group-label">Atendimento & vendas</div>
-      <div class="item-list">
-        <div class="item-row"><span class="tick">✓</span><div><strong>IA omnichannel 24/7</strong><span>WhatsApp, Instagram e site — qualquer idioma, sem intervalo.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Qualificação automática de leads</strong><span>Identifica interesse, coleta dados e separa quem está pronto para comprar.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Fechamento de reservas em tempo real</strong><span>Consulta disponibilidade e conduz até a confirmação sem intervenção humana.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Pagamento integrado na conversa</strong><span>Link gerado e enviado direto no chat, com confirmação automática.</span></div></div>
-      </div>
-    </div>
-
-    <div class="feat-group">
-      <div class="feat-group-label">Jornada do hóspede</div>
-      <div class="item-list">
-        <div class="item-row"><span class="tick">✓</span><div><strong>Check-in digital automatizado</strong><span>Instruções de chegada, documentos e dados do quarto enviados antes da data.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Atendimento durante a estadia</strong><span>Dúvidas e solicitações resolvidas pelo WhatsApp sem acionar a recepção.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Check-out e pesquisa de satisfação</strong><span>Mensagem automática no dia da saída com pesquisa de experiência.</span></div></div>
-      </div>
-    </div>
-
-    <div class="feat-group">
-      <div class="feat-group-label">Retenção & follow-up</div>
-      <div class="item-list">
-        <div class="item-row"><span class="tick">✓</span><div><strong>Reativação de leads frios</strong><span>Sequência automática para contatos que consultaram e não fecharam.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Lembrete de check-in</strong><span>Mensagem automática pré-chegada para reduzir no-shows.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Follow-up pós-estadia</strong><span>Incentiva retorno e avaliação no Google mantendo o relacionamento ativo.</span></div></div>
-      </div>
-    </div>
-
-    <div class="feat-group">
-      <div class="feat-group-label">Gestão & visibilidade</div>
-      <div class="item-list">
-        <div class="item-row"><span class="tick">✓</span><div><strong>CRM automático com pipeline visual</strong><span>Cada lead organizado por etapa, do primeiro contato ao pós-estadia.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Histórico completo de conversas</strong><span>Todas as interações centralizadas, sem mensagens perdidas no celular.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Relatórios de atendimento</strong><span>Volume, conversão, origem dos leads e performance da IA em painel único.</span></div></div>
-      </div>
-    </div>
-
-    <div class="feat-group">
-      <div class="feat-group-label">Implantação & suporte</div>
-      <div class="item-list">
-        <div class="item-row"><span class="tick">✓</span><div><strong>Sessão de implantação guiada</strong><span>1 hora com a equipe HSales para configurar canais e validar o fluxo.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>IA treinada com o seu hotel</strong><span>Tarifas, quartos, políticas e tom de voz configurados antes de ir ao ar.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Suporte contínuo incluso</strong><span>Ajustes e melhorias via WhatsApp e email sem custo adicional.</span></div></div>
-        <div class="item-row"><span class="tick">✓</span><div><strong>Atualizações da plataforma</strong><span>Novos recursos disponibilizados automaticamente, sem reinstalação.</span></div></div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- PREÇO -->
-  <section class="price-block">
-    <span class="price-tag">investimento</span>
-    <div class="amount">R$997<small>/mês</small></div>
-    <p class="price-desc">Plano único. Ilimitado. Sem comissão por reserva e sem cobrança por conversa.</p>
-    <div class="bullets">
-      <div class="brow">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(255,255,255,.18)"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Sem comissão sobre reservas
-      </div>
-      <div class="brow">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(255,255,255,.18)"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Sem limite de conversas ou canais
-      </div>
-      <div class="brow">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(255,255,255,.18)"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Implantação guiada incluída
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTRATO + CTA -->
-  <div class="contract-block">
-    <div class="contract-title">Termos de contratação</div>
-    <div class="contract-body" id="contractBody">
-      <p><strong>1. Objeto.</strong> A HSales disponibiliza ao contratante acesso à plataforma SaaS de atendimento e vendas com inteligência artificial, incluindo onboarding guiado, suporte técnico e atualizações durante a vigência.</p>
-      <p><strong>2. Plano e valor.</strong> Plano único: R$ 997,00/mês. Sem comissão sobre reservas. Sem cobrança por conversa ou volume de atendimentos. Faturamento mensal recorrente.</p>
-      <p><strong>3. Vigência e cancelamento.</strong> Contrato por prazo indeterminado. Cancelamento a qualquer momento com aviso prévio de 30 dias, sem multa após o primeiro mês.</p>
-      <p><strong>4. Implantação.</strong> A sessão de implementação será agendada após confirmação do pagamento da primeira mensalidade. O prazo estimado para a IA entrar em operação é de até 5 dias úteis após a reunião.</p>
-      <p><strong>5. Responsabilidades.</strong> O contratante é responsável por fornecer as informações e acessos necessários para a configuração (WhatsApp Business, Instagram, site). A HSales não se responsabiliza por indisponibilidades de plataformas de terceiros (Meta, Google).</p>
-      <p><strong>6. Dados e confidencialidade.</strong> As informações do hotel e dos hóspedes são tratadas com confidencialidade e não são compartilhadas com terceiros, conforme a LGPD.</p>
-      <p><strong>7. Foro.</strong> Fica eleito o foro da comarca de Florianópolis/SC para dirimir eventuais controvérsias.</p>
-    </div>
-    <label class="contract-check" id="contractCheck">
-      <input type="checkbox" id="acceptTerms" onchange="togglePayBtn()">
-      <span>Li e concordo com os termos de contratação acima</span>
-    </label>
-  </div>
-
-  <div class="cta-block">
-    <a class="btn btn-primary" id="btnPagamento" href="https://www.asaas.com/c/qqo482ajc2j8cch0" target="_blank" rel="noreferrer"
-       style="opacity:.45;pointer-events:none;cursor:not-allowed;">
-      Confirmar e ir para o pagamento →
-    </a>
-    <div class="pay-lock" id="payLock">Aceite os termos acima para continuar</div>
-  </div>
-
-  <footer>HSales · hsales.app</footer>
-
-<script>
-function togglePayBtn() {
-  const checked = document.getElementById('acceptTerms').checked;
-  const btn = document.getElementById('btnPagamento');
-  const lock = document.getElementById('payLock');
-  btn.style.opacity = checked ? '1' : '.45';
-  btn.style.pointerEvents = checked ? 'auto' : 'none';
-  btn.style.cursor = checked ? 'pointer' : 'not-allowed';
-  lock.style.display = checked ? 'none' : 'block';
-}
-</script>
-
-</main>
-</body>
-</html>
+    <h2>O que entra 
