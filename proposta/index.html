@@ -182,6 +182,28 @@ a{color:inherit;text-decoration:none}
   background:var(--lavanda-suave);padding:12px;border-radius:12px;
 }
 
+/* CONTRATO */
+.contract-block{
+  background:#fff;border:1.5px solid var(--linha);border-radius:16px;
+  padding:20px;margin-bottom:20px;
+  box-shadow:3px 3px 0 var(--linha);
+}
+.contract-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--corpo);margin-bottom:12px;}
+.contract-body{
+  max-height:180px;overflow-y:auto;
+  border:1px solid var(--linha);border-radius:10px;
+  padding:14px 16px;margin-bottom:14px;
+  background:var(--lavanda-suave);
+}
+.contract-body p{font-size:11px;color:var(--corpo);line-height:1.7;margin-bottom:8px;}
+.contract-body p:last-child{margin-bottom:0;}
+.contract-check{
+  display:flex;align-items:flex-start;gap:10px;cursor:pointer;
+  font-size:12px;font-weight:600;color:var(--quase-preto);line-height:1.4;
+}
+.contract-check input{accent-color:var(--roxo);width:16px;height:16px;margin-top:1px;flex-shrink:0;cursor:pointer;}
+.pay-lock{font-size:11px;color:var(--corpo);text-align:center;}
+
 /* FOOTER */
 footer{text-align:center;color:var(--corpo);font-size:.82rem;padding-top:8px}
 
@@ -262,17 +284,48 @@ footer{text-align:center;color:var(--corpo);font-size:.82rem;padding-top:8px}
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- CONTRATO + CTA -->
+  <div class="contract-block">
+    <div class="contract-title">Termos de contratação</div>
+    <div class="contract-body" id="contractBody">
+      <p><strong>1. Objeto.</strong> A HSales disponibiliza ao contratante acesso à plataforma SaaS de atendimento e vendas com inteligência artificial, incluindo onboarding guiado, suporte técnico e atualizações durante a vigência.</p>
+      <p><strong>2. Plano e valor.</strong> Plano único: R$ 997,00/mês. Sem comissão sobre reservas. Sem cobrança por conversa ou volume de atendimentos. Faturamento mensal recorrente.</p>
+      <p><strong>3. Vigência e cancelamento.</strong> Contrato por prazo indeterminado. Cancelamento a qualquer momento com aviso prévio de 30 dias, sem multa após o primeiro mês.</p>
+      <p><strong>4. Implantação.</strong> A sessão de implementação será agendada após confirmação do pagamento da primeira mensalidade. O prazo estimado para a IA entrar em operação é de até 5 dias úteis após a reunião.</p>
+      <p><strong>5. Responsabilidades.</strong> O contratante é responsável por fornecer as informações e acessos necessários para a configuração (WhatsApp Business, Instagram, site). A HSales não se responsabiliza por indisponibilidades de plataformas de terceiros (Meta, Google).</p>
+      <p><strong>6. Dados e confidencialidade.</strong> As informações do hotel e dos hóspedes são tratadas com confidencialidade e não são compartilhadas com terceiros, conforme a LGPD.</p>
+      <p><strong>7. Foro.</strong> Fica eleito o foro da comarca de Florianópolis/SC para dirimir eventuais controvérsias.</p>
+    </div>
+    <label class="contract-check" id="contractCheck">
+      <input type="checkbox" id="acceptTerms" onchange="togglePayBtn()">
+      <span>Li e concordo com os termos de contratação acima</span>
+    </label>
+  </div>
+
   <div class="cta-block">
-    <a class="btn btn-primary" href="https://hsales.app" target="_blank" rel="noreferrer">
-      Contratar agora →
+    <a class="btn btn-primary" id="btnPagamento" href="LINK_PAGAMENTO_AQUI" target="_blank" rel="noreferrer"
+       style="opacity:.45;pointer-events:none;cursor:not-allowed;">
+      Confirmar e ir para o pagamento →
     </a>
+    <div class="pay-lock" id="payLock">Aceite os termos acima para continuar</div>
     <a class="btn btn-outline" href="https://hsales.app" target="_blank" rel="noreferrer">
       Ver o site completo
     </a>
   </div>
 
   <footer>HSales · hsales.app</footer>
+
+<script>
+function togglePayBtn() {
+  const checked = document.getElementById('acceptTerms').checked;
+  const btn = document.getElementById('btnPagamento');
+  const lock = document.getElementById('payLock');
+  btn.style.opacity = checked ? '1' : '.45';
+  btn.style.pointerEvents = checked ? 'auto' : 'none';
+  btn.style.cursor = checked ? 'pointer' : 'not-allowed';
+  lock.style.display = checked ? 'none' : 'block';
+}
+</script>
 
 </main>
 </body>
