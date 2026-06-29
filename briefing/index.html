@@ -71,58 +71,63 @@ body {
 
 /* ── PROGRESS sticky abaixo do header ── */
 .progress-wrap {
-  background: linear-gradient(135deg, var(--roxo) 0%, var(--roxo-vibrante) 100%);
-  padding: 12px 24px;
+  background: #fff;
+  border-bottom: 2px solid var(--border);
+  position: sticky;
+  top: 60px;
+  z-index: 100;
+}
+.progress-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 10px 20px 16px;
   display: flex;
   align-items: center;
   gap: 14px;
-  position: sticky;
-  top: 60px; /* altura do header */
-  z-index: 100;
 }
-.progress-label-left { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.85); white-space: nowrap; }
+.progress-label-left { font-size: 11px; font-weight: 700; color: var(--corpo); white-space: nowrap; }
 .progress-track {
   flex: 1; height: 6px;
-  background: rgba(255,255,255,0.22);
+  background: var(--border);
   border-radius: 99px;
   position: relative; overflow: visible;
   margin: 18px 0 14px;
 }
 .progress-fill {
-  height: 100%; background: #ffffff; border-radius: 99px;
+  height: 100%; background: var(--roxo); border-radius: 99px;
   width: 0%; transition: width 0.4s ease;
   position: absolute; top: 0; left: 0; z-index: 1;
 }
 .progress-cursor {
   position: absolute; top: 50%; left: 0%;
   transform: translate(-50%, calc(-50% - 14px));
-  background: #fff; color: var(--roxo);
+  background: var(--roxo); color: #fff;
   font-size: 10px; font-weight: 900; padding: 3px 8px; border-radius: 99px;
   white-space: nowrap; z-index: 4;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.18); transition: left 0.4s ease;
+  box-shadow: 2px 2px 0 var(--roxo-escuro); transition: left 0.4s ease;
   pointer-events: none;
 }
 .progress-cursor::after {
   content: ''; position: absolute; top: 100%; left: 50%;
   transform: translateX(-50%);
-  border: 4px solid transparent; border-top-color: #fff;
+  border: 4px solid transparent; border-top-color: var(--roxo);
 }
 .ms-tick {
   position: absolute; top: 50%;
   transform: translate(-50%, -50%);
   width: 2px; height: 14px;
-  background: rgba(255,255,255,0.35); border-radius: 1px;
+  background: var(--lavanda); border-radius: 1px;
   z-index: 2; transition: background 0.3s;
 }
-.ms-tick.reached { background: rgba(255,255,255,0.9); }
+.ms-tick.reached { background: var(--roxo); }
 .ms-lbl {
   position: absolute; top: calc(50% + 10px);
   transform: translateX(-50%);
   font-size: 9px; font-weight: 700;
-  color: rgba(255,255,255,0.5); white-space: nowrap;
+  color: var(--corpo); white-space: nowrap;
   transition: color 0.3s; pointer-events: none;
 }
-.ms-lbl.reached { color: rgba(255,255,255,0.95); }
+.ms-lbl.reached { color: var(--roxo); }
 
 /* ── LAYOUT ── */
 .container { max-width: 860px; margin: 0 auto; padding: 24px 20px 80px; }
@@ -375,13 +380,15 @@ textarea { resize: vertical; min-height: 80px; }
 
 <!-- PROGRESS sticky — acompanha o scroll, gruda abaixo do header -->
 <div class="progress-wrap">
-  <span class="progress-label-left">Progresso</span>
-  <div class="progress-track">
-    <div class="progress-fill" id="progressBar"></div>
-    <div class="progress-cursor" id="progressCursor">0%</div>
-    <div class="ms-tick" id="tk70" style="left:70%"><div class="ms-lbl" id="lb70">70%</div></div>
-    <div class="ms-tick" id="tk90" style="left:90%"><div class="ms-lbl" id="lb90">90%</div></div>
-    <div class="ms-tick" id="tk100" style="left:100%"><div class="ms-lbl" id="lb100">100%</div></div>
+  <div class="progress-inner">
+    <span class="progress-label-left">Progresso</span>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressBar"></div>
+      <div class="progress-cursor" id="progressCursor">0%</div>
+      <div class="ms-tick" id="tk70" style="left:70%"><div class="ms-lbl" id="lb70">70%</div></div>
+      <div class="ms-tick" id="tk90" style="left:90%"><div class="ms-lbl" id="lb90">90%</div></div>
+      <div class="ms-tick" id="tk100" style="left:100%"><div class="ms-lbl" id="lb100">100%</div></div>
+    </div>
   </div>
 </div>
 
@@ -389,12 +396,9 @@ textarea { resize: vertical; min-height: 80px; }
 <div class="container">
 
   <div class="intro-card">
-    <strong style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--roxo);margin-bottom:12px;">Instruções de preenchimento</strong>
-    <strong>1. Responda seção por seção</strong> — são 6 no total. Clique no título de cada seção para abrir e preencher os campos.<br><br>
-    <strong>2. Seja direto e objetivo</strong> — não precisa de texto formal. Escreva como descreveria o hotel para um hóspede ou parceiro.<br><br>
-    <strong>3. O progresso é salvo automaticamente</strong> — pode fechar e voltar depois sem perder nada. Ao atingir <strong>70%</strong>, o botão de agendamento da reunião de implementação é liberado.<br><br>
-    <strong style="color:var(--quase-preto);">Não se preocupe em acertar tudo agora.</strong> <span style="color:var(--corpo)">Estas informações servem como <em>base inicial</em> para a IA — nada é definitivo. Na <strong>reunião de implementação</strong> revisamos tudo juntos, ajustamos os detalhes e refinamos a personalização antes de ir ao ar. Você pode alterar qualquer dado a qualquer momento sem problema.</span><br><br>
-    <span style="color:var(--corpo)">Qualquer dificuldade no preenchimento, é só chamar no <a href="https://wa.me/5548996539190?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20briefing%20da%20HSales." target="_blank" rel="noopener" style="color:var(--roxo);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--lavanda);">WhatsApp</a>.</span>
+    Preencha as informações do seu hotel — elas serão a base para configurar o seu agente de IA. Tudo pode ser ajustado a qualquer momento, e na <strong>reunião de implementação</strong> entramos nos detalhes juntos antes de ir ao ar.<br><br>
+    O progresso é salvo automaticamente. Ao atingir <strong>70%</strong>, o botão para agendar a reunião fica disponível.<br><br>
+    Dúvidas? Chame no <a href="https://wa.me/5548996539190?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20briefing%20da%20HSales." target="_blank" rel="noopener" style="color:var(--roxo);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--lavanda);">WhatsApp</a>.
   </div>
 
   <form id="briefingForm" novalidate>
