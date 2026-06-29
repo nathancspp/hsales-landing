@@ -53,21 +53,6 @@ body{
 .lw{font-weight:900;font-size:calc(var(--s)*.74);letter-spacing:-.03em;color:var(--preto)}
 .badge{display:inline-flex;align-items:center;background:var(--lav-s);color:var(--roxo);border:1.5px solid var(--lavanda);font-size:10px;font-weight:700;padding:4px 12px;border-radius:100px;text-transform:uppercase;letter-spacing:.06em;box-shadow:2px 2px 0 var(--lavanda)}
 
-/* TÍTULO */
-.page-head{flex-shrink:0;text-align:center;margin-bottom:14px}
-.page-head h1{font-size:clamp(1.4rem,5vw,2rem);font-weight:900;letter-spacing:-.03em;line-height:1.1}
-
-/* BOTÃO */
-.btn-wrap{flex-shrink:0;display:flex;justify-content:center;margin-bottom:14px}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:13px 28px;border-radius:14px;font-weight:800;font-size:.95rem;
-  background:var(--roxo);color:#fff;text-decoration:none;border:0;
-  box-shadow:3px 3px 0 var(--roxo-esc);
-  transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .15s;
-}
-.btn:hover{background:var(--roxo-v);transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--roxo-esc)}
-.btn:active{transform:translate(2px,2px);box-shadow:none}
 
 /* CALENDÁRIO — flex:1 preenche o espaço restante */
 .cal-card{
@@ -106,19 +91,7 @@ body{
       <div class="lm"><div class="bar"></div><div class="dot"></div><div class="bar"></div></div>
       <span class="lw">Sales</span>
     </a>
-    <div class="badge">Suporte</div>
-  </div>
-
-  <div class="page-head">
-    <h1>Agendar Suporte</h1>
-  </div>
-
-  <div class="btn-wrap">
-    <a class="btn"
-       href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1Z8Alxyge-tiTQDMg0HGjAm8FQxa7p0Aa8WVkLl-o_JHYKLN-WOtM8IetbazaMmR_SeGwnwVGD"
-       target="_blank" rel="noopener">
-      Agendar suporte →
-    </a>
+    <div class="badge">Agendar suporte</div>
   </div>
 
   <div class="cal-card">
