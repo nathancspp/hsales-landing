@@ -1410,7 +1410,7 @@ textarea.tall { min-height: 120px; }
 <script>
 // ── CONFIG ──────────────────────────────────────────────
 // Substitua pela sua URL do Google Apps Script ou Formspree
-const FORM_ENDPOINT = 'SEU_ENDPOINT_AQUI';
+const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwweMbTLXuFdZM35PJr_q9qDaFdQ8VlQOywN99h5vNv6eaXgNW0NSnNjX0O6oTSP9BK9w/exec';
 const CALENDAR_LINK = 'SEU_LINK_GOOGLE_CALENDAR_AQUI';
 
 // ── ACCORDION ──────────────────────────────────────────
@@ -1716,10 +1716,8 @@ document.getElementById('briefingForm').addEventListener('submit', async e => {
   sessionStorage.setItem('hs_resp',  nomeResp);
 
   try {
-    if (FORM_ENDPOINT !== 'SEU_ENDPOINT_AQUI') {
-      const res = await fetch(FORM_ENDPOINT, { method: 'POST', body: formData });
-      if (!res.ok) throw new Error('Erro no envio');
-    }
+    const res = await fetch(FORM_ENDPOINT, { method: 'POST', body: formData });
+    if (!res.ok) throw new Error('Erro no envio');
     localStorage.removeItem('hsales_briefing');
     window.location.href = 'agendamento.html';
   } catch {
