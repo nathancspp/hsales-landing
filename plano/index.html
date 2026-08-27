@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<!-- PUBLICADO EM hsales.app/plano/ a pedido do Nathan, para abrir sem porteira.
+     Nao e indexado (noindex + robots.txt), mas QUEM TIVER O LINK ABRE.
+     A copia protegida por Access continua em interno.hsales.app/plano.
+     Documento interno da HSales. Vive aqui, e nao num Google Doc ou Notion,
+     porque a regra da casa e' que o painel interno e' a central de informacao.
+     Fica atras do Cloudflare Access de `interno.hsales.app`.
+     Arquivo-fonte: app/web/public/plano.html — o `vite build` copia
+     `web/public/` inteiro para `web/dist/`, entao editar aqui e' o caminho. -->
+<title>Do Porteiro ao Vendedor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root {
+  --papel:#F1F2EE; --superficie:#FFFFFF; --tinta:#16202B; --texto:#26313C;
+  --texto2:#5C6772; --linha:#D7DAD3; --linha2:#E7E9E3; --latao:#8A6620;
+  --pronto:#2C6A4F; --meio:#2A5C8A; --falta:#9E3830;
+  --sombra:0 1px 2px rgba(22,32,43,.05), 0 8px 24px -12px rgba(22,32,43,.18);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --papel:#0E141B; --superficie:#161F29; --tinta:#E9ECE6; --texto:#DCE1DB;
+    --texto2:#97A2AC; --linha:#2B3742; --linha2:#212C36; --latao:#C9A055;
+    --pronto:#63B48D; --meio:#6FA9DB; --falta:#DC8078;
+    --sombra:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"] {
+  --papel:#0E141B; --superficie:#161F29; --tinta:#E9ECE6; --texto:#DCE1DB;
+  --texto2:#97A2AC; --linha:#2B3742; --linha2:#212C36; --latao:#C9A055;
+  --pronto:#63B48D; --meio:#6FA9DB; --falta:#DC8078;
+  --sombra:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.6);
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--papel); color: var(--texto);
+  font-family: Karla, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 17px; line-height: 1.62; margin: 0; padding: 0 20px 96px;
+  -webkit-font-smoothing: antialiased;
+}
+.env { max-width: 1080px; margin: 0 auto; }
+.prosa { max-width: 68ch; }
+header { padding: 72px 0 44px; border-bottom: 1px solid var(--linha); margin-bottom: 40px; }
+.sobrenome { font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--latao); margin:0 0 18px; }
+h1 { font-family:Fraunces,Georgia,serif; font-weight:700; font-size:clamp(38px,6.2vw,62px);
+  line-height:1.03; letter-spacing:-.02em; color:var(--tinta); margin:0 0 20px; text-wrap:balance; }
+.abertura { font-size:20px; line-height:1.55; color:var(--texto2); max-width:60ch; margin:0; }
+.abertura strong { color: var(--texto); font-weight:700; }
+h2 { font-family:Fraunces,Georgia,serif; font-weight:600; font-size:clamp(26px,3.4vw,34px);
+  line-height:1.15; letter-spacing:-.015em; color:var(--tinta); margin:72px 0 6px; text-wrap:balance; }
+h2 + .sub { color:var(--texto2); font-size:16px; margin:0 0 28px; max-width:62ch; }
+h3 { font-family:Karla,sans-serif; font-weight:700; font-size:18px; color:var(--tinta);
+  margin:40px 0 10px; letter-spacing:-.005em; }
+p { margin: 0 0 18px; }
+a { color: var(--latao); text-underline-offset: 2px; }
+code { font-family:"IBM Plex Mono",monospace; font-size:.84em; background:var(--linha2);
+  color:var(--texto); padding:.1em .38em; border-radius:3px; }
+strong { font-weight:700; color:var(--tinta); }
+.selo { display:inline-flex; align-items:center; gap:6px; white-space:nowrap;
+  font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:500;
+  letter-spacing:.05em; text-transform:uppercase; }
+.selo::before { content:""; width:9px; height:9px; border:1.5px solid currentColor; border-radius:1px; }
+.s-ok { color:var(--pronto); } .s-ok::before { background:currentColor; }
+.s-meio { color:var(--meio); } .s-meio::before { background:linear-gradient(135deg,currentColor 50%,transparent 50%); }
+.s-nao { color:var(--falta); }
+.rolagem { overflow-x:auto; margin:0 0 26px; border:1px solid var(--linha);
+  border-radius:10px; background:var(--superficie); }
+table { border-collapse:collapse; width:100%; font-size:15.5px; min-width:560px; }
+th { text-align:left; font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:11px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--texto2); padding:12px 16px;
+  border-bottom:1px solid var(--linha); background:var(--linha2); }
+td { padding:12px 16px; border-bottom:1px solid var(--linha2); vertical-align:top; line-height:1.45; }
+tr:last-child td { border-bottom:0; }
+td.n { font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;
+  color:var(--texto2); width:1%; white-space:nowrap; font-size:13px; }
+figure { margin: 34px 0 40px; }
+.quadro { border:1px solid var(--linha); border-radius:12px; background:var(--superficie);
+  padding:22px; overflow-x:auto; box-shadow:var(--sombra); }
+figure svg { display:block; width:100%; height:auto; min-width:640px; color:var(--texto); }
+figcaption { font-size:14px; color:var(--texto2); margin-top:14px; line-height:1.5;
+  padding-left:14px; border-left:2px solid var(--latao); }
+.aviso { border:1px solid var(--linha); border-left:3px solid var(--falta);
+  background:var(--superficie); border-radius:0 10px 10px 0; padding:18px 20px; margin:0 0 26px; }
+.aviso.bom { border-left-color: var(--pronto); }
+.aviso.nota { border-left-color: var(--latao); }
+.aviso p:last-child { margin-bottom: 0; }
+.aviso .titulo { font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--texto2); margin:0 0 8px; }
+.fases { list-style:none; margin:0 0 26px; padding:0; counter-reset:fase; }
+.fases > li { position:relative; padding:0 0 30px 56px; counter-increment:fase;
+  border-left:1px solid var(--linha); margin-left:16px; }
+.fases > li:last-child { border-left-color:transparent; padding-bottom:0; }
+.fases > li::before { content:counter(fase); position:absolute; left:-17px; top:-3px;
+  width:34px; height:34px; display:grid; place-items:center; border-radius:50%;
+  background:var(--superficie); border:1px solid var(--linha);
+  font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--texto2); }
+.fases .rot { font-weight:700; color:var(--tinta); font-size:17px; display:block; }
+.fases .dias { font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--latao);
+  letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:6px; }
+.fases .det { font-size:15.5px; color:var(--texto2); display:block; margin-bottom:6px; }
+.fases .prova { font-size:14px; color:var(--texto2); border-left:2px solid var(--linha);
+  padding-left:12px; }
+.fases .prova b { color: var(--texto); }
+.fecho { margin-top:76px; padding-top:26px; border-top:1px solid var(--linha);
+  font-size:14px; color:var(--texto2); }
+@media (max-width:640px){ body{font-size:16px;padding:0 16px 72px;} header{padding:48px 0 34px;} }
+</style>
+
+</head>
+<body>
+<div class="env">
+
+<header>
+  <p class="sobrenome">HSales · auditoria e plano · 27 de agosto de 2026</p>
+  <h1>Do porteiro ao vendedor</h1>
+  <p class="abertura">Sete auditorias em paralelo, três verificadores céticos por cima, e a conclusão franca: <strong>o agente é um ótimo porteiro e um vendedor ruim</strong> — não porque mente, mas porque quase não sabe nada. Este é o plano para mudar isso, e o que já subiu hoje.</p>
+</header>
+
+<h2>O veredito, em cinco linhas</h2>
+<div class="prosa">
+<ol>
+<li><strong>Não, o sistema não roda o funil novo hoje</strong> — e o que falta não é ajuste, é peça inteira.</li>
+<li><strong>Não existe canal.</strong> A rota que recebe WhatsApp é uma tomada esperando alguém empurrar mensagem com um segredo no cabeçalho. Não há WABA da HSales, e o lead não tem onde guardar conversa.</li>
+<li><strong>Não existe agente vendedor.</strong> A porta já sabe quem é quem, mas o lead recebe uma frase fixa. As etapas <code>LEU_SITE</code>, <code>TESTOU</code> e <code>OFERTA</code> nunca acontecem.</li>
+<li><strong>O agente que já vende não conhece a casa.</strong> Responde 6 de 16 perguntas reais de hóspede com fonte. Para o resto diz "vou confirmar com a recepção" — e ninguém é avisado.</li>
+<li><strong>Dois vazamentos estavam abertos.</strong> Os dois foram fechados hoje, e o primeiro era meu.</li>
+</ol>
+</div>
+
+<div class="prosa">
+<div class="aviso bom">
+  <p class="titulo">O que já subiu, enquanto isso</p>
+  <p>🔴 <strong>Um vazamento entre hotéis, na porta que eu mesmo subi de manhã.</strong> A função que normaliza telefone devolvia valores diferentes para o mesmo número, dependendo de como ele fosse escrito. O índice único deixava duas pessoas com o mesmo telefone, e a busca escolhia uma delas sem critério — o dono de um hotel podia abrir o painel de outro. Fechado, e provado com o cadastro que antes passava e agora é recusado.</p>
+  <p><strong>E cinco coisas que sangravam calado:</strong> o modelo cair virava silêncio em todos os hotéis (agora vira fila); duas perguntas do briefing não existiam e todo hotel rodava com texto genérico de recepção; o endereço lido do site era jogado fora; o botão de ligar o WhatsApp estava destrancado desde o primeiro login; e o aviso de "hóspede esperando" chegava até uma hora depois do prazo.</p>
+</div>
+</div>
+
+<h2>O agente: ótimo porteiro, vendedor ruim</h2>
+<p class="sub">Ele não inventa preço, não inventa vaga, não cede desconto — e isso é a parte difícil, já resolvida. O problema é o inverso.</p>
+
+<div class="prosa">
+<p>O treino mede exatamente uma coisa: <strong>o agente não fazendo besteira.</strong> Não existe persona de cliente fácil que fecha, não existe pós-venda, não existe link de pagamento no ensaio. Ele é testado como porteiro e passa como porteiro.</p>
+<p>Quando não sabe, ele diz "vou confirmar com a recepção" — <strong>e nenhuma dessas passagens chama a fila</strong>. É a resposta mais frequente do agente, e é a maior mentira do produto hoje. Não é alucinação: está escrito no prompt.</p>
+</div>
+
+<h3>As perguntas de hóspede que ele não responde</h3>
+<div class="rolagem">
+<table>
+<thead><tr><th>O hóspede pergunta</th><th>Hoje</th></tr></thead>
+<tbody>
+<tr><td>"Qual o endereço? Como chego aí?"</td><td><span class="selo s-ok">resolvido hoje</span> o site era lido, o endereço extraído e descartado</td></tr>
+<tr><td>"Aceita cartão? Parcela? Pago tudo antes?"</td><td><span class="selo s-nao">nada</span></td></tr>
+<tr><td>"Tem wi-fi? Ar-condicionado? Piscina aquecida?"</td><td><span class="selo s-nao">só a descrição solta do quarto</span></td></tr>
+<tr><td>"Fica a quantos metros da praia?"</td><td><span class="selo s-nao">nada</span></td></tr>
+<tr><td>"Consigo chegar 22h? Tem recepção 24h?"</td><td><span class="selo s-ok">resolvido hoje</span> a pergunta não existia no briefing</td></tr>
+<tr><td>"Tem quarto adaptado? Elevador?"</td><td><span class="selo s-nao">nada</span> — e é a que mais gera reserva errada</td></tr>
+<tr><td>"Cabe berço? Criança de 5 anos paga?"</td><td><span class="selo s-meio">meio</span> a capacidade é só um número</td></tr>
+<tr><td>"Emite nota fiscal? Tem taxa de turismo?"</td><td><span class="selo s-nao">nada</span></td></tr>
+<tr><td>"Tem horário de silêncio? Pode festa?"</td><td><span class="selo s-nao">nada</span></td></tr>
+<tr><td>"Preciso mudar de 12 pra 19, dá?"</td><td><span class="selo s-nao">não existe ferramenta de alteração</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="prosa">
+<div class="aviso nota">
+  <p class="titulo">O material para metade disso já está pago e guardado</p>
+  <p>O site do hotel inteiro, em texto, fica salvo no banco — até 60 KB por hotel. A função que lê esse texto de volta <strong>nunca é chamada por ninguém.</strong> A gente paga para ler, guarda, e ignora.</p>
+</div>
+</div>
+
+<h2>O conhecimento do hotel: duas camadas, e um gatilho</h2>
+<p class="sub">A fronteira entre "cabe no prompt" e "precisa de busca" não pode ser opinião — tem que ser um teste automático.</p>
+
+<figure>
+  <div class="quadro">
+    <svg viewBox="0 0 960 400" role="img" aria-label="Duas camadas de conhecimento: a ficha curta entra no prompt do agente por substituição de lacuna; os documentos longos ficam numa tabela de conhecimento e chegam por busca sob demanda. Ferramenta sempre ganha das duas para preço e disponibilidade.">
+      <defs>
+        <marker id="s1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/>
+        </marker>
+        <marker id="s2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#8A6620"/>
+        </marker>
+      </defs>
+
+      <text x="16" y="24" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.4" fill="currentColor" opacity=".6">DE ONDE VEM</text>
+      <text x="360" y="24" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.4" fill="currentColor" opacity=".6">ONDE MORA</text>
+      <text x="700" y="24" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.4" fill="currentColor" opacity=".6">COMO CHEGA AO AGENTE</text>
+
+      <!-- fontes -->
+      <g font-size="12" fill="currentColor">
+        <rect x="16" y="42" width="150" height="34" rx="6" fill="none" stroke="currentColor" opacity=".55"/>
+        <text x="91" y="64" text-anchor="middle">o site do hotel</text>
+        <rect x="16" y="90" width="150" height="34" rx="6" fill="none" stroke="currentColor" opacity=".55"/>
+        <text x="91" y="112" text-anchor="middle">o briefing no zap</text>
+        <rect x="16" y="138" width="150" height="34" rx="6" fill="none" stroke="currentColor" opacity=".55"/>
+        <text x="91" y="160" text-anchor="middle">arquivo que ele manda</text>
+        <rect x="16" y="196" width="150" height="48" rx="6" fill="none" stroke="#8A6620" stroke-width="1.6"/>
+        <text x="91" y="216" text-anchor="middle" fill="#8A6620">o que o hóspede</text>
+        <text x="91" y="232" text-anchor="middle" fill="#8A6620">perguntou e não teve</text>
+      </g>
+
+      <!-- camadas -->
+      <rect x="360" y="42" width="200" height="96" rx="9" fill="none" stroke="#2C6A4F" stroke-width="1.8"/>
+      <text x="460" y="66" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">A FICHA</text>
+      <text x="460" y="86" text-anchor="middle" font-size="11.5" fill="currentColor">24 campos, com teto</text>
+      <text x="460" y="103" text-anchor="middle" font-size="11.5" fill="currentColor">vale para todo hóspede</text>
+      <text x="460" y="124" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">hoje são 17 — 3 entraram hoje</text>
+
+      <rect x="360" y="160" width="200" height="96" rx="9" fill="none" stroke="#2A5C8A" stroke-width="1.8"/>
+      <text x="460" y="184" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">O CONHECIMENTO</text>
+      <text x="460" y="204" text-anchor="middle" font-size="11.5" fill="currentColor">manual, cardápio, contrato,</text>
+      <text x="460" y="221" text-anchor="middle" font-size="11.5" fill="currentColor">regras de evento, o site inteiro</text>
+      <text x="460" y="242" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">cortado em trechos, indexado</text>
+
+      <g stroke="currentColor" opacity=".75">
+        <line x1="166" y1="59" x2="358" y2="70" marker-end="url(#s1)"/>
+        <line x1="166" y1="107" x2="358" y2="95" marker-end="url(#s1)"/>
+        <line x1="166" y1="155" x2="358" y2="190" marker-end="url(#s1)"/>
+        <line x1="166" y1="120" x2="358" y2="175" marker-end="url(#s1)" opacity=".5"/>
+      </g>
+      <path d="M91,196 L91,300 L640,300" fill="none" stroke="#8A6620" stroke-dasharray="4 3" marker-end="url(#s2)"/>
+
+      <!-- entrega -->
+      <rect x="700" y="42" width="244" height="96" rx="9" fill="none" stroke="#2C6A4F" stroke-width="1.8"/>
+      <text x="822" y="70" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">entra no prompt</text>
+      <text x="822" y="90" text-anchor="middle" font-size="11.5" fill="currentColor">substituição de lacuna, sem IA</text>
+      <text x="822" y="112" text-anchor="middle" font-size="11.5" fill="currentColor">custo zero, sempre disponível</text>
+
+      <rect x="700" y="160" width="244" height="96" rx="9" fill="none" stroke="#2A5C8A" stroke-width="1.8"/>
+      <text x="822" y="188" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">ferramenta consultar_a_casa</text>
+      <text x="822" y="208" text-anchor="middle" font-size="11.5" fill="currentColor">busca só quando o hóspede</text>
+      <text x="822" y="225" text-anchor="middle" font-size="11.5" fill="currentColor">pergunta algo fora da ficha</text>
+
+      <line x1="560" y1="90" x2="698" y2="90" stroke="currentColor" marker-end="url(#s1)"/>
+      <line x1="560" y1="208" x2="698" y2="208" stroke="currentColor" marker-end="url(#s1)"/>
+
+      <!-- a fila do que faltou -->
+      <rect x="640" y="282" width="304" height="38" rx="7" fill="none" stroke="#8A6620" stroke-width="1.6"/>
+      <text x="792" y="306" text-anchor="middle" font-size="12" fill="#8A6620">o que faltou vira pergunta para o hoteleiro</text>
+
+      <!-- ferramenta ganha -->
+      <rect x="360" y="282" width="200" height="38" rx="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <text x="460" y="306" text-anchor="middle" font-size="12" fill="currentColor">preço e vaga: ferramenta</text>
+      <text x="460" y="340" text-anchor="middle" font-size="11" fill="currentColor" opacity=".75">ferramenta ganha das duas camadas, sem exceção</text>
+
+      <!-- gatilho -->
+      <rect x="16" y="352" width="928" height="36" rx="7" fill="none" stroke="currentColor" stroke-dasharray="4 4" opacity=".7"/>
+      <text x="480" y="375" text-anchor="middle" font-size="12" fill="currentColor">o gatilho é um portão automático: quando a ficha passa do teto de caracteres, o excedente vira conhecimento — não é decisão de ninguém</text>
+    </svg>
+  </div>
+  <figcaption>A ficha é barata e sempre presente; a busca custa e só acontece quando precisa. O que decide não é opinião: é o teto de tamanho do prompt, cobrado por um portão.</figcaption>
+</figure>
+
+<div class="prosa">
+<p><strong>O que passa a ser coletado, além do que já existe:</strong> endereço, como chegar, recepção, idioma, formas de pagamento, taxas e nota fiscal, comodidades, acessibilidade, cama extra e berço, regras de silêncio. Três desses <span class="selo s-ok">entraram hoje</span>.</p>
+<p><strong>E a peça que ninguém tinha pensado:</strong> toda vez que o agente não souber responder, a pergunta fica registrada. Isso vira a fila de perguntas para o hoteleiro — o sistema aprende o que falta <em>pelo que o hóspede pergunta</em>, em vez de adivinhar.</p>
+</div>
+
+<h2>As oito fases</h2>
+<p class="sub">A ordem não é preferência: é dependência. O que está no caminho crítico decide quando o funil roda; o resto corre ao lado e não segura nada.</p>
+
+<figure>
+  <div class="quadro">
+    <svg viewBox="0 0 980 476" role="img" aria-label="Linha do tempo das oito fases do plano com as dependencias entre elas. O caminho critico passa pelo numero da HSales, pelo agente vendedor e pelo briefing por WhatsApp, somando treze dias de trabalho. As fases da fila, da ficha, do conhecimento e do painel correm em paralelo e nao seguram nada.">
+      <defs>
+        <marker id="d1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/>
+        </marker>
+        <marker id="d2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#8A6620"/>
+        </marker>
+        <pattern id="feito" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="6" stroke="#2C6A4F" stroke-width="2.4" opacity=".5"/>
+        </pattern>
+      </defs>
+
+      <g font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity=".55">
+        <text x="210" y="20" text-anchor="middle">hoje</text>
+        <text x="418" y="20" text-anchor="middle">4</text>
+        <text x="626" y="20" text-anchor="middle">8</text>
+        <text x="886" y="20" text-anchor="middle">13</text>
+        <text x="900" y="20">dias</text>
+      </g>
+      <g stroke="currentColor" opacity=".13">
+        <line x1="210" y1="26" x2="210" y2="404"/>
+        <line x1="314" y1="26" x2="314" y2="404"/>
+        <line x1="418" y1="26" x2="418" y2="404"/>
+        <line x1="522" y1="26" x2="522" y2="404"/>
+        <line x1="626" y1="26" x2="626" y2="404"/>
+        <line x1="730" y1="26" x2="730" y2="404"/>
+        <line x1="834" y1="26" x2="834" y2="404"/>
+        <line x1="886" y1="26" x2="886" y2="404"/>
+      </g>
+
+      <text x="12" y="48" font-size="12.5" fill="currentColor">1 &#183; a porta sem vazamento</text>
+      <rect x="210" y="34" width="104" height="22" rx="4" fill="url(#feito)" stroke="#2C6A4F" stroke-width="1.6"/>
+      <text x="324" y="50" font-size="11" fill="#2C6A4F">feito hoje</text>
+
+      <text x="12" y="94" font-size="12.5" fill="currentColor">2 &#183; a fila que avisa</text>
+      <rect x="210" y="80" width="156" height="22" rx="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <rect x="211" y="81" width="52" height="20" rx="3" fill="url(#feito)"/>
+      <text x="376" y="96" font-size="11" fill="currentColor" opacity=".78">3 d &#183; parte feita hoje</text>
+
+      <text x="12" y="140" font-size="12.5" fill="currentColor">3 &#183; a ficha completa</text>
+      <rect x="210" y="126" width="156" height="22" rx="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <rect x="211" y="127" width="52" height="20" rx="3" fill="url(#feito)"/>
+      <text x="376" y="142" font-size="11" fill="currentColor" opacity=".78">3 d &#183; dobra o que o agente responde, sem tecnologia nova</text>
+
+      <text x="12" y="188" font-size="12.5" fill="#8A6620" font-weight="600">4 &#183; o n&#250;mero da HSales</text>
+      <rect x="210" y="172" width="208" height="26" rx="5" fill="none" stroke="#8A6620" stroke-width="2.2"/>
+      <text x="428" y="190" font-size="11" fill="#8A6620">4 d &#183; o rel&#243;gio &#233; da Meta, n&#227;o nosso</text>
+
+      <text x="12" y="236" font-size="12.5" fill="#8A6620" font-weight="600">5 &#183; o agente vendedor</text>
+      <rect x="418" y="220" width="260" height="26" rx="5" fill="none" stroke="#8A6620" stroke-width="2.2"/>
+      <text x="688" y="238" font-size="11" fill="#8A6620">5 d &#183; a demo com o hotel dele</text>
+
+      <text x="12" y="284" font-size="12.5" fill="currentColor">7 &#183; o conhecimento com busca</text>
+      <rect x="366" y="270" width="260" height="22" rx="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <text x="636" y="286" font-size="11" fill="currentColor" opacity=".78">5 d &#183; o RAG</text>
+
+      <text x="12" y="326" font-size="12.5" fill="#8A6620" font-weight="600">6 &#183; briefing pelo WhatsApp</text>
+      <text x="12" y="342" font-size="10.5" fill="currentColor" opacity=".7">aqui o funil fecha inteiro</text>
+      <rect x="678" y="318" width="208" height="26" rx="5" fill="none" stroke="#8A6620" stroke-width="2.2"/>
+      <text x="782" y="336" text-anchor="middle" font-size="11" fill="#8A6620">4 d</text>
+
+      <text x="12" y="374" font-size="12.5" fill="currentColor">8 &#183; o painel v&#234; o funil</text>
+      <text x="12" y="390" font-size="10.5" fill="currentColor" opacity=".7">corre junto com a 6</text>
+      <rect x="678" y="366" width="208" height="22" rx="4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <text x="782" y="382" text-anchor="middle" font-size="11" fill="currentColor" opacity=".78">4 d</text>
+
+      <g fill="none">
+        <path d="M262,56 L262,170" stroke="#8A6620" stroke-width="1.6" marker-end="url(#d2)"/>
+        <path d="M418,198 L418,218" stroke="#8A6620" stroke-width="1.6" marker-end="url(#d2)"/>
+        <path d="M678,246 L678,316" stroke="#8A6620" stroke-width="1.6" marker-end="url(#d2)"/>
+        <path d="M366,148 L366,268" stroke="currentColor" opacity=".5" marker-end="url(#d1)"/>
+        <path d="M700,246 L700,364" stroke="currentColor" opacity=".5" stroke-dasharray="4 3" marker-end="url(#d1)"/>
+      </g>
+
+      <rect x="210" y="414" width="676" height="7" rx="3.5" fill="#8A6620" opacity=".22"/>
+      <text x="210" y="440" font-size="12" fill="#8A6620" font-weight="600">caminho cr&#237;tico &#8212; 13 dias de trabalho at&#233; o funil rodar inteiro</text>
+
+      <g font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing=".6">
+        <rect x="12" y="452" width="11" height="11" rx="2" fill="url(#feito)" stroke="#2C6A4F" stroke-width="1.4"/>
+        <text x="31" y="462" fill="currentColor" opacity=".8">j&#225; subiu hoje</text>
+        <rect x="140" y="452" width="11" height="11" rx="2" fill="none" stroke="#8A6620" stroke-width="2"/>
+        <text x="159" y="462" fill="currentColor" opacity=".8">caminho cr&#237;tico &#8212; atrasar aqui atrasa tudo</text>
+        <rect x="470" y="452" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <text x="489" y="462" fill="currentColor" opacity=".8">em paralelo &#8212; atrasar aqui n&#227;o segura o funil</text>
+      </g>
+    </svg>
+  </div>
+  <figcaption>Três semanas de trabalho até o funil inteiro rodar, e o caminho crítico passa por três fases só. As fases 2, 3, 7 e 8 são valiosas e <strong>não seguram nada</strong> — dá para tocar em paralelo ou depois. ⚠️ A fase 4 é a única cujo prazo não é nosso: a verificação de negócio na Meta leva o tempo que leva, e é por isso que ela começa hoje.</figcaption>
+</figure>
+
+<ol class="fases">
+  <li>
+    <span class="dias">2 dias · sem dependência</span>
+    <span class="rot">Fechar o vazamento da porta</span>
+    <span class="det">Telefone com uma forma canônica só, as funções todas procurando pelas mesmas chaves, e um caminho para corrigir telefone de cliente.</span>
+    <span class="prova"><b>Feito hoje.</b> Provado com o cadastro duplicado que antes passava e agora é recusado pelo banco.</span>
+  </li>
+  <li>
+    <span class="dias">3 dias · sem dependência</span>
+    <span class="rot">A fila que avisa de verdade</span>
+    <span class="det">Toda passagem do prompt que diz "vou confirmar com a recepção" passa a abrir fila. O modelo cair vira fila. Botão de reatribuir conversa de colega ausente. E-mail quando a Meta recusar o template.</span>
+    <span class="prova"><b>Parte feita hoje</b> (queda do modelo e o cron do plantão). <b>Prova do resto:</b> persona nova que pergunta o que o hotel não cadastrou — a conversa tem que terminar com o hóspede na fila.</span>
+  </li>
+  <li>
+    <span class="dias">3 dias · depende da 1</span>
+    <span class="rot">A ficha completa</span>
+    <span class="det">Os dez campos novos, as lacunas órfãs preenchidas, o endereço e os quartos lidos do site parando de ser descartados. É o melhor retorno por dia de trabalho do plano inteiro: dobra o que o agente responde <em>sem tecnologia nova nenhuma</em>.</span>
+    <span class="prova"><b>Parte feita hoje</b> (recepção, idioma, endereço). <b>Prova do resto:</b> as perguntas da tabela acima viram casos de teste — hoje 6 passam, depois têm que passar 11.</span>
+  </li>
+  <li>
+    <span class="dias">4 dias · depende da 1</span>
+    <span class="rot">O canal: o número da HSales existir</span>
+    <span class="det">WABA própria, webhook separado do dos hotéis, a marca que diz se a conexão é da casa ou de um hotel, e memória do lead — hoje uma conversa precisa de um hotel para existir, então o vendedor não teria lembrança nenhuma.</span>
+    <span class="prova">Mandar mensagem do celular para o número novo e ver a ficha nascer sozinha.</span>
+  </li>
+  <li>
+    <span class="dias">5 dias · depende da 4</span>
+    <span class="rot">O agente vendedor e a demonstração</span>
+    <span class="det">O lead manda o domínio, a máquina lê o site e monta a demo com o conhecimento <strong>real</strong> dele e disponibilidade simulada e declarada. É aqui que os quartos extraídos do site, hoje jogados fora, viram o estoque da demonstração.</span>
+    <span class="prova">Um lead de teste percorre o funil inteiro pelo WhatsApp sem ninguém tocar em tela. E se a demo criar um hotel fantasma no banco, reprova.</span>
+  </li>
+  <li>
+    <span class="dias">4 dias · depende da 4 e da 5</span>
+    <span class="rot">Briefing e jornada pelo WhatsApp</span>
+    <span class="det">Um terceiro modo de conversa para o hoteleiro, as fases da jornada gravadas por quem faz o passo, trava de "só anda para frente" no banco, e retomada de quem sumiu no meio.</span>
+    <span class="prova">Um hotel novo sai do pagamento ao agente montado <strong>sem abrir o painel uma vez</strong>.</span>
+  </li>
+  <li>
+    <span class="dias">5 dias · depende da 3</span>
+    <span class="rot">O conhecimento com busca</span>
+    <span class="det">A tabela de documentos, a ferramenta de consulta, as três torneiras de coleta e a fila de perguntas sem resposta. Vem só agora porque metade do valor sai da fase 3, que custa menos e não gasta exceção de regra.</span>
+    <span class="prova">Pergunta que só existe no manual da casa é respondida certo; a mesma pergunta num hotel sem manual <em>abre fila em vez de inventar</em>; e o trecho do hotel A nunca aparece na conversa do hotel B.</span>
+  </li>
+  <li>
+    <span class="dias">4 dias · depende da 5</span>
+    <span class="rot">O painel interno enxergar o funil</span>
+    <span class="det">Ponte de leitura entre o banco do produto e o painel da empresa, o funil comercial alimentado por dados de verdade, e uma tela que pergunta à Meta se a conexão existe em vez de acreditar numa coluna.</span>
+    <span class="prova">O painel responde "quem entrou sozinho essa semana?" sem ninguém digitar — e um portão provando que a ponte <strong>só lê</strong>.</span>
+  </li>
+</ol>
+
+<h2>Os riscos que sobraram</h2>
+<p class="sub">Cada um viola uma regra que a casa já pagou para aprender.</p>
+
+<div class="rolagem">
+<table>
+<thead><tr><th>Risco</th><th>O que acontece</th></tr></thead>
+<tbody>
+<tr><td><strong>Diária zero fecha reserva de graça</strong></td><td>O cadastro de quarto só recusa preço negativo, o cálculo cai no preço do quarto, e o guardrail aprova porque o valor <em>veio de ferramenta</em>. A ferramenta mente e o guarda confia.</td></tr>
+<tr><td><strong>Dois hotéis com o mesmo número de WhatsApp</strong></td><td>A única trava é uma consulta em JavaScript, sem transação. Duas linhas e os dois hotéis param em silêncio.</td></tr>
+<tr><td><strong>Token da Meta nunca renovado</strong></td><td>O prazo de validade vem na resposta e é descartado. Um dia a conexão morre e o painel continua dizendo "conectado".</td></tr>
+<tr><td><strong>Montar o agente apaga o que o cliente escreveu</strong></td><td>A correção do treino e o texto colado à mão somem, sem aviso.</td></tr>
+<tr><td><strong>Texto colado no painel entra cru no prompt</strong></td><td>Sem teto e sem achatar — a mesma superfície de ataque de agosto, pela outra porta.</td></tr>
+<tr><td><strong>Fuso fixo em São Paulo</strong></td><td>Dez lugares. Hotel em Manaus erra o "hoje".</td></tr>
+<tr><td><strong>O treino roda no nosso dinheiro</strong></td><td>E julga um agente que não é o do hotel: o ensaio ignora a chave e o modelo que o hoteleiro escolheu.</td></tr>
+<tr><td><strong>O painel interno tem migração escrita e não aplicada</strong></td><td>Um cron dele falha desde 23/08, em silêncio.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="prosa">
+<div class="aviso">
+  <p class="titulo">A regra que este dia confirmou duas vezes</p>
+  <p>O portão que subiu hoje de manhã — o que pega variável usada e nunca declarada — <strong>pegou um erro meu</strong> algumas horas depois, dentro deste mesmo trabalho. E a auditoria pegou um vazamento que eu tinha aberto de manhã na porta nova.</p>
+  <p>Nas duas vezes o defeito era sintaxe perfeitamente válida, passava por tudo e não gritava em lugar nenhum. É por isso que verificação nova só vale depois de quebrar o código de propósito e ver ela reclamar.</p>
+</div>
+</div>
+
+<p class="fecho">Levantado por sete auditorias em paralelo sobre o código, com três verificadores céticos conferindo cada afirmação linha a linha. Onde este documento discorda das specs escritas, o código é que mandou. Os consertos de hoje estão no ar, com o teste de produção rodado depois: <code>92 passaram, 2 falharam</code> — as duas conhecidas, sem regressão.</p>
+
+</div>
+
+</body>
+</html>
