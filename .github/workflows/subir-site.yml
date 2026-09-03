@@ -1,0 +1,43 @@
+# O site é servido pelo Cloudflare Pages (projeto `hsales-site`, conta HSales).
+# O GitHub guarda o código; quem publica é este workflow. Push na main sobe.
+name: Subir o site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: subir-site
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Publicar no Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy . --project-name=hsales-site --branch=main --commit-dirty=true
+
+      # Um deploy que devolve "Success!" ainda pode não estar servindo.
+      # Aqui a prova é o site respondendo, não o log do wrangler.
+      - name: Conferir que o site respondeu
+        run: |
+          set -e
+          sleep 10
+          for rota in / /jornada.html /demo/ /proposta/ /robots.txt; do
+            codigo=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "https://hsales.app$rota")
+            echo "$rota -> $codigo"
+            [ "$codigo" = "200" ] || { echo "FALHOU em $rota"; exit 1; }
+          done
+          codigo=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "https://hsales.app/rota-que-nao-existe-xyz")
+          echo "/rota-que-nao-existe-xyz -> $codigo"
+          [ "$codigo" = "404" ] || { echo "o 404 parou de responder 404"; exit 1; }
