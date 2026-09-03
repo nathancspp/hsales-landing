@@ -29,15 +29,25 @@ jobs:
 
       # Um deploy que devolve "Success!" ainda pode não estar servindo.
       # Aqui a prova é o site respondendo, não o log do wrangler.
+      # Um deploy que devolve "Success!" ainda pode nao estar servindo.
+      # Aqui a prova e o site respondendo, nao o log do wrangler.
+      # Sem -L de proposito: seguir redirect esconde mudanca de rota.
       - name: Conferir que o site respondeu
         run: |
           set -e
           sleep 10
-          for rota in / /jornada.html /demo/ /proposta/ /robots.txt; do
+          for rota in / /demo/ /proposta/ /jornada /robots.txt /sitemap.xml; do
             codigo=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "https://hsales.app$rota")
             echo "$rota -> $codigo"
             [ "$codigo" = "200" ] || { echo "FALHOU em $rota"; exit 1; }
           done
+
+          # O Pages serve URL limpa e manda o .html para ela. Se um dia parar
+          # de redirecionar, os links antigos morrem calados — por isso cobramos.
+          destino=$(curl -s -o /dev/null -w '%{redirect_url}' --max-time 30 "https://hsales.app/jornada.html")
+          echo "/jornada.html -> $destino"
+          [ "$destino" = "https://hsales.app/jornada" ] || { echo "o .html deixou de cair na URL limpa"; exit 1; }
+
           codigo=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "https://hsales.app/rota-que-nao-existe-xyz")
           echo "/rota-que-nao-existe-xyz -> $codigo"
           [ "$codigo" = "404" ] || { echo "o 404 parou de responder 404"; exit 1; }
